@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/busquedaFragment"
         android:name="com.mdgz.dam.labdam2022.BusquedaFragment"
-        android:label="fragment_busqueda"
+        android:label="@string/titulo_busqueda"
         tools:layout="@layout/fragment_busqueda" >
         <action
             android:id="@+id/action_busquedaFragment_to_resultadoBusquedaFragment"
@@ -17,7 +17,7 @@
     <fragment
         android:id="@+id/resultadoBusquedaFragment"
         android:name="com.mdgz.dam.labdam2022.ResultadoBusquedaFragment"
-        android:label="fragment_resultado_busqueda"
+        android:label="@string/titulo_resultado"
         tools:layout="@layout/fragment_resultado_busqueda" >
         <action
             android:id="@+id/action_resultadoBusquedaFragment_to_detalleAlojamientoFragment"
@@ -29,7 +29,7 @@
     <fragment
         android:id="@+id/detalleAlojamientoFragment"
         android:name="com.mdgz.dam.labdam2022.DetalleAlojamientoFragment"
-        android:label="fragment_detalle_alojamiento"
+        android:label="@string/titulo_detalle"
         tools:layout="@layout/fragment_detalle_alojamiento" >
         <action
             android:id="@+id/action_detalleAlojamientoFragment_to_busquedaFragment"
