@@ -7,14 +7,18 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <!-- Hay que cambiar estilo-->
-    <androidx.appcompat.widget.Toolbar
+    <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbarPropia"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:elevation="4dp"
-        android:background="#FFC107"
-        app:title="titulo"></androidx.appcompat.widget.Toolbar>
+        app:menu="@menu/menu_toolbar"
+        android:fitsSystemWindows="true"
+        style="@style/Widget.MaterialComponents.Toolbar.Primary"
+        app:title="titulo">
+
+    </com.google.android.material.appbar.MaterialToolbar>
+
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView"

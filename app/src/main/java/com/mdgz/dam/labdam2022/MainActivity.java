@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.android.material.appbar.MaterialToolbar;
 import com.mdgz.dam.labdam2022.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
@@ -23,50 +24,54 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        Toolbar toolbar = binding.toolbarPropia;
-        setSupportActionBar(toolbar);
+        setearToolbar();
+
+    }
+
+    protected void setearToolbar(){
+
+        //MATERIAL TOOLBAR
+        MaterialToolbar toolbar = binding.toolbarPropia;
+        //setSupportActionBar(toolbar);
+
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+
+                switch (item.getItemId()) {
+                    case R.id.buscar:
+                        // User chose the "Settings" item, show the app settings UI...
+                        return true;
+
+                    case R.id.misReservas:
+
+                        return true;
+
+                    case R.id.misFavoritos:
+
+                        return true;
+
+                    case R.id.configuracion:
+
+                        return true;
+
+                    default:
+                        // If we got here, the user's action was not recognized.
+                        return false;
+
+                }
+
+            }
+        });
+
 
         //Toolbar "navegable" entre fragmentos
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
-                                                            .findFragmentById(R.id.fragmentContainerView);
+                .findFragmentById(R.id.fragmentContainerView);
         NavController navController = navHostFragment.getNavController();
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration);
 
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_toolbar, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.buscar:
-                // User chose the "Settings" item, show the app settings UI...
-
-                return true;
-
-            case R.id.misReservas:
-
-                return true;
-
-            case R.id.misFavoritos:
-
-                return true;
-
-            case R.id.configuracion:
-
-                return true;
-
-            default:
-                // If we got here, the user's action was not recognized.
-                // Invoke the superclass to handle it.
-                return super.onOptionsItemSelected(item);
-
-        }
     }
 
 }

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <array name="ciudades">
+        <item>Santa Fe</item>
+        <item>Córdoba</item>
+        <item>Santiago del Estero</item>
+        <item>Buenos Aires</item>
+    </array>
+
+    <array name="initial_slider_values">
+        <item value="valor_inicial">0</item>
+        <item value="valor_final">25000</item>
+    </array>
+
+
+</resources>

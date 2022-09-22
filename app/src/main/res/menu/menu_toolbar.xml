@@ -4,7 +4,7 @@
     <item
         android:id="@+id/buscar"
         android:title="@string/opt_buscar"
-        android:icon="@drawable/ic_search_48px"
+        android:icon="@drawable/ic_search_dark"
         android:orderInCategory="1"
         android:tooltipText="@string/opt_buscar"
         app:showAsAction="ifRoom"></item>
@@ -12,7 +12,7 @@
     <item
         android:id="@+id/misReservas"
         android:title="@string/opt_mis_reservas"
-        android:icon="@drawable/ic_room_service_48px"
+        android:icon="@drawable/ic_room_service_dark"
         android:orderInCategory="2"
         android:tooltipText="@string/opt_mis_reservas"
         app:showAsAction="ifRoom"></item>
@@ -20,7 +20,7 @@
     <item
         android:id="@+id/misFavoritos"
         android:title="@string/opt_mis_favoritos"
-        android:icon="@drawable/ic_favorite_48px"
+        android:icon="@drawable/ic_favorite_dark"
         android:orderInCategory="3"
         android:tooltipText="@string/opt_mis_favoritos"
         app:showAsAction="ifRoom"></item>
@@ -28,7 +28,7 @@
     <item
         android:id="@+id/configuracion"
         android:title="@string/opt_configuracion"
-        android:icon="@drawable/ic_settings_48px"
+        android:icon="@drawable/ic_settings_dark"
         android:orderInCategory="4"
         android:tooltipText="@string/opt_configuracion"
         app:showAsAction="ifRoom"></item>

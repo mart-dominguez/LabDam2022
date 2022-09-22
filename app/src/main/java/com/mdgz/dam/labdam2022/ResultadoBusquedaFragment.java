@@ -5,13 +5,20 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mdgz.dam.labdam2022.databinding.FragmentBusquedaBinding;
 import com.mdgz.dam.labdam2022.databinding.FragmentResultadoBusquedaBinding;
+import com.mdgz.dam.labdam2022.utilities.AlojamientoAdapter;
+import com.mdgz.dam.labdam2022.utilities.ListaDeAlojamientos;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,6 +28,13 @@ import com.mdgz.dam.labdam2022.databinding.FragmentResultadoBusquedaBinding;
 public class ResultadoBusquedaFragment extends Fragment {
 
     private FragmentResultadoBusquedaBinding binding;
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager layoutManager;
+    private FloatingActionButton btnBuscar;
+
+    //Clase donde se crea la lista de alojamientos genericos
+    private ListaDeAlojamientos listaDeAlojamientos;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -74,6 +88,26 @@ public class ResultadoBusquedaFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
         super.onViewCreated(view,savedInstanceState);
 
+        //RecyclerView
+        recyclerView = binding.recyclerView;
+        recyclerView.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(this.getContext());
+        recyclerView.setLayoutManager(layoutManager);
+
+        listaDeAlojamientos = new ListaDeAlojamientos();
+
+        mAdapter = new AlojamientoAdapter(listaDeAlojamientos.getLista());
+        recyclerView.setAdapter(mAdapter);
+
+        //FloatingButton
+        btnBuscar = binding.btnNuevaBusqueda;
+        btnBuscar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavDirections action = ResultadoBusquedaFragmentDirections.actionResultadoBusquedaFragmentToBusquedaFragment();
+                Navigation.findNavController(v).navigate(action);
+            }
+        });
 
     }
 }

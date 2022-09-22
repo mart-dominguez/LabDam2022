@@ -9,9 +9,6 @@ public abstract class Alojamiento {
     protected Double precioBase;
 
     public abstract Ubicacion getUbicacion();
-    public Double costoDia(){
-        return precioBase;
-    }
 
     public Alojamiento(){
         super();
@@ -23,5 +20,25 @@ public abstract class Alojamiento {
         this.descripcion = descripcion;
         this.capacidad = capacidad;
         this.precioBase = precioBase;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public Integer getCapacidad() {
+        return capacidad;
+    }
+
+    public Double getPrecioBase() {
+        return precioBase;
     }
 }

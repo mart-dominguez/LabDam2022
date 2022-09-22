@@ -24,7 +24,9 @@
             app:destination="@id/detalleAlojamientoFragment" />
         <action
             android:id="@+id/action_resultadoBusquedaFragment_to_busquedaFragment"
-            app:destination="@id/busquedaFragment" />
+            app:destination="@id/busquedaFragment"
+            app:popUpTo="@id/busquedaFragment"
+            app:popUpToInclusive="true"/>
     </fragment>
     <fragment
         android:id="@+id/detalleAlojamientoFragment"
@@ -33,9 +35,13 @@
         tools:layout="@layout/fragment_detalle_alojamiento" >
         <action
             android:id="@+id/action_detalleAlojamientoFragment_to_busquedaFragment"
-            app:destination="@id/busquedaFragment" />
+            app:destination="@id/busquedaFragment"
+            app:popUpTo="@id/busquedaFragment"
+            app:popUpToInclusive="true"/>
         <action
             android:id="@+id/action_detalleAlojamientoFragment_to_resultadoBusquedaFragment"
-            app:destination="@id/resultadoBusquedaFragment" />
+            app:destination="@id/resultadoBusquedaFragment"
+            app:popUpTo="@id/resultadoBusquedaFragment"
+            app:popUpToInclusive="true"/>
     </fragment>
 </navigation>
