@@ -13,5 +13,32 @@
         <item value="valor_final">25000</item>
     </array>
 
+    <!-- Preferencias -->
+    <string-array name="metodo_pago_valores">
+        <item>EF</item>
+        <item>TC</item>
+        <item>TD</item>
+        <item>DCBU</item>
+    </string-array>
+
+    <string-array name="metodo_pago_titulos">
+        <item>Efectivo</item>
+        <item>Tarjeta de crédito</item>
+        <item>Tarjeta de débito</item>
+        <item>Débito por CBU</item>
+    </string-array>
+
+    <string-array name="moneda_pago_valores">
+        <item>ARS</item>
+        <item>USD</item>
+        <item>EUR</item>
+    </string-array>
+
+    <string-array name="moneda_pago_titulos">
+        <item>Pesos argentinos</item>
+        <item>Dólares</item>
+        <item>Euros</item>
+    </string-array>
+
 
 </resources>
