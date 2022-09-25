@@ -3,6 +3,8 @@ package com.mdgz.dam.labdam2022;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
@@ -52,7 +54,8 @@ public class MainActivity extends AppCompatActivity {
                         return true;
 
                     case R.id.configuracion:
-
+                        NavDirections action = GlobalDirections.actionGlobalSettingsFragment();
+                        Navigation.findNavController(binding.fragmentContainerView).navigate(action);
                         return true;
 
                     default:
