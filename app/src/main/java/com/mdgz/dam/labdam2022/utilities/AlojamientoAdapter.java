@@ -44,19 +44,9 @@ public class AlojamientoAdapter extends RecyclerView.Adapter<AlojamientoAdapter.
     @Override
     public void onBindViewHolder(AlojamientoViewHolder alojamientoHolder, final int position)
     {
+        //Se obtiene el holder con la vista inflada, y se le aplica la logica para setear los nuevos datos
         alojamientoHolder.bind(alojamientos.get(position));
 
-    }
-
-    public void setData(List<Alojamiento> lista)
-    {
-        AlojamientoDifference diferenciador = new AlojamientoDifference(lista,alojamientos);
-        DiffUtil.DiffResult resultado = DiffUtil.calculateDiff(diferenciador);
-        alojamientos.clear();
-        alojamientos.addAll(lista);
-
-        //Avisar de cambio en valores al adaptador
-        resultado.dispatchUpdatesTo(this);
     }
 
     //View Holder, encargado de "buscar los widgets"
@@ -65,13 +55,15 @@ public class AlojamientoAdapter extends RecyclerView.Adapter<AlojamientoAdapter.
         CardAlojamientoBinding binding;
         CardAlojamientoExpandableBinding expandableBinding;
 
-        public AlojamientoViewHolder(CardAlojamientoBinding binding)
+        //Constructor
+        public AlojamientoViewHolder(CardAlojamientoBinding binding) //Recibe la vista inflada
         {
             super(binding.getRoot());
             this.binding = binding;
             expandableBinding = binding.caExpandable;
         }
 
+        //1. Seteo de los "nuevos" datos del alojamiento de la fila asociada al holder
         public void bind(Alojamiento alojamiento)
         {
             binding.caFavoriteButton.setOnClickListener(new View.OnClickListener() {
@@ -87,7 +79,7 @@ public class AlojamientoAdapter extends RecyclerView.Adapter<AlojamientoAdapter.
             cardFormat(alojamiento);
         }
 
-
+        //1.1 Establecer el comportamiento del card (primero aparece "sin expandir")
         private void cardBehaviour()
         {
             binding.caExpandirButton.setText("Expandir");
@@ -109,6 +101,7 @@ public class AlojamientoAdapter extends RecyclerView.Adapter<AlojamientoAdapter.
             });
         }
 
+        //1.2 Seteo de los datos del alojamiento
         private void cardFormat(Alojamiento alojamiento)
         {
             Random r = new Random();
@@ -124,7 +117,7 @@ public class AlojamientoAdapter extends RecyclerView.Adapter<AlojamientoAdapter.
 
 
 
-            if(alojamiento.getClass().equals(Departamento.class))
+            if(alojamiento.getClass().equals(Departamento.class)) //Departamento
             {
                 binding.caTipoImage.setImageResource(R.drawable.ic_outline_house_24);
                 binding.caTipoCaption.setText("Departamento");
@@ -138,12 +131,12 @@ public class AlojamientoAdapter extends RecyclerView.Adapter<AlojamientoAdapter.
                 valor = cochera == 1 ? "Sin cochera" : "Con cochera";
                 expandableBinding.caeCocheraValor.setText(valor);
 
-            } else {
+            } else { //Hotel
                 binding.caTipoImage.setImageResource(R.drawable.ic_baseline_apartment_24);
                 binding.caTipoCaption.setText("Hotel");
                 binding.caLimpiezaText.setVisibility(TextView.GONE);
 
-                String valor = wifi == 1 ? "Sin Wi-Fi" : "Con Wi-Fi";
+                String valor = "Con Wi-Fi";
                 expandableBinding.caeWifiValor.setText(valor);
                 valor = ((Habitacion) alojamiento).getTieneEstacionamiento() ? "Con cochera" : "Sin cochera";
                 expandableBinding.caeCocheraValor.setText(valor);
@@ -174,6 +167,17 @@ public class AlojamientoAdapter extends RecyclerView.Adapter<AlojamientoAdapter.
 
     }
 
+
+    public void setData(List<Alojamiento> lista)
+    {
+        AlojamientoDifference diferenciador = new AlojamientoDifference(lista,alojamientos);
+        DiffUtil.DiffResult resultado = DiffUtil.calculateDiff(diferenciador);
+        alojamientos.clear();
+        alojamientos.addAll(lista);
+
+        //Avisar de cambio en valores al adaptador
+        resultado.dispatchUpdatesTo(this);
+    }
 
     /*  Esta clase permite calcular la diferencia entre 2 listas de datos distintas.
         Esto permite que, cuando se cambia la lista de datos del adapter, el recyclerView tenga que hacer menos operaciones costosas para recalcular

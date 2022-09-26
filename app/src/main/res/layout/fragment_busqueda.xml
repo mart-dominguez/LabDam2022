@@ -199,23 +199,23 @@
             android:text="Personas" />
 
         <ImageButton
-            android:id="@+id/b_agregar_button"
+            android:id="@+id/b_remove_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toEndOf="@id/b_personas_title"
-            app:layout_constraintTop_toTopOf="@id/b_personas_title"
-            app:layout_constraintBottom_toBottomOf="@id/b_personas_title"
-            android:background="@android:color/transparent"
             android:layout_marginStart="@dimen/normal_margin"
-            android:src="@drawable/ic_round_add_24" />
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_round_remove_24"
+            app:layout_constraintBottom_toBottomOf="@id/b_personas_title"
+            app:layout_constraintStart_toEndOf="@id/b_personas_title"
+            app:layout_constraintTop_toTopOf="@id/b_personas_title" />
 
         <EditText
             android:id="@+id/b_ocupantes_edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="@id/b_agregar_button"
-            app:layout_constraintBottom_toBottomOf="@id/b_agregar_button"
-            app:layout_constraintStart_toEndOf="@id/b_agregar_button"
+            app:layout_constraintTop_toTopOf="@id/b_remove_button"
+            app:layout_constraintBottom_toBottomOf="@id/b_remove_button"
+            app:layout_constraintStart_toEndOf="@id/b_remove_button"
             android:layout_marginStart="@dimen/small_margin"
             android:ems="2"
             android:inputType="number"
@@ -223,15 +223,15 @@
             android:textAlignment="center" />
 
         <ImageButton
-            android:id="@+id/b_remove_button"
+            android:id="@+id/b_agregar_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toEndOf="@id/b_ocupantes_edit"
-            app:layout_constraintTop_toTopOf="@id/b_ocupantes_edit"
-            app:layout_constraintBottom_toBottomOf="@id/b_ocupantes_edit"
-            android:background="@android:color/transparent"
             android:layout_marginStart="@dimen/small_margin"
-            android:src="@drawable/ic_round_remove_24" />
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_round_add_24"
+            app:layout_constraintBottom_toBottomOf="@id/b_ocupantes_edit"
+            app:layout_constraintStart_toEndOf="@id/b_ocupantes_edit"
+            app:layout_constraintTop_toTopOf="@id/b_ocupantes_edit" />
 
         <Button
             android:id="@+id/b_buscar_button"
