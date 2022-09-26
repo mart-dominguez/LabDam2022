@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/buscar"
+        android:id="@+id/b_buscar_button"
         android:title="@string/opt_buscar"
         android:icon="@drawable/ic_search_dark"
         android:orderInCategory="1"

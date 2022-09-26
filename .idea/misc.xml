@@ -3,6 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Documentos/UTN/4to/AplicacionesMoviles/TP/app/src/main/res/drawable/ic_garage_variant.xml" value="0.238" />
+        <entry key="..\:/Documentos/UTN/4to/AplicacionesMoviles/TP/app/src/main/res/drawable/ic_outline_map_24.xml" value="0.238" />
+        <entry key="..\:/Documentos/UTN/4to/AplicacionesMoviles/TP/app/src/main/res/drawable/ic_stove.xml" value="0.238" />
+        <entry key="..\:/Documentos/UTN/4to/AplicacionesMoviles/TP/app/src/main/res/drawable/ic_toilet.xml" value="0.238" />
+        <entry key="..\:/Documentos/UTN/4to/AplicacionesMoviles/TP/app/src/main/res/layout/activity_main.xml" value="0.3625" />
+        <entry key="..\:/Documentos/UTN/4to/AplicacionesMoviles/TP/app/src/main/res/layout/busqueda.xml" value="0.33" />
+        <entry key="..\:/Documentos/UTN/4to/AplicacionesMoviles/TP/app/src/main/res/layout/card_alojamiento.xml" value="0.33" />
+        <entry key="..\:/Documentos/UTN/4to/AplicacionesMoviles/TP/app/src/main/res/layout/card_alojamiento_expandable.xml" value="0.5689119170984456" />
+        <entry key="..\:/Documentos/UTN/4to/AplicacionesMoviles/TP/app/src/main/res/layout/fila_alojamiento.xml" value="0.3625" />
+        <entry key="..\:/Documentos/UTN/4to/AplicacionesMoviles/TP/app/src/main/res/layout/fragment_busqueda.xml" value="0.3625" />
+        <entry key="..\:/Documentos/UTN/4to/AplicacionesMoviles/TP/app/src/main/res/layout/fragment_detalle_alojamiento.xml" value="0.3625" />
+        <entry key="..\:/Documentos/UTN/4to/AplicacionesMoviles/TP/app/src/main/res/layout/fragment_resultado_busqueda.xml" value="0.3625" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/LabDam2022/app/src/main/res/layout/activity_main.xml" value="0.3625" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/LabDam2022/app/src/main/res/layout/fragment_busqueda.xml" value="0.3484375" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/LabDam2022/app/src/main/res/layout/fragment_detalle_alojamiento.xml" value="0.3569230769230769" />

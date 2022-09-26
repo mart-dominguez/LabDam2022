@@ -9,4 +9,13 @@
     <color name="white">#FFFFFFFF</color>
     <color name="orange_dark">#FFB341</color>
     <color name="orange">#FFB649</color>
+
+    <color name="red_900">#7f0000</color>
+
+    <color name="primaryColor">#0277bd</color>
+    <color name="primaryLightColor">#58a5f0</color>
+    <color name="primaryDarkColor">#004c8c</color>
+    <color name="primaryTextColor">#ffffff</color>
+    <color name="secondaryTextColor">#b2000000</color>
+
 </resources>

@@ -1,184 +1,265 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".BusquedaFragment">
 
-    <!-- TODO: Update blank fragment layout -->
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="@string/aloj_turisticos"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/b_header"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/header"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        android:text="Alojamiento turístico"
+        android:gravity="bottom"
+        android:paddingStart="@dimen/normal_margin"
+        android:paddingEnd="@dimen/normal_margin"
+        android:paddingBottom="@dimen/small_margin"
+        android:background="@color/primaryColor"
+        android:textColor="@color/white"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+        />
+
+    <TextView
+        android:id="@+id/b_subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/b_header"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:padding="@dimen/normal_margin"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+        android:textColor="@color/secondaryTextColor"
+        android:text="Complete el formulario de búsqueda con los datos de su interés"/>
+
+    <TextView
+        android:id="@+id/b_ciudad_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/b_subtitle"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="Ciudad"
+        android:layout_marginStart="@dimen/normal_margin"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
     <Spinner
-        android:id="@+id/spCiudad"
+        android:id="@+id/b_ciudad_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/b_ciudad_title"
+        android:layout_margin="@dimen/extra_small_margin"
         style="@android:style/Widget.Material.Light.Spinner.Underlined"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="32dp"
         android:entries="@array/ciudades"
-        android:textAlignment="textStart"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView3"
-        app:layout_constraintTop_toTopOf="@+id/imageView3" />
+        />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="29dp"
-        android:layout_height="32dp"
-        android:layout_marginTop="30dp"
-        android:src="@drawable/ic_person_light"
-        app:layout_constraintEnd_toStartOf="@+id/btnRemove"
+    <TextView
+        android:id="@+id/ca_tipo_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/b_ciudad_spinner"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+        android:text="Tipo"
+        android:layout_marginStart="@dimen/normal_margin"
+        android:layout_marginTop="@dimen/normal_margin"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
-    <EditText
-        android:id="@+id/editNumber"
+    <TextView
+        android:id="@+id/b_departamento_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="3"
-        android:inputType="number"
-        android:text="1"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="@+id/btnRemove"
-        app:layout_constraintEnd_toStartOf="@+id/btnAdd"
-        app:layout_constraintStart_toEndOf="@+id/btnRemove"
-        app:layout_constraintTop_toTopOf="@+id/btnRemove" />
-
-    <Button
-        android:id="@+id/btnAdd"
-        style="@style/Widget.Material3.Button.IconButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:icon="@drawable/ic_add_light"
-        app:layout_constraintStart_toEndOf="@+id/editNumber"
-        app:layout_constraintTop_toTopOf="@+id/btnRemove" />
-
-    <Button
-        android:id="@+id/btnRemove"
-        style="@style/Widget.Material3.Button.IconButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:icon="@drawable/ic_remove_light"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
-        app:layout_constraintStart_toStartOf="@+id/spCiudad"
-        app:layout_constraintTop_toTopOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@id/ca_tipo_image"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="@dimen/normal_margin"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+        android:textColor="@color/secondaryTextColor"
+        android:layout_marginStart="@dimen/normal_margin"
+        android:text="Departamento"
+        />
 
     <CheckBox
-        android:id="@+id/checkHotel"
+        android:id="@+id/b_departamento_check"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hotel"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-        app:layout_constraintStart_toStartOf="@+id/btnRemove"
-        app:layout_constraintTop_toTopOf="@+id/imageView2" />
+        android:layout_marginStart="@dimen/extra_small_margin"
+        app:layout_constraintTop_toTopOf="@id/b_departamento_title"
+        app:layout_constraintBottom_toBottomOf="@id/b_departamento_title"
+        app:layout_constraintStart_toEndOf="@id/b_departamento_title"/>
+
+    <TextView
+        android:id="@+id/b_hotel_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/b_departamento_check"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="@dimen/extra_small_margin"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+        android:textColor="@color/secondaryTextColor"
+        android:layout_marginStart="@dimen/normal_margin"
+        android:text="Hotel"
+        />
 
     <CheckBox
-        android:id="@+id/checkDpto"
+        android:id="@+id/b_hotel_check"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:text="@string/departamento"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/checkHotel"
-        app:layout_constraintTop_toTopOf="@+id/checkHotel" />
+        app:layout_constraintTop_toTopOf="@id/b_hotel_title"
+        app:layout_constraintBottom_toBottomOf="@id/b_hotel_title"
+        app:layout_constraintStart_toStartOf="@id/b_departamento_check"/>
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="29dp"
-        android:layout_height="31dp"
-        android:layout_marginTop="30dp"
-        android:src="@drawable/ic_home_work_light"
-        app:layout_constraintEnd_toStartOf="@+id/checkHotel"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="29dp"
-        android:layout_height="31dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:src="@drawable/ic_pin_light"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <CheckBox
-        android:id="@+id/checkWifi"
+    <TextView
+        android:id="@+id/cae_wifi_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/wifi"
-        android:textSize="16sp"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="@+id/checkDpto"
-        app:layout_constraintStart_toStartOf="@+id/checkDpto"
-        app:layout_constraintTop_toBottomOf="@+id/checkDpto" />
+        app:layout_constraintTop_toBottomOf="@id/b_departamento_check"
+        app:layout_constraintStart_toEndOf="@id/b_hotel_check"
+        android:layout_marginTop="@dimen/extra_small_margin"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+        android:textColor="@color/secondaryTextColor"
+        android:layout_marginStart="@dimen/normal_margin"
+        android:text="Wi-Fi"
+        />
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/b_wifi_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/small_margin"
+        android:enabled="false"
+        app:layout_constraintTop_toTopOf="@id/cae_wifi_image"
+        app:layout_constraintBottom_toBottomOf="@id/cae_wifi_image"
+        app:layout_constraintStart_toEndOf="@id/cae_wifi_image"/>
+
+    <TextView
+        android:id="@+id/b_precio_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/b_hotel_title"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="Rango de precio"
+        android:layout_marginStart="@dimen/normal_margin"
+        android:layout_marginTop="@dimen/long_margin"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
     <com.google.android.material.slider.RangeSlider
-        android:id="@+id/rangeSlider"
-        android:layout_width="0dp"
+        android:id="@+id/b_precio_slider"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:stepSize="1000"
+        app:layout_constraintTop_toBottomOf="@id/b_precio_title"
+        app:layout_constraintStart_toEndOf="parent"
         android:valueFrom="0"
         android:valueTo="50000"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+        app:values="@array/initial_slider_values"/>
+
+    <TextView
+        android:id="@+id/b_minimo_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/b_precio_slider"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="@dimen/normal_margin"
+        android:text="Mínimo: 0"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"/>
+
+    <TextView
+        android:id="@+id/b_maximo_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/b_precio_slider"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/checkHotel"
-        app:layout_constraintTop_toTopOf="@+id/imageView4"
-        app:values="@array/initial_slider_values"></com.google.android.material.slider.RangeSlider>
+        android:layout_marginEnd="@dimen/normal_margin"
+        android:text="Maximo: 25000"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"/>
 
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="29dp"
-        android:layout_height="31dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="25dp"
-        android:src="@drawable/ic_dolar_light"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkWifi" />
-
-    <Button
-        android:id="@+id/btnLimpiar"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
+    <TextView
+        android:id="@+id/b_ocupantes_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:text="@string/limpiar"
-        app:layout_constraintEnd_toStartOf="@+id/btnBuscar"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintTop_toBottomOf="@id/b_minimo_title"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rangeSlider" />
+        android:text="Cantidad de ocupantes"
+        android:layout_marginStart="@dimen/normal_margin"
+        android:layout_marginTop="@dimen/long_margin"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
-    <Button
-        android:id="@+id/btnBuscar"
-        style="@style/Widget.MaterialComponents.Button"
+    <TextView
+        android:id="@+id/b_adultos_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:text="@string/buscar"
-        app:layout_constraintEnd_toEndOf="@+id/rangeSlider"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btnLimpiar"
-        app:layout_constraintTop_toTopOf="@+id/btnLimpiar" />
+        app:layout_constraintTop_toBottomOf="@id/b_ocupantes_title"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="@dimen/normal_margin"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+        android:textColor="@color/secondaryTextColor"
+        android:layout_marginStart="@dimen/normal_margin"
+        android:text="Adultos"
+        />
+
+    <EditText
+        android:id="@+id/b_adultos_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/b_adultos_title"
+        app:layout_constraintBottom_toBottomOf="@id/b_adultos_title"
+        app:layout_constraintStart_toEndOf="@id/b_adultos_title"
+        android:layout_marginStart="@dimen/small_margin"
+        android:ems="2"
+        android:inputType="number"
+        android:text="1"
+        android:textAlignment="center"/>
+
+    <TextView
+        android:id="@+id/b_ninios_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/b_ocupantes_title"
+        app:layout_constraintStart_toEndOf="@id/b_adultos_edit"
+        android:layout_marginTop="@dimen/normal_margin"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+        android:textColor="@color/secondaryTextColor"
+        android:layout_marginStart="@dimen/long_margin"
+        android:text="Niños"
+        />
+
+    <EditText
+        android:id="@+id/b_ninios_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/b_ninios_title"
+        app:layout_constraintBottom_toBottomOf="@id/b_ninios_title"
+        app:layout_constraintStart_toEndOf="@id/b_ninios_title"
+        android:layout_marginStart="@dimen/small_margin"
+        android:ems="2"
+        android:inputType="number"
+        android:text="0"
+        android:textAlignment="center"/>
+
+    <Button
+        android:id="@+id/b_buscar_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/b_adultos_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/long_margin"
+        android:layout_marginEnd="@dimen/normal_margin"
+        android:text="Buscar"/>
+
+    <Button
+        android:id="@+id/b_limpiar_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/b_adultos_title"
+        app:layout_constraintEnd_toStartOf="@id/b_buscar_button"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_marginTop="@dimen/long_margin"
+        android:layout_marginEnd="@dimen/normal_margin"
+        android:text="Limpiar"
+        android:textColor="@color/teal_700"/>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

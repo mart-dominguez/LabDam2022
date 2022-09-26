@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:animateLayoutChanges="true"
+    android:layout_height="wrap_content"
+    card_view:cardCornerRadius="@dimen/small_margin"
+    card_view:cardElevation="@dimen/small_margin"
+    app:contentPadding="@dimen/normal_margin"
+    app:cardUseCompatPadding="true"
+    card_view:cardPreventCornerOverlap="false"
+    card_view:cardUseCompatPadding="true"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/b_header"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/marker"/>
+
+        <TextView
+            android:id="@+id/ca_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/b_header"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="Hotel Buena Aventura"
+            android:layout_marginStart="@dimen/normal_margin"
+            android:layout_marginTop="@dimen/normal_margin"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            />
+
+
+        <RatingBar
+            android:id="@+id/ca_rating"
+            style="?attr/ratingBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:rating="4.5"
+            android:layout_marginTop="@dimen/extra_small_margin"
+            app:layout_constraintTop_toBottomOf="@id/ca_title"
+            app:layout_constraintStart_toStartOf="@id/ca_title"/>
+
+        <TextView
+            android:id="@+id/ca_rating_caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/ca_rating"
+            app:layout_constraintBottom_toBottomOf="@id/ca_rating"
+            app:layout_constraintStart_toEndOf="@id/ca_rating"
+            android:text="4.3 (123)"
+            android:layout_marginStart="@dimen/normal_margin"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+            />
+
+        <TextView
+            android:id="@+id/ca_ubicacion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/ca_precio_text"
+            app:layout_constraintEnd_toEndOf="@id/ca_tipo_image"
+            android:text=" Lavaisse 610, Santa Fe"
+            android:layout_marginStart="@dimen/normal_margin"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+            />
+
+        <ImageView
+            android:id="@+id/ca_tipo_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/ca_title"
+            app:layout_constraintBottom_toBottomOf="@id/ca_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="@dimen/normal_margin"
+            android:src="@drawable/ic_baseline_apartment_24"
+            />
+
+        <TextView
+            android:id="@+id/ca_tipo_caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/ca_tipo_image"
+            app:layout_constraintEnd_toEndOf="@id/ca_tipo_image"
+            android:text="Departamento"
+            android:layout_marginTop="@dimen/extra_small_margin"
+            android:layout_marginStart="@dimen/normal_margin"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+            />
+
+        <TextView
+            android:id="@+id/ca_precio_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/ca_rating"
+            app:layout_constraintStart_toStartOf="@id/ca_title"
+            android:layout_marginTop="@dimen/long_margin"
+            android:text="$3000/noche"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+            />
+
+        <TextView
+            android:id="@+id/ca_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/ca_precio_text"
+            app:layout_constraintStart_toStartOf="@id/ca_title"
+            android:text="Excelentes habitaciones con vistas al mar mediterraneo, excelente servicio personalizado para todo publico"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+            android:textColor="@color/secondaryTextColor"
+            android:layout_marginTop="@dimen/normal_margin"
+            />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/ca_divider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/ca_description"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_margin="@dimen/normal_margin"/>
+
+
+        <include android:id="@+id/ca_expandable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            layout="@layout/card_alojamiento_expandable"
+            app:layout_constraintTop_toBottomOf="@id/ca_divider"
+            app:layout_constraintStart_toStartOf="@id/ca_title"/>
+
+
+        <Button
+            android:id="@+id/ca_expandir_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/ca_expandable"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="Cerrar"
+            android:textColor="@color/primaryDarkColor"
+            style="@style/Widget.AppCompat.Button.Borderless"/>
+
+        <Button
+            android:id="@+id/ca_reservar_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/ca_expandable"
+            app:layout_constraintStart_toEndOf="@id/ca_expandir_button"
+            android:text="Reservar"
+            android:textColor="@color/primaryDarkColor"
+            style="@style/Widget.AppCompat.Button.Borderless"/>
+
+        <ImageButton
+            android:id="@+id/ca_mapa_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@id/ca_favorite_button"
+            app:layout_constraintTop_toTopOf="@id/ca_expandir_button"
+            app:layout_constraintBottom_toBottomOf="@+id/ca_expandir_button"
+            android:background="@android:color/transparent"
+            android:layout_marginEnd="@dimen/long_margin"
+            android:src="@drawable/ic_outline_map_24" />
+
+        <ImageButton
+            android:id="@+id/ca_favorite_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/ca_expandir_button"
+            app:layout_constraintBottom_toBottomOf="@+id/ca_expandir_button"
+            android:background="@android:color/transparent"
+            android:layout_marginEnd="@dimen/normal_margin"
+            android:src="@drawable/ic_baseline_favorite_border_24" />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

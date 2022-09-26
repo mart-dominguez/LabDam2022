@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:visibility="visible"
+    android:paddingBottom="@dimen/long_margin"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/cae_caracteristicas_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="Características"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+        android:layout_marginTop="@dimen/normal_margin" />
+
+
+        <LinearLayout
+            android:id="@+id/cae_caracteristicas_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/cae_caracteristicas_title"
+            app:layout_constraintStart_toStartOf="@id/cae_caracteristicas_title"
+            android:layout_marginTop="@dimen/small_margin"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:id="@+id/cae_personas_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_face_24" />
+
+            <TextView
+                android:id="@+id/cae_personas_valor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/extra_small_margin"
+                android:text="3 adultos"
+                android:textColor="@color/secondaryTextColor"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
+
+            <ImageView
+                android:id="@+id/cae_banio_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/normal_margin"
+                android:src="@drawable/ic_toilet" />
+
+            <TextView
+                android:id="@+id/cae_banio_valor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/extra_small_margin"
+                android:text="2 baños"
+                android:textColor="@color/secondaryTextColor"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
+
+            <ImageView
+                android:id="@+id/cae_cocina_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/normal_margin"
+                android:src="@drawable/ic_stove" />
+
+            <TextView
+                android:id="@+id/cae_cocina_valor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/extra_small_margin"
+                android:text="1 cocina"
+                android:textColor="@color/secondaryTextColor"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
+
+            <ImageView
+                android:id="@+id/cae_pieza_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/normal_margin"
+                android:src="@drawable/ic_outline_king_bed_24" />
+
+            <TextView
+                android:id="@+id/cae_pieza_valor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/extra_small_margin"
+                android:text="3 piezas"
+                android:textColor="@color/secondaryTextColor"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
+        </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/cae_servicios_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/cae_caracteristicas_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="Servicios"
+        android:textAppearance="?attr/textAppearanceBody1"
+        android:layout_marginTop="@dimen/normal_margin" />
+
+    <LinearLayout
+        android:id="@+id/cae_servicios_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/cae_servicios_title"
+        app:layout_constraintStart_toStartOf="@id/cae_servicios_title"
+        android:layout_marginTop="@dimen/small_margin"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/cae_wifi_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_wifi_24" />
+
+        <TextView
+            android:id="@+id/cae_wifi_valor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/extra_small_margin"
+            android:text="Con WiFi"
+            android:textColor="@color/secondaryTextColor"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
+
+        <ImageView
+            android:id="@+id/cae_desayuno_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/normal_margin"
+            android:src="@drawable/ic_outline_free_breakfast_24" />
+
+        <TextView
+            android:id="@+id/cae_desayuno_valor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/extra_small_margin"
+            android:text="Desayuno incluido"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+            android:textColor="@color/secondaryTextColor" />
+
+        <ImageView
+            android:id="@+id/cae_cochera_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/normal_margin"
+            android:src="@drawable/ic_outline_directions_car_24" />
+
+        <TextView
+            android:id="@+id/cae_cochera_valor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/extra_small_margin"
+            android:text="Con cochera"
+            android:textColor="@color/secondaryTextColor"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/cae_contactos_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/cae_servicios_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="Contactos"
+        android:textAppearance="?attr/textAppearanceBody1"
+        android:layout_marginTop="@dimen/normal_margin" />
+
+    <LinearLayout
+        android:id="@+id/cae_contactos_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/cae_contactos_title"
+        app:layout_constraintStart_toStartOf="@id/cae_contactos_title"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/cae_situacion_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Abierto ahora"
+            android:textAppearance="?attr/textAppearanceBody2"
+            android:textColor="@color/teal_700" />
+
+        <ImageView
+            android:id="@+id/cae_telefono_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/normal_margin"
+            android:src="@drawable/ic_baseline_local_phone_24" />
+
+        <TextView
+            android:id="@+id/cae_telefono_valor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/extra_small_margin"
+            android:text="0342 627-5099"
+            android:textAppearance="?attr/textAppearanceBody2"
+            android:textColor="@color/secondaryTextColor" />
+
+        <Button
+            android:id="@+id/cae_web_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sitio Web"
+            android:textColor="@color/primaryDarkColor"
+            style="@style/Widget.AppCompat.Button.Borderless" />
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

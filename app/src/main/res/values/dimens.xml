@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="extra_small_margin">4dp</dimen>
+    <dimen name="small_margin">8dp</dimen>
+    <dimen name="normal_margin">16dp</dimen>
+    <dimen name="long_margin">24dp</dimen>
+    <dimen name="extra_long_margin">32dp</dimen>
+    <dimen name="header">75dp</dimen>
+
+</resources>

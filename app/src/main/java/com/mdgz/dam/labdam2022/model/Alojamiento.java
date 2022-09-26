@@ -3,10 +3,10 @@ package com.mdgz.dam.labdam2022.model;
 public abstract class Alojamiento {
 
     protected Integer id;
-    protected String titulo;
-    protected String descripcion;
+    protected String  titulo;
+    protected String  descripcion;
     protected Integer capacidad;
-    protected Double precioBase;
+    protected Double  precioBase;
 
     public abstract Ubicacion getUbicacion();
 
