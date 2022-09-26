@@ -18,4 +18,26 @@
     <string name="buscar">BUSCAR</string>
     <string name="por_noche">/por noche</string>
     <string name="nueva_busqueda">Nueva búsqueda</string>
+
+    <!-- Preferencias -->
+    <string name="inf_usuario">Información de usuario</string>
+    <string name="sync_header">Aplicación</string>
+
+    <string name="correo_titulo">Correo electrónico</string>
+    <string name="correo_default">Escriba su correo electrónico</string>
+
+    <string name="cuit_titulo">CUIT</string>
+    <string name="cuit_default">Escriba su número de cuit</string>
+
+    <string name="metodo_pago">Seleccione el método de pago preferido</string>
+
+    <string name="moneda_pago">Seleccione la moneda preferida</string>
+
+    <string name="notificaciones_titulo">Notificaciones</string>
+
+    <string name="uso_app">Guardar información de uso</string>
+    <string name="resumen_uso">Autorizar a guardar información de uso de la aplicación</string>
+
+    <string name="detalle_uso">Detalle de uso de aplicación</string>
+
 </resources>

@@ -1,0 +1,58 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="@string/inf_usuario">
+
+        <EditTextPreference
+            app:key="correo"
+            app:title="@string/correo_titulo"
+            app:useSimpleSummaryProvider="true"
+            app:defaultValue="@string/correo_default"
+            />
+
+        <EditTextPreference
+            app:key="cuit"
+            app:title="@string/cuit_titulo"
+            app:useSimpleSummaryProvider="true"
+            app:defaultValue="@string/cuit_default"
+            ></EditTextPreference>
+
+        <ListPreference
+            app:defaultValue="EF"
+            app:entries="@array/metodo_pago_titulos"
+            app:entryValues="@array/metodo_pago_valores"
+            app:key="metodo_pago"
+            app:title="@string/metodo_pago"
+            app:useSimpleSummaryProvider="true" />
+
+        <ListPreference
+            app:key="moneda_pago"
+            app:title="@string/moneda_pago"
+            app:entries="@array/moneda_pago_titulos"
+            app:entryValues="@array/moneda_pago_valores"
+            app:defaultValue="ARS"
+            app:useSimpleSummaryProvider="true"
+            ></ListPreference>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/sync_header">
+
+        <SwitchPreferenceCompat
+            app:key="notificaciones"
+            app:title="@string/notificaciones_titulo"
+            app:defaultValue="true"/>
+
+        <CheckBoxPreference
+            app:key="check_uso_app"
+            app:title="@string/uso_app"
+            app:summary="@string/resumen_uso"
+            />
+
+        <Preference
+            app:key="detalle_uso"
+            app:title="@string/detalle_uso"
+            app:dependency="check_uso_app"></Preference>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
