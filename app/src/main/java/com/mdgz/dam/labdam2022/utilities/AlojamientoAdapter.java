@@ -3,9 +3,11 @@ package com.mdgz.dam.labdam2022.utilities;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mdgz.dam.labdam2022.R;
@@ -44,6 +46,17 @@ public class AlojamientoAdapter extends RecyclerView.Adapter<AlojamientoAdapter.
     {
         alojamientoHolder.bind(alojamientos.get(position));
 
+    }
+
+    public void setData(List<Alojamiento> lista)
+    {
+        AlojamientoDifference diferenciador = new AlojamientoDifference(lista,alojamientos);
+        DiffUtil.DiffResult resultado = DiffUtil.calculateDiff(diferenciador);
+        alojamientos.clear();
+        alojamientos.addAll(lista);
+
+        //Avisar de cambio en valores al adaptador
+        resultado.dispatchUpdatesTo(this);
     }
 
     //View Holder, encargado de "buscar los widgets"
@@ -115,9 +128,26 @@ public class AlojamientoAdapter extends RecyclerView.Adapter<AlojamientoAdapter.
             {
                 binding.caTipoImage.setImageResource(R.drawable.ic_outline_house_24);
                 binding.caTipoCaption.setText("Departamento");
+
+                binding.caLimpiezaText.setVisibility(TextView.VISIBLE);
+                binding.caLimpiezaText.setText(((Departamento) alojamiento).getCostoLimpieza() + " limpieza");
+
+                String valor = ((Departamento) alojamiento).getTieneWifi() ? "Con Wi-Fi" : "Sin Wi-Fi";
+                expandableBinding.caeWifiValor.setText(valor);
+                expandableBinding.caePiezaValor.setText("" + ((Departamento) alojamiento).getCantidadHabitaciones());
+                valor = cochera == 1 ? "Sin cochera" : "Con cochera";
+                expandableBinding.caeCocheraValor.setText(valor);
+
             } else {
                 binding.caTipoImage.setImageResource(R.drawable.ic_baseline_apartment_24);
                 binding.caTipoCaption.setText("Hotel");
+                binding.caLimpiezaText.setVisibility(TextView.GONE);
+
+                String valor = wifi == 1 ? "Sin Wi-Fi" : "Con Wi-Fi";
+                expandableBinding.caeWifiValor.setText(valor);
+                valor = ((Habitacion) alojamiento).getTieneEstacionamiento() ? "Con cochera" : "Sin cochera";
+                expandableBinding.caeCocheraValor.setText(valor);
+
             }
 
             binding.caTitle.setText(alojamiento.getTitulo());
@@ -125,6 +155,8 @@ public class AlojamientoAdapter extends RecyclerView.Adapter<AlojamientoAdapter.
             binding.caRatingCaption.setText(Utilities.round2(rating) + " (" + resenias + ")");
             binding.caPrecioText.setText("$"+ alojamiento.getPrecioBase() + "/noche");
             binding.caDescription.setText(alojamiento.getDescripcion());
+            if(alojamiento.getUbicacion() != null)
+            binding.caUbicacion.setText(alojamiento.getUbicacion().getCalle() + " " + alojamiento.getUbicacion().getNumero() + ", " + alojamiento.getUbicacion().getCiudad());
 
 
             expandableBinding.caePersonasValor.setText(alojamiento.getCapacidad() + " ocupantes");
@@ -132,17 +164,62 @@ public class AlojamientoAdapter extends RecyclerView.Adapter<AlojamientoAdapter.
             expandableBinding.caeCocinaValor.setText("" + cocina);
             expandableBinding.caePiezaValor.setText("" + pieza);
 
-            String valor = wifi == 1 ? "Sin Wi-Fi" : "Con Wi-Fi";
-            expandableBinding.caeWifiValor.setText(valor);
+            String valor;
             valor = desayuno == 1 ? "Sin desayuno" : "Con desayuno";
             expandableBinding.caeDesayunoValor.setText(valor);
-            valor = cochera == 1 ? "Sin cochera" : "Con cochera";
-            expandableBinding.caeCocheraValor.setText(valor);
             valor = abierto == 1 ? "Cerrado" : "Abierto ahora";
             expandableBinding.caeSituacionTitle.setText(valor);
 
         }
 
+    }
+
+
+    /*  Esta clase permite calcular la diferencia entre 2 listas de datos distintas.
+        Esto permite que, cuando se cambia la lista de datos del adapter, el recyclerView tenga que hacer menos operaciones costosas para recalcular
+        lo que debe mostrar.
+        Esta clase no es obligatoria, pero ayuda a reducir la cantidad de cálculos, porque sin esta información el recyclerView tiene que destruir y
+        recrear la vista entera.
+    * */
+    public static class AlojamientoDifference extends DiffUtil.Callback
+    {
+
+        private final List<Alojamiento> nueva;
+        private final List<Alojamiento> vieja;
+
+        public AlojamientoDifference(List<Alojamiento> nueva, List<Alojamiento> vieja)
+        {
+            this.nueva = nueva;
+            this.vieja = vieja;
+        }
+
+        @Override
+        public int getOldListSize() {
+            return vieja.size();
+        }
+
+        @Override
+        public int getNewListSize() {
+            return nueva.size();
+        }
+
+        @Override       //Son las 2 instancias iguales?
+        public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
+            Alojamiento viejo = vieja.get(oldItemPosition);
+            Alojamiento nuevo = nueva.get(newItemPosition);
+            return nuevo.equals(viejo);
+        }
+
+        @Override       //Tienen las 2 instancias los mismos datos?
+        public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
+            Alojamiento viejo = vieja.get(oldItemPosition);
+            Alojamiento nuevo = nueva.get(newItemPosition);
+            return viejo.getId().equals(nuevo.getId()) &&
+                    viejo.getTitulo().equals(nuevo.getTitulo()) &&
+                    viejo.getCapacidad().equals(nuevo.getCapacidad()) &&
+                    viejo.getDescripcion().equals(nuevo.getDescripcion()) &&
+                    viejo.getPrecioBase().equals(nuevo.getPrecioBase());
+        }
     }
 
 

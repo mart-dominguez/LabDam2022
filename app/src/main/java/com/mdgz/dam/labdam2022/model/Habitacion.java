@@ -1,6 +1,6 @@
 package com.mdgz.dam.labdam2022.model;
 
-public class Habitacion  extends Alojamiento {
+public class Habitacion extends Alojamiento {
 
     private int camasIndividuales;
     private int camasMatrimoniales;
@@ -11,7 +11,8 @@ public class Habitacion  extends Alojamiento {
         super();
     }
 
-    public Habitacion(Integer id, String titulo, String descripcion, Integer capacidad, Double precioBase, int camasIndividuales, int camasMatrimoniales, Boolean tieneEstacionamiento, Hotel hotel) {
+    public Habitacion(Integer id, String titulo, String descripcion, Integer capacidad, Double precioBase, int camasIndividuales, int camasMatrimoniales, Boolean tieneEstacionamiento, Hotel hotel)
+    {
         super(id, titulo, descripcion, capacidad, precioBase);
         this.camasIndividuales = camasIndividuales;
         this.camasMatrimoniales = camasMatrimoniales;

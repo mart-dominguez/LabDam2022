@@ -5,18 +5,16 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:animateLayoutChanges="true"
     android:layout_height="wrap_content"
     card_view:cardCornerRadius="@dimen/small_margin"
-    card_view:cardElevation="@dimen/small_margin"
-    app:contentPadding="@dimen/normal_margin"
+    card_view:cardElevation="@dimen/extra_small_margin"
     app:cardUseCompatPadding="true"
     card_view:cardPreventCornerOverlap="false"
-    card_view:cardUseCompatPadding="true"
     >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:animateLayoutChanges="true"
         android:layout_height="match_parent">
 
         <ImageView
@@ -109,11 +107,23 @@
             />
 
         <TextView
-            android:id="@+id/ca_description"
+            android:id="@+id/ca_limpieza_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/ca_precio_text"
             app:layout_constraintStart_toStartOf="@id/ca_title"
+            android:layout_marginTop="@dimen/small_margin"
+            android:text="$150 limpieza"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+            />
+
+        <TextView
+            android:id="@+id/ca_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/ca_limpieza_text"
+            app:layout_constraintStart_toStartOf="@id/ca_title"
+            app:layout_constraintEnd_toEndOf="@id/ca_tipo_image"
             android:text="Excelentes habitaciones con vistas al mar mediterraneo, excelente servicio personalizado para todo publico"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
             android:textColor="@color/secondaryTextColor"
@@ -125,16 +135,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/ca_description"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@id/ca_title"
+            app:layout_constraintEnd_toEndOf="@id/ca_tipo_image"
             android:layout_margin="@dimen/normal_margin"/>
 
 
         <include android:id="@+id/ca_expandable"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             layout="@layout/card_alojamiento_expandable"
             app:layout_constraintTop_toBottomOf="@id/ca_divider"
-            app:layout_constraintStart_toStartOf="@id/ca_title"/>
+            app:layout_constraintStart_toStartOf="@id/ca_title"
+            app:layout_constraintEnd_toEndOf="@id/ca_tipo_image"/>
 
 
         <Button

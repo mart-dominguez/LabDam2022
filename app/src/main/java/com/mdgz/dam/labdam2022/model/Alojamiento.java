@@ -1,5 +1,7 @@
 package com.mdgz.dam.labdam2022.model;
 
+import java.util.Objects;
+
 public abstract class Alojamiento {
 
     protected Integer id;
@@ -40,5 +42,18 @@ public abstract class Alojamiento {
 
     public Double getPrecioBase() {
         return precioBase;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Alojamiento that = (Alojamiento) o;
+        return id.equals(that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

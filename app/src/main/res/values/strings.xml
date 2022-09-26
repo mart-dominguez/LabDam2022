@@ -39,5 +39,12 @@
     <string name="resumen_uso">Autorizar a guardar información de uso de la aplicación</string>
 
     <string name="detalle_uso">Detalle de uso de aplicación</string>
+    <string name="busqueda_titulo">Alojamiento turístico</string>
+    <string name="busqueda_subtitulo">Complete el formulario de búsqueda con los datos de su interés</string>
+    <string name="busqueda_ciudad">Ciudad</string>
+    <string name="busqueda_tipo">Tipo</string>
+    <string name="busqueda_departamento">Departamento</string>
+    <string name="busqueda_hotel">Hotel</string>
+    <string name="busqueda_wifi">Wi-Fi</string>
 
 </resources>

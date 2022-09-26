@@ -47,9 +47,6 @@ public class ResultadoBusquedaFragment extends Fragment {
 
         //RecyclerView
         recyclerView = binding.recyclerView;
-        recyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(this.getContext());
-        recyclerView.setLayoutManager(layoutManager);
 
         listaDeAlojamientos = new ListaDeAlojamientos();
 

@@ -62,23 +62,15 @@ public class BusquedaFragment extends Fragment {
             }
         });
 
-        binding.bAdultosEdit.addTextChangedListener(new Utilities.TextWatcherExtender() {
+        binding.bOcupantesEdit.addTextChangedListener(new Utilities.TextWatcherExtender() {
             @Override
             public void afterTextChanged(Editable editable) {
 
-                if(binding.bAdultosEdit.getText().length() == 0 || Utilities.editableToInteger(binding.bAdultosEdit.getText()) < 1)
-                    binding.bAdultosEdit.setText("1");
+                if(binding.bOcupantesEdit.getText().length() == 0 || Utilities.editableToInteger(binding.bOcupantesEdit.getText()) < 1)
+                    binding.bOcupantesEdit.setText("1");
             }
         });
 
-        binding.bNiniosEdit.addTextChangedListener(new Utilities.TextWatcherExtender() {
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-                if(binding.bNiniosEdit.getText().length() == 0)
-                    binding.bNiniosEdit.setText("0");
-            }
-        });
 
         binding.bLimpiarButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,10 +86,27 @@ public class BusquedaFragment extends Fragment {
             }
         });
 
+        binding.bAgregarButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int valor = Utilities.editableToInteger(binding.bOcupantesEdit.getText()) + 1;
+                binding.bOcupantesEdit.setText("" + valor);
+
+            }
+        });
+
+        binding.bRemoveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int valor = Utilities.editableToInteger(binding.bOcupantesEdit.getText()) - 1;
+                binding.bOcupantesEdit.setText("" + valor);
+
+            }
+        });
+
 
     }
 
-    //Listener del boton buscar
     protected void buscar(View v)
     {
         NavDirections action = BusquedaFragmentDirections.actionBusquedaFragmentToResultadoBusquedaFragment();
@@ -112,9 +121,9 @@ public class BusquedaFragment extends Fragment {
         binding.bPrecioSlider.setValues((float)valores[0], (float)valores[1]);
         binding.bDepartamentoCheck.setChecked(false);
         binding.bHotelCheck.setChecked(false);
-        binding.bAdultosEdit.setText("1");
-        binding.bNiniosEdit.setText("0");
+        binding.bOcupantesEdit.setText("1");
         binding.bCiudadSpinner.setSelection(0);
+        binding.bWifiSwitch.setChecked(false);
 
 
     }

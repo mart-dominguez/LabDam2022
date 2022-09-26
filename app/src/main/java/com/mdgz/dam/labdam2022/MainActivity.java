@@ -20,7 +20,8 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -34,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
         //MATERIAL TOOLBAR
         MaterialToolbar toolbar = binding.toolbarPropia;
         //setSupportActionBar(toolbar);
-
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -65,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
 
         //Toolbar "navegable" entre fragmentos
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
