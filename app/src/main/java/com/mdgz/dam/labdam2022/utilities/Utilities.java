@@ -3,6 +3,9 @@ package com.mdgz.dam.labdam2022.utilities;
 import android.text.Editable;
 import android.text.TextWatcher;
 
+import java.text.SimpleDateFormat;
+import java.util.concurrent.TimeUnit;
+
 public final class Utilities {
 
     private Utilities(){}
@@ -40,6 +43,16 @@ public final class Utilities {
 
         @Override
         public abstract void afterTextChanged(Editable editable);
+    }
+
+    public static long getDateDiff(String oldDate, String newDate) {
+        SimpleDateFormat format =new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            return TimeUnit.MILLISECONDS.convert(format.parse(newDate).getTime() - format.parse(oldDate).getTime(), TimeUnit.MILLISECONDS);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 54640;
+        }
     }
 
 }

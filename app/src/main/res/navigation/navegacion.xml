@@ -53,5 +53,14 @@
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.mdgz.dam.labdam2022.SettingsFragment"
-        android:label="Configuración" />
+        android:label="@string/label_configuracion" >
+        <action
+            android:id="@+id/action_settingsFragment_to_detalleLogs"
+            app:destination="@id/detalleLogs" />
+    </fragment>
+    <fragment
+        android:id="@+id/detalleLogs"
+        android:name="com.mdgz.dam.labdam2022.DetalleLogs"
+        android:label="@string/label_detalle_uso"
+        tools:layout="@layout/fragment_detalle_logs" />
 </navigation>

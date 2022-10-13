@@ -46,5 +46,9 @@
     <string name="busqueda_departamento">Departamento</string>
     <string name="busqueda_hotel">Hotel</string>
     <string name="busqueda_wifi">Wi-Fi</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="titulo_logs">Búsquedas realizadas</string>
+    <string name="label_configuracion">Configuración</string>
+    <string name="label_detalle_uso">Detalle de uso</string>
 
 </resources>

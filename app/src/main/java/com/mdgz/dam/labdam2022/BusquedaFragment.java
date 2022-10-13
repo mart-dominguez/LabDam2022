@@ -1,12 +1,15 @@
 package com.mdgz.dam.labdam2022;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
+import androidx.preference.CheckBoxPreference;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -23,8 +26,12 @@ import com.google.android.material.slider.RangeSlider;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.mdgz.dam.labdam2022.databinding.FragmentBusquedaBinding;
 import com.mdgz.dam.labdam2022.utilities.Utilities;
+import com.mdgz.dam.labdam2022.viewmodels.LogViewModel;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class BusquedaFragment extends Fragment {
@@ -109,6 +116,23 @@ public class BusquedaFragment extends Fragment {
 
     protected void buscar(View v)
     {
+
+        SharedPreferences pref = getContext().getSharedPreferences("cfg",0);
+        //Preguntar si la preferencia esta activada
+        if(pref.getBoolean("check_uso_app",true)){
+
+            //Guardar todos los datos en el view model
+            LogViewModel logViewModel = new ViewModelProvider(getActivity()).get(LogViewModel.class);
+            logViewModel.setCant_ocupantes(Integer.parseInt(binding.bOcupantesEdit.getText().toString()));
+            logViewModel.setCiudad(binding.bCiudadSpinner.getSelectedItem().toString());
+            logViewModel.setDpto(binding.bDepartamentoCheck.isChecked());
+            logViewModel.setHotel(binding.bHotelCheck.isChecked());
+            logViewModel.setWifi(binding.bWifiSwitch.isChecked());
+            logViewModel.setTimestamp(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar
+                    .getInstance().getTime()));
+
+        }
+
         NavDirections action = BusquedaFragmentDirections.actionBusquedaFragmentToResultadoBusquedaFragment();
         Navigation.findNavController(v).navigate(action);
     }
