@@ -46,6 +46,7 @@
             app:key="check_uso_app"
             app:title="@string/uso_app"
             app:summary="@string/resumen_uso"
+            app:defaultValue="true"
             />
 
         <Preference

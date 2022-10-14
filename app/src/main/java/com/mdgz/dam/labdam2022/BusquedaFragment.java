@@ -117,9 +117,9 @@ public class BusquedaFragment extends Fragment {
     protected void buscar(View v)
     {
 
-        SharedPreferences pref = getContext().getSharedPreferences("cfg",0);
+        SharedPreferences pref = getContext().getSharedPreferences("com.mdgz.dam.labdam2022_preferences",0);
         //Preguntar si la preferencia esta activada
-        if(pref.getBoolean("check_uso_app",true)){
+        if(pref.getBoolean("check_uso_app",false)){
 
             //Guardar todos los datos en el view model
             LogViewModel logViewModel = new ViewModelProvider(getActivity()).get(LogViewModel.class);

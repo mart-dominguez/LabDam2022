@@ -1,5 +1,6 @@
 package com.mdgz.dam.labdam2022;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -63,22 +64,29 @@ public class ResultadoBusquedaFragment extends Fragment {
         mAdapter = new AlojamientoAdapter(listaDeAlojamientos.getLista());
         recyclerView.setAdapter(mAdapter);
 
-        //--- Manejo de LOG de busqueda
-        LogViewModel logViewModel = new ViewModelProvider(getActivity()).get(LogViewModel.class);
-        // Si todavia no se guardo el log:
-        if(!logViewModel.isGuardado()){
 
-            // Seteo cantidad de resultados y tiempo de busqueda
-            logViewModel.setCant_resultados(mAdapter.getItemCount());
-            long dif = Utilities.getDateDiff(logViewModel.getTimestamp(), new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar
-                    .getInstance().getTime()));
-            logViewModel.setTiempo_busqueda(String.valueOf(dif));
+        SharedPreferences pref = getContext().getSharedPreferences("com.mdgz.dam.labdam2022_preferences",0);
+        //Preguntar si la preferencia esta activada
+        if(pref.getBoolean("check_uso_app",false)){
 
-            // Llamar al metodo para guardar el log
-            ManejoLogs manejoLogs = new ManejoLogs(getContext());
-            manejoLogs.escribirEnArchivo(logViewModel.toJSON());
+            //--- Manejo de LOG de busqueda
+            LogViewModel logViewModel = new ViewModelProvider(getActivity()).get(LogViewModel.class);
+            // Si todavia no se guardo el log:
+            if(!logViewModel.isGuardado()){
 
-            logViewModel.setGuardado(true);
+                // Seteo cantidad de resultados y tiempo de busqueda
+                logViewModel.setCant_resultados(mAdapter.getItemCount());
+                long dif = Utilities.getDateDiff(logViewModel.getTimestamp(), new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar
+                        .getInstance().getTime()));
+                logViewModel.setTiempo_busqueda(String.valueOf(dif));
+
+                // Llamar al metodo para guardar el log
+                ManejoLogs manejoLogs = new ManejoLogs(getContext());
+                manejoLogs.escribirEnArchivo(logViewModel.toJSON());
+
+                logViewModel.setGuardado(true);
+
+            }
 
         }
 

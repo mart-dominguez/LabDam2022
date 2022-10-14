@@ -17,7 +17,7 @@ public class LogViewModel extends ViewModel {
     int cant_ocupantes;
 
     public LogViewModel(){
-        guardado = false;
+        guardado = true;
         timestamp = null;
         cant_resultados = 0;
         tiempo_busqueda = null;
