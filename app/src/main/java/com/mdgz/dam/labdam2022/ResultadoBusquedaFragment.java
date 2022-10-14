@@ -63,17 +63,25 @@ public class ResultadoBusquedaFragment extends Fragment {
         mAdapter = new AlojamientoAdapter(listaDeAlojamientos.getLista());
         recyclerView.setAdapter(mAdapter);
 
-        // Setear tiempo que tardo la busqueda y cantidad de resultados
+        //--- Manejo de LOG de busqueda
         LogViewModel logViewModel = new ViewModelProvider(getActivity()).get(LogViewModel.class);
-        logViewModel.setCant_resultados(mAdapter.getItemCount());
-        long dif = Utilities.getDateDiff(logViewModel.getTimestamp(), new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar
-                .getInstance().getTime()));
-        logViewModel.setTiempo_busqueda(String.valueOf(dif)); //ver
+        // Si todavia no se guardo el log:
+        if(!logViewModel.isGuardado()){
 
+            // Seteo cantidad de resultados y tiempo de busqueda
+            logViewModel.setCant_resultados(mAdapter.getItemCount());
+            long dif = Utilities.getDateDiff(logViewModel.getTimestamp(), new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar
+                    .getInstance().getTime()));
+            logViewModel.setTiempo_busqueda(String.valueOf(dif));
 
-        // Llamar al metodo para guardar el log
-        ManejoLogs manejoLogs = new ManejoLogs(getContext());
-        manejoLogs.escribirEnArchivo(logViewModel.toJSON());
+            // Llamar al metodo para guardar el log
+            ManejoLogs manejoLogs = new ManejoLogs(getContext());
+            manejoLogs.escribirEnArchivo(logViewModel.toJSON());
+
+            logViewModel.setGuardado(true);
+
+        }
+
 
         //FloatingButton
         btnBuscar = binding.btnNuevaBusqueda;

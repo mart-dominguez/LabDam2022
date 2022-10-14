@@ -7,7 +7,7 @@ import org.json.JSONObject;
 
 public class LogViewModel extends ViewModel {
 
-    boolean autoriza;
+    boolean guardado;
     String timestamp;
     int cant_resultados;
     String tiempo_busqueda;
@@ -17,7 +17,7 @@ public class LogViewModel extends ViewModel {
     int cant_ocupantes;
 
     public LogViewModel(){
-        autoriza = false;
+        guardado = false;
         timestamp = null;
         cant_resultados = 0;
         tiempo_busqueda = null;
@@ -63,6 +63,11 @@ public class LogViewModel extends ViewModel {
     }
 
     //Setters
+
+    public void setGuardado(boolean guardado) {
+        this.guardado = guardado;
+    }
+
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
     }
@@ -104,6 +109,10 @@ public class LogViewModel extends ViewModel {
     }
 
     //Getters
+
+    public boolean isGuardado() {
+        return guardado;
+    }
 
     public String getTimestamp() {
         return timestamp;

@@ -131,6 +131,7 @@ public class BusquedaFragment extends Fragment {
             logViewModel.setTimestamp(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar
                     .getInstance().getTime()));
 
+            logViewModel.setGuardado(false);
         }
 
         NavDirections action = BusquedaFragmentDirections.actionBusquedaFragmentToResultadoBusquedaFragment();
