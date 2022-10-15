@@ -3,12 +3,154 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:visibility="visible"
     tools:context=".BusquedaFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/form_busqueda" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/form_busqueda" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/tipo_alojamiento"
+                android:textSize="16sp" />
+
+            <Spinner
+                android:id="@+id/spinner_tipo_alojamiento"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:entries="@array/tipo_alojamiento"
+                android:gravity="center"
+                android:minHeight="48dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/cant_ocupantes"
+                android:textSize="16sp" />
+
+            <!--Modificar para hacerlo mas lindo con un stepper-->
+            <Spinner
+                android:id="@+id/spinner_cant_ocupantes"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:entries="@array/cant_ocupantes"
+                android:gravity="center"
+                android:minHeight="48dp" />
+        </LinearLayout>
+
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:minHeight="48dp"
+            android:text="@string/wifi" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <!--Modificar para agregarle "Minimo" adentro, como ML-->
+            <EditText
+                android:id="@+id/precio_minimo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="7"
+                android:gravity="center"
+                android:hint="@string/precio_minimo"
+                android:inputType="numberDecimal"
+                android:minHeight="48dp"
+                android:importantForAutofill="no" />
+
+
+            <!--Modificar para que se quede a la derecha-->
+            <EditText
+                android:id="@+id/precio_maximo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="7"
+                android:gravity="center"
+                android:hint="@string/precio_maximo"
+                android:inputType="numberDecimal"
+                android:minHeight="48dp"
+                android:importantForAutofill="no" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/ciudad"
+                android:textSize="16sp" />
+
+            <Spinner
+                android:id="@+id/spinner4"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:entries="@array/ciudades"
+                android:gravity="center"
+                android:minHeight="48dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_limpiarCampos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/txt_limpiarCampos" />
+
+                <Button
+                    android:id="@+id/btn_Buscar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/txt_buscar" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
 
 </FrameLayout>

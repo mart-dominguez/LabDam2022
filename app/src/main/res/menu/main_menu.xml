@@ -3,20 +3,23 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/app_bar_search"
+        android:id="@+id/mnuOptBuscar"
         android:icon="?android:attr/actionModeWebSearchDrawable"
-        android:title="@string/buscar"
+        android:title="@string/icon_buscar"
         app:actionViewClass="android.widget.SearchView"
         app:showAsAction="always" />
     <item
-        android:title="@string/mr"
+        android:id="@+id/mnuOptReservas"
+        android:title="@string/icon_mis_reservas"
 
         app:showAsAction="always" />
     <item
+        android:id="@+id/mnuOptFavoritos"
         android:icon="@android:drawable/btn_star"
-        android:title="@string/mis_favoritos"
+        android:title="@string/icon_mis_favoritos"
         app:showAsAction="always" />
     <item
+        android:id="@+id/mnuOptConfiguracion"
         android:icon="@android:drawable/ic_menu_manage"
-        android:title="@string/configuracion" />
+        android:title="@string/icon_configuracion" />
 </menu>

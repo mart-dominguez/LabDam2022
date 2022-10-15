@@ -1,10 +1,48 @@
 <resources>
     <string name="app_name">LabDam2022</string>
-    <string name="resultado_busqueda">Resultado busqueda fragment</string>
-    <string name="form_busqueda">FORMULARIO busqueda fragment</string>
+    <!--Strings botones menu-->
+    <string name="icon_buscar">Buscar</string>
+    <string name="icon_mis_reservas">Mis Reservas</string>
+    <string name="icon_mis_favoritos">Mis Favoritos</string>
+    <string name="icon_configuracion">Configuración</string>
+    <!--Strings en fragments-->
+
+    <string name="form_busqueda">FORMULARIO busqueda</string>
     <string name="detalle_alojamiento">DETALLE alojamiento fragment</string>
-    <string name="buscar">Buscar</string>
-    <string name="mr">MR</string>
-    <string name="mis_favoritos">Mis Favoritos</string>
-    <string name="configuracion">Configuración</string>
+
+    <!--Strings en fragment busqueda-->
+    <string name="resultado_busqueda">Resultado busqueda fragment</string>
+    <string name="tipo_alojamiento">Tipo de Alojamiento</string>
+    <string-array name="tipo_alojamiento">
+        <item>HOTELES</item>
+        <item>DEPARTAMENTOS</item>
+        <item>AMBOS</item>
+    </string-array>
+    <string name="cant_ocupantes">Cantidad de Ocupantes</string>
+    <string-array name="cant_ocupantes">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+    </string-array>
+    <string name="wifi">Incluye WIFI</string>
+
+    <string name="precio_maximo">Máximo</string>
+    <string name="precio_minimo">Mínimo</string>
+    <string name="ciudad">Ciudad</string>
+    <string name="txt_buscar">Buscar</string>
+    <string name="txt_limpiarCampos">Limpiar Campos</string>
+    <!--Modificar para agregar ciudades desde la BD?-->
+    <string-array name="ciudades">
+        <item>Santa Fe</item>
+        <item>Miami</item>
+        <item>Dubái</item>
+        <item>Kiev</item>
+        <item>Seúl</item>
+        <item>Cartagena</item>
+    </string-array>
+
+
 </resources>
