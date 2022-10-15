@@ -10,14 +10,15 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:theme="@style/Theme.MyTheme"
         >
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/mi_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:theme="@style/Theme.MyTheme"
-            app:title="AlojAr"/>
+            app:title="AlojarWorld"
+            android:theme="@style/Theme.MyTheme"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 

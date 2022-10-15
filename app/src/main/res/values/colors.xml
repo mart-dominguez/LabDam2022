@@ -9,7 +9,9 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="prussian_blue">#003049</color>
+    <color name="maximum_red">#D62828</color>
+    <color name="orange">#F77F00</color>
+    <color name="maximum_yellow_red">#FCBF49</color>
     <color name="lemon_meringue">#EAE2B7</color>
-
-
+    <color name="spanish_orange">#E36400</color>
 </resources>
