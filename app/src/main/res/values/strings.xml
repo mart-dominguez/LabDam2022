@@ -29,14 +29,14 @@
     <string name="cuit_titulo">CUIT</string>
     <string name="cuit_default">Escriba su número de cuit</string>
 
-    <string name="metodo_pago">Seleccione el método de pago preferido</string>
+    <string name="metodo_pago">Método de pago</string>
 
-    <string name="moneda_pago">Seleccione la moneda preferida</string>
+    <string name="moneda_pago">Moneda</string>
 
     <string name="notificaciones_titulo">Notificaciones</string>
 
-    <string name="uso_app">Guardar información de uso</string>
-    <string name="resumen_uso">Autorizar a guardar información de uso de la aplicación</string>
+    <string name="uso_app">Información de uso</string>
+    <string name="resumen_uso">Registrar información de uso de la aplicación</string>
 
     <string name="detalle_uso">Detalle de uso de aplicación</string>
     <string name="busqueda_titulo">Alojamiento turístico</string>

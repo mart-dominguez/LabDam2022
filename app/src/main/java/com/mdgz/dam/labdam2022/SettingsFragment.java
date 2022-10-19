@@ -1,100 +1,89 @@
 package com.mdgz.dam.labdam2022;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Environment;
-import android.util.Log;
 import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.preference.CheckBoxPreference;
-import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
 
+
+
     @Override
-    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+    public void onCreatePreferences(Bundle savedInstanceState, String rootKey)
+    {
         setPreferencesFromResource(R.xml.root_preferences, rootKey);
     }
 
-    private ListPreference listaMetodos;
-    private Preference detalleUso;
-    private CheckBoxPreference checkUso;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
         super.onViewCreated(view, savedInstanceState);
+        metodoMoneda();
+        infoDetalles();
 
-        handleMetodoYMonedaDePago();
-
-        handleInfDeUso();
-
-        handleDetalleDeUso(view);
     }
 
-    private void handleMetodoYMonedaDePago(){
-
+    private void metodoMoneda()
+    {
         SharedPreferences sharedPreferences = getPreferenceManager().getSharedPreferences();
 
+        Preference moneda = findPreference("moneda_pago");
+        Preference metodoPago = findPreference("metodo_pago");
+        String metodoPagoValor = sharedPreferences.getString("metodo_pago", null);
+
+
         //Para cuando se cree por primera vez, me fijo en que estado se encuentra metodo de pago
-        String metodo = sharedPreferences.getString("metodo_pago", "def");
-        if(!metodo.equals("EF")) findPreference("moneda_pago").setEnabled(false);
+
+        moneda.setEnabled(metodoPagoValor.equals("EF"));
 
         //Listener del metodo de pago
-        listaMetodos = getPreferenceManager().findPreference("metodo_pago");
-        listaMetodos.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                if(newValue.toString().equals("EF")){
-                    findPreference("moneda_pago").setEnabled(true);
-                }else findPreference("moneda_pago").setEnabled(false);
-                return true;
-            }
+
+        metodoPago.setOnPreferenceChangeListener((Preference preference, Object newValue) ->
+        {
+            moneda.setEnabled(newValue.toString().equals("EF"));
+            return true;    //True para actualizar el valor
         });
 
     }
 
-    private void handleInfDeUso(){
-        checkUso = getPreferenceManager().findPreference("check_uso_app");
-        checkUso.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                if(!checkUso.isChecked()){
-                    //Eliminar el archivo de logs
-                    try {
-                        File log = new File(getContext().getFilesDir() + "/logs.json");
-                        log.delete();
-                    }catch (Exception e) {e.printStackTrace();}
+    private void infoDetalles()
+    {
+        CheckBoxPreference checkUso = findPreference("check_uso_app");
+        Preference detalleUso = findPreference("detalle_uso");
+
+        checkUso.setOnPreferenceChangeListener((Preference preference, Object newValue) ->
+        {
+            if(!checkUso.isChecked())
+            {
+                //Eliminar el archivo de logs
+                try
+                {
+                    File log = new File(getContext().getFilesDir() + "/logs.json");
+                    log.delete();
                 }
-
-                return false;
+                catch (Exception e) {e.printStackTrace();}
             }
+            return true;
         });
 
-    }
-
-    private void handleDetalleDeUso(View view){
-        detalleUso = getPreferenceManager().findPreference("detalle_uso");
-        detalleUso.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-
-                NavDirections action = SettingsFragmentDirections.actionSettingsFragmentToDetalleLogs();
-                Navigation.findNavController(view).navigate(action);
-
-                return false;
-            }
+        detalleUso.setOnPreferenceClickListener((Preference preference) ->
+        {
+            NavDirections action = SettingsFragmentDirections.actionSettingsFragmentToDetalleLogs();
+            NavHostFragment.findNavController(this).navigate(action);   //Se puede usar este metodo (en vez de Navigation.findNavController(view))
+            return false;                                                       //cuando no se tiene una referencia sencilla a la view
         });
+
     }
 
 }

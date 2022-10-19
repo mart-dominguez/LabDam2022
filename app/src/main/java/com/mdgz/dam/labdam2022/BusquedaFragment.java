@@ -30,6 +30,9 @@ import com.mdgz.dam.labdam2022.viewmodels.LogViewModel;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -37,6 +40,8 @@ import java.util.List;
 public class BusquedaFragment extends Fragment {
 
     private FragmentBusquedaBinding binding;
+    private SharedPreferences pref;
+    private LogViewModel logViewModel;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -48,7 +53,8 @@ public class BusquedaFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
+    {
         super.onViewCreated(view,savedInstanceState);
 
         binding.bHotelCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -111,28 +117,32 @@ public class BusquedaFragment extends Fragment {
             }
         });
 
+        pref = getContext().getSharedPreferences("com.mdgz.dam.labdam2022_preferences",0);
+        logViewModel = new ViewModelProvider(getActivity()).get(LogViewModel.class);
 
     }
 
     protected void buscar(View v)
     {
 
-        SharedPreferences pref = getContext().getSharedPreferences("com.mdgz.dam.labdam2022_preferences",0);
         //Preguntar si la preferencia esta activada
-        if(pref.getBoolean("check_uso_app",false)){
+        if(pref.getBoolean("check_uso_app",false))
+        {
+            logViewModel.setGuardado(true);
+            LogViewModel.SearchLog log = logViewModel.getLog();
 
             //Guardar todos los datos en el view model
-            LogViewModel logViewModel = new ViewModelProvider(getActivity()).get(LogViewModel.class);
-            logViewModel.setCant_ocupantes(Integer.parseInt(binding.bOcupantesEdit.getText().toString()));
-            logViewModel.setCiudad(binding.bCiudadSpinner.getSelectedItem().toString());
-            logViewModel.setDpto(binding.bDepartamentoCheck.isChecked());
-            logViewModel.setHotel(binding.bHotelCheck.isChecked());
-            logViewModel.setWifi(binding.bWifiSwitch.isChecked());
-            logViewModel.setTimestamp(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar
-                    .getInstance().getTime()));
+            log.setCant_ocupantes(Utilities.editableToInteger(binding.bOcupantesEdit.getText()));
+            log.setCiudad(binding.bCiudadSpinner.getSelectedItem().toString());
+            log.setDpto(binding.bDepartamentoCheck.isChecked());
+            log.setHotel(binding.bHotelCheck.isChecked());
+            log.setWifi(binding.bWifiSwitch.isChecked());
+            Float[] valores = binding.bPrecioSlider.getValues().toArray(new Float[0]);
+            log.setVal_max(valores[1]);
+            log.setVal_min(valores[0]);
+            log.setTimestamp(Utilities.nowArgentina().toString());
 
-            logViewModel.setGuardado(false);
-        }
+        } else logViewModel.setGuardado(false);
 
         NavDirections action = BusquedaFragmentDirections.actionBusquedaFragmentToResultadoBusquedaFragment();
         Navigation.findNavController(v).navigate(action);

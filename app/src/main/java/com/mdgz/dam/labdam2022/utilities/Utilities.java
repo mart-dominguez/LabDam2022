@@ -4,6 +4,8 @@ import android.text.Editable;
 import android.text.TextWatcher;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.concurrent.TimeUnit;
 
 public final class Utilities {
@@ -45,14 +47,11 @@ public final class Utilities {
         public abstract void afterTextChanged(Editable editable);
     }
 
-    public static long getDateDiff(String oldDate, String newDate) {
-        SimpleDateFormat format =new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        try {
-            return TimeUnit.MILLISECONDS.convert(format.parse(newDate).getTime() - format.parse(oldDate).getTime(), TimeUnit.MILLISECONDS);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return 54640;
-        }
+    //LocalDateTime con el UTC de Argentina (UTC -3)
+    public static LocalDateTime nowArgentina()
+    {
+        ZoneId id = ZoneId.of("America/Argentina/Buenos_Aires");
+        return LocalDateTime.now(id);
     }
 
 }

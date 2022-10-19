@@ -10,7 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".DetalleLogs"
-        android:layout_margin="15dp"
         android:orientation="vertical">
 
         <!-- TODO: Update blank fragment layout -->
@@ -18,15 +17,18 @@
             android:id="@+id/tituloLog"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:text="@string/titulo_logs"
             android:textAlignment="center"
-            android:textSize="16sp" />
+            android:layout_marginTop="@dimen/normal_margin"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2" />
+
         <TextView
             android:id="@+id/detalleLogs"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            ></TextView>
+            android:layout_margin="@dimen/normal_margin"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+            />
 
 
     </LinearLayout>
