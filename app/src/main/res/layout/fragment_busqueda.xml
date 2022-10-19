@@ -3,12 +3,119 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:rangoPrecio="http://schemas.android.com/apk/res-auto"
+    xmlns:tipoAlojamiento="http://schemas.android.com/apk/res-auto"
     tools:context=".BusquedaFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/form_busqueda" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/form_busqueda" />
+        <Spinner
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="¿Qué estás buscando?"/>
+
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tipoAlojamiento:singleSelection="true"
+                tipoAlojamiento:checkedButton="@id/tb_3">
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Hotel"
+                    android:id="@+id/tb_1"
+                    style="?attr/materialButtonOutlinedStyle" />
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Departamento"
+                    android:id="@+id/tb_2"
+                    style="?attr/materialButtonOutlinedStyle" />
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Ambos"
+                    android:id="@+id/tb_3"
+                    style="?attr/materialButtonOutlinedStyle" />
+
+            </com.google.android.material.button.MaterialButtonToggleGroup>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="¿Cuántos son?"/>
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="¿Necesitas Wifi?"/>
+            <ToggleButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                android:textOn="CON WIFI"
+                android:textOff="SIN WIFI"></ToggleButton>
+
+        </LinearLayout>
+        <!--Posteriormente se deberia consultar precio min y max alñ definir rango-->
+        <com.google.android.material.slider.RangeSlider
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            rangoPrecio:labelBehavior="withinBounds"
+            android:valueFrom="1000"
+            android:valueTo="50000"
+            android:stepSize="1000"
+            rangoPrecio:values="@array/initial_slider_values"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/buttonReiniciar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Reiniciar"
+                />
+            <Button
+                android:id="@+id/buttonBuscar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+
+                android:text="Buscar"/>
+        </LinearLayout>
+    </LinearLayout>
+
 
 </FrameLayout>
