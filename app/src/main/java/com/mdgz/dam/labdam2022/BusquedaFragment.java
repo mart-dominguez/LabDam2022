@@ -25,6 +25,7 @@ import android.widget.Switch;
 import com.google.android.material.slider.RangeSlider;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.mdgz.dam.labdam2022.databinding.FragmentBusquedaBinding;
+import com.mdgz.dam.labdam2022.utilities.EstadiaDialog;
 import com.mdgz.dam.labdam2022.utilities.Utilities;
 import com.mdgz.dam.labdam2022.viewmodels.LogViewModel;
 
@@ -42,12 +43,14 @@ public class BusquedaFragment extends Fragment {
     private FragmentBusquedaBinding binding;
     private SharedPreferences pref;
     private LogViewModel logViewModel;
+    private LayoutInflater inflater;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         binding = FragmentBusquedaBinding.inflate(getLayoutInflater());
+        this.inflater = inflater;
         return binding.getRoot();
 
     }

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/ade_fechaInicio_editText"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/long_margin"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/ade_fechaInicio_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            android:focusable="false"
+            android:hint="Desde"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/ade_fechaFin_editText"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/long_margin"
+        android:layout_marginTop="@dimen/small_margin"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:layout_constraintTop_toBottomOf="@id/ade_fechaInicio_editText"
+        app:layout_constraintStart_toStartOf="parent">
+
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/ade_fechaFin_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            android:focusable="false"
+            android:hint="Hasta"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <TextView
+        android:id="@+id/ade_ocupantes_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Ocupantes"
+        android:layout_marginEnd="@dimen/long_margin"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+        android:textColor="@color/secondaryTextColor"
+        />
+
+    <EditText
+        android:id="@+id/ade_ocupantes_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/ade_ocupantes_text"
+        app:layout_constraintBottom_toBottomOf="@id/ade_fechaInicio_editText"
+        app:layout_constraintStart_toStartOf="@id/ade_ocupantes_text"
+        app:layout_constraintEnd_toEndOf="@id/ade_ocupantes_text"
+        android:ems="2"
+        android:inputType="number"
+        android:text="1"
+        android:textAlignment="center" />
+
+    <TextView
+        android:id="@+id/ade_precio_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/ade_fechaFin_editText"
+        app:layout_constraintStart_toStartOf="@id/ade_ocupantes_text"
+        app:layout_constraintEnd_toEndOf="@id/ade_ocupantes_text"
+        android:text="Precio"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+        android:textColor="@color/secondaryTextColor"
+        />
+
+    <TextView
+        android:id="@+id/ade_precio_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/ade_precio_text"
+        app:layout_constraintStart_toStartOf="@id/ade_precio_text"
+        app:layout_constraintEnd_toEndOf="@id/ade_precio_text"
+        app:layout_constraintBottom_toBottomOf="@id/ade_fechaFin_editText"
+        android:text="$3000"
+        android:textColor="?attr/colorSecondaryVariant"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+        />
+
+    <TextView
+        android:id="@+id/ade_reserva_caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/ade_fechaFin_editText"
+        app:layout_constraintEnd_toEndOf="@id/ade_ocupantes_text"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="Usted está a punto de realizar una reserva en Departamento BuenaAventura. Compruebe que los valores son correctos"
+        android:layout_marginStart="@dimen/long_margin"
+        android:paddingStart="@dimen/long_margin"
+        android:paddingEnd="@dimen/long_margin"
+        android:layout_marginTop="@dimen/long_margin"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,7 @@
 package com.mdgz.dam.labdam2022.utilities;
 
+import android.app.Activity;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,15 +25,20 @@ import java.util.Random;
 public class AlojamientoAdapter extends RecyclerView.Adapter<AlojamientoAdapter.AlojamientoViewHolder> {
 
     private List<Alojamiento> alojamientos;
+    private Activity activity;
 
-    public AlojamientoAdapter(List<Alojamiento> alojamientos){
+    public AlojamientoAdapter(List<Alojamiento> alojamientos, Activity activity){
+        this.activity = activity;
         this.alojamientos = alojamientos;
     }
 
     @NonNull
     @Override       //Metodo que se ejecuta una vez por cada fila que se visualiza
-    public AlojamientoAdapter.AlojamientoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int tipo){
-        return new AlojamientoViewHolder(CardAlojamientoBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
+    public AlojamientoAdapter.AlojamientoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int tipo)
+    {
+        return new AlojamientoViewHolder(CardAlojamientoBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false),
+                activity, parent.getContext(),LayoutInflater.from(parent.getContext()));
+                //Argumentos adicionales para crear el AlertDialog
     }
 
 
@@ -54,13 +61,19 @@ public class AlojamientoAdapter extends RecyclerView.Adapter<AlojamientoAdapter.
     {
         CardAlojamientoBinding binding;
         CardAlojamientoExpandableBinding expandableBinding;
+        private Activity activity;
+        private Context context;
+        LayoutInflater inflater;
 
         //Constructor
-        public AlojamientoViewHolder(CardAlojamientoBinding binding) //Recibe la vista inflada
+        public AlojamientoViewHolder(CardAlojamientoBinding binding, Activity activity, Context context, LayoutInflater inflater) //Recibe la vista inflada
         {
             super(binding.getRoot());
             this.binding = binding;
             expandableBinding = binding.caExpandable;
+            this.activity = activity;
+            this.context = context;
+            this.inflater = inflater;
         }
 
         //1. Seteo de los "nuevos" datos del alojamiento de la fila asociada al holder
@@ -72,6 +85,14 @@ public class AlojamientoAdapter extends RecyclerView.Adapter<AlojamientoAdapter.
                     //Logica para agregar a favorito y desagregar de favorito
                     //...
                     binding.caFavoriteButton.setImageResource(R.drawable.ic_baseline_favorite_filled_24);
+                }
+            });
+
+            //Reservar
+            binding.caReservarButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    EstadiaDialog.create(activity,inflater,context,alojamiento).show();
                 }
             });
 

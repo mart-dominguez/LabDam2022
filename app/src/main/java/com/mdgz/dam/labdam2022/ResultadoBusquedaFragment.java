@@ -60,7 +60,7 @@ public class ResultadoBusquedaFragment extends Fragment {
 
         listaDeAlojamientos = new ListaDeAlojamientos();
 
-        mAdapter = new AlojamientoAdapter(listaDeAlojamientos.getLista());
+        mAdapter = new AlojamientoAdapter(listaDeAlojamientos.getLista(),getActivity());
         recyclerView.setAdapter(mAdapter);
 
 
