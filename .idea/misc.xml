@@ -4,12 +4,14 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/German/Factu_NoClass/DAM/PR2/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/German/Factu_NoClass/DAM/PR2/app/src/main/res/layout/alojamiento_item.xml" value="0.2463768115942029" />
         <entry key="..\:/German/Factu_NoClass/DAM/PR2/app/src/main/res/layout/fragment_busqueda.xml" value="0.22418478260869565" />
         <entry key="..\:/German/Factu_NoClass/DAM/PR2/app/src/main/res/layout/fragment_configuracion.xml" value="0.12552083333333333" />
         <entry key="..\:/German/Factu_NoClass/DAM/PR2/app/src/main/res/layout/fragment_mis_favoritos.xml" value="0.12552083333333333" />
         <entry key="..\:/German/Factu_NoClass/DAM/PR2/app/src/main/res/layout/fragment_mis_reservas.xml" value="0.12552083333333333" />
         <entry key="..\:/German/Factu_NoClass/DAM/PR2/app/src/main/res/layout/fragment_resultado_busqueda.xml" value="0.12552083333333333" />
         <entry key="..\:/German/Factu_NoClass/DAM/PR2/app/src/main/res/layout/nav_header.xml" value="0.22871376811594202" />
+        <entry key="..\:/German/Factu_NoClass/DAM/PR2/app/src/main/res/layout/resultado_alojamiento_item.xml" value="0.10625" />
         <entry key="..\:/German/Factu_NoClass/DAM/PR2/app/src/main/res/menu/drawer.xml" value="0.27291666666666664" />
         <entry key="..\:/German/Factu_NoClass/DAM/PR2/app/src/main/res/menu/menu_toolbar.xml" value="0.12291666666666666" />
         <entry key="..\:/German/Factu_NoClass/DAM/PR2/app/src/main/res/menu/toolbar.xml" value="0.28020833333333334" />
