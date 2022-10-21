@@ -43,6 +43,8 @@
         <item>Seúl</item>
         <item>Cartagena</item>
     </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Bienvenido a la App AlojarWorld</string>
 
 
 </resources>

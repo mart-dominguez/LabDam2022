@@ -2,19 +2,14 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:visibility="visible"
     tools:context=".BusquedaFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/form_busqueda" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -23,7 +18,7 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/tipo_alojamiento"
                 android:textSize="16sp" />
@@ -31,7 +26,7 @@
             <Spinner
                 android:id="@+id/spinner_tipo_alojamiento"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:entries="@array/tipo_alojamiento"
                 android:gravity="center"
                 android:minHeight="48dp" />
@@ -40,12 +35,12 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/cant_ocupantes"
                 android:textSize="16sp" />
@@ -54,14 +49,14 @@
             <Spinner
                 android:id="@+id/spinner_cant_ocupantes"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:entries="@array/cant_ocupantes"
                 android:gravity="center"
                 android:minHeight="48dp" />
         </LinearLayout>
 
         <CheckBox
-            android:id="@+id/checkBox"
+            android:id="@+id/chk_wifi"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_gravity="center"
@@ -71,10 +66,9 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <!--Modificar para agregarle "Minimo" adentro, como ML-->
             <EditText
                 android:id="@+id/precio_minimo"
                 android:layout_width="wrap_content"
@@ -85,7 +79,6 @@
                 android:inputType="numberDecimal"
                 android:minHeight="48dp"
                 android:importantForAutofill="no" />
-
 
             <!--Modificar para que se quede a la derecha-->
             <EditText
@@ -103,20 +96,20 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/ciudad"
                 android:textSize="16sp" />
 
             <Spinner
-                android:id="@+id/spinner4"
+                android:id="@+id/spinner_ciudad"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:entries="@array/ciudades"
                 android:gravity="center"
                 android:minHeight="48dp" />
@@ -125,13 +118,16 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_gravity="bottom">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_gravity="bottom">
 
+                <!--Modificar para que se queden abajo-->
                 <Button
                     android:id="@+id/btn_limpiarCampos"
                     android:layout_width="wrap_content"
@@ -146,11 +142,6 @@
                     android:layout_weight="1"
                     android:text="@string/txt_buscar" />
             </LinearLayout>
-
-
         </LinearLayout>
-
     </LinearLayout>
-
-
 </FrameLayout>

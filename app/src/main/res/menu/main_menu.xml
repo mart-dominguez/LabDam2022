@@ -6,12 +6,10 @@
         android:id="@+id/mnuOptBuscar"
         android:icon="?android:attr/actionModeWebSearchDrawable"
         android:title="@string/icon_buscar"
-        app:actionViewClass="android.widget.SearchView"
         app:showAsAction="always" />
     <item
         android:id="@+id/mnuOptReservas"
         android:title="@string/icon_mis_reservas"
-
         app:showAsAction="always" />
     <item
         android:id="@+id/mnuOptFavoritos"
