@@ -4,13 +4,18 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
+import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.DatePicker;
 
 import com.mdgz.dam.labdam2022.databinding.ActivityMainBinding;
+
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
@@ -21,7 +26,21 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         View root = binding.getRoot();
         setContentView(root);
-
+        binding.help.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view ){
+                Bundle bundle = new Bundle();
+                bundle.putString("nombre","hab1");
+                bundle.putString("descripcion", "lorem ipsum hate y mas cosas xdnt");
+                bundle.putString("capacidad","2");
+                FragmentManager fragmentManager = getSupportFragmentManager();
+               DetalleAlojamientoFragment detalleAlojamientoFragment = new DetalleAlojamientoFragment();
+               detalleAlojamientoFragment.setArguments(bundle);
+                fragmentManager.beginTransaction()
+                        .replace(R.id.fragmentContainerView, detalleAlojamientoFragment)
+                        .addToBackStack(null).commit();
+            }
+        });
         setSupportActionBar(binding.toolbar);
 //        ActionBar ab = getSupportActionBar();
 ////        ab.setHomeAsUpIndicator(R.drawable.ic_menu);

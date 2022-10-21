@@ -1,12 +1,30 @@
 package com.mdgz.dam.labdam2022;
 
+import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import com.mdgz.dam.labdam2022.databinding.FragmentDetalleAlojamientoBinding;
+import com.mdgz.dam.labdam2022.model.Alojamiento;
+import com.mdgz.dam.labdam2022.repo.AlojamientoRepository;
+
+import java.time.Duration;
+import java.time.temporal.Temporal;
+import java.util.Calendar;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,7 +32,7 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class DetalleAlojamientoFragment extends Fragment {
-
+    Button btnInicio;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -59,6 +77,91 @@ public class DetalleAlojamientoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_detalle_alojamiento, container, false);
+        FragmentDetalleAlojamientoBinding binding;
+        binding= FragmentDetalleAlojamientoBinding.inflate(inflater, container,false);
+        View view = binding.getRoot();
+
+        Bundle bundle = this.getArguments();
+        if(bundle!= null){
+            //AlojamientoRepository alojamiento = new AlojamientoRepository();
+            //int id = bundle.getInt("id");
+            binding.txtNombre.setText(bundle.getString("nombre"));
+            binding.txtDescripcion.setText(bundle.getString("descripcion"));
+            binding.txtCapacidad.setText(bundle.getString("capacidad"));
+            Double precioFinal = bundle.getDouble("precio base");
+            binding.txtPrecio.setText("$"+precioFinal.toString());
+        }
+
+        binding.btnFav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                 binding.txtFinEstadia.setText("hate");
+                MisFavoritosFragment misFavoritosFragment = new MisFavoritosFragment();
+                misFavoritosFragment.setArguments(bundle);
+
+            }
+        });
+        binding.btnInicioestadia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view ){
+                final Calendar calendario = Calendar.getInstance();
+                int yy = calendario.get(Calendar.YEAR);
+                int mm = calendario.get(Calendar.MONTH);
+                int dd = calendario.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog datePicker = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int day) {
+
+                        binding.txtInicioEstadia.setText( day+"/"+month+"/"+year);
+
+
+                    }
+                }, yy, mm, dd);
+                datePicker.show();
+            }
+            });
+        binding.btnFinestadia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view ){
+                final Calendar calendario = Calendar.getInstance();
+                int yy = calendario.get(Calendar.YEAR);
+                int mm = calendario.get(Calendar.MONTH);
+                int dd = calendario.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog datePicker = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int day) {
+
+                        binding.txtFinEstadia.setText( day+"/"+month+"/"+year);
+
+
+                    }
+                }, yy, mm, dd);
+                datePicker.show();
+            }
+        });
+
+
+
+        return view;
     }
+    private class InputValuesTextWatcher implements TextWatcher {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+
+        }
+    }
+
+
 }
