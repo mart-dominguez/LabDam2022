@@ -15,7 +15,7 @@
     android:layout_gravity="center"
     android:layout_marginHorizontal="8dp"
     android:layout_marginTop="4dp"
-    android:layout_marginBottom="2dp"
+    android:layout_marginBottom="4dp"
     android:elevation="4dp"
     card_view:cardCornerRadius="2dp">
 
@@ -179,7 +179,7 @@
                 android:id="@+id/favorito_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_baseline_favorite_24"></ImageView>
+                android:src="@drawable/ic_baseline_favorite_border_24"></ImageView>
         </RelativeLayout>
 
     </androidx.appcompat.widget.LinearLayoutCompat>

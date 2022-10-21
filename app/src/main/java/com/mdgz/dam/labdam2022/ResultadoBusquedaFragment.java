@@ -3,6 +3,7 @@ package com.mdgz.dam.labdam2022;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -87,4 +88,11 @@ public class ResultadoBusquedaFragment extends Fragment {
 
         return binding.getRoot();
     }
+
+
+//    private void AlojamientoItemOnClick(View v, Alojamiento alojamiento){
+//        Bundle bundle = new Bundle();
+//        bundle.putInt("alojamiento_id", alojamiento.getId());
+//        Navigation.findNavController(v).navigate(R.id.action_detalleAlojamientoFragment_to_busquedaFragment, bundle);
+//    }
 }

@@ -10,11 +10,12 @@ public abstract class Alojamiento {
     protected String imageUrl;
 
     public abstract Ubicacion getUbicacion();
-    public Double costoDia(){
+
+    public Double costoDia() {
         return precioBase;
     }
 
-    public Alojamiento(){
+    public Alojamiento() {
         super();
     }
 
@@ -27,8 +28,8 @@ public abstract class Alojamiento {
         this.imageUrl = imageUrl;
     }
 
-    public String getTitulo(){
-        return  titulo;
+    public String getTitulo() {
+        return titulo;
     }
 
     public String getDescripcion() {
@@ -47,5 +48,7 @@ public abstract class Alojamiento {
         return imageUrl;
     }
 
-
+    public Integer getId() {
+        return id;
+    }
 }
