@@ -17,43 +17,48 @@
             android:layout_height="match_parent"
             android:text="@string/form_busqueda" />
         <Spinner
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"/>
+            android:id="@+id/s_ciudad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <TextView
+                android:id="@+id/text_tipo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="¿Qué estás buscando?"/>
 
             <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/grupo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tipoAlojamiento:singleSelection="true"
                 tipoAlojamiento:checkedButton="@id/tb_3">
                 <com.google.android.material.button.MaterialButton
+                    android:id="@+id/tb_1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Hotel"
-                    android:id="@+id/tb_1"
                     style="?attr/materialButtonOutlinedStyle" />
                 <com.google.android.material.button.MaterialButton
+                    android:id="@+id/tb_2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Departamento"
-                    android:id="@+id/tb_2"
                     style="?attr/materialButtonOutlinedStyle" />
                 <com.google.android.material.button.MaterialButton
+                    android:id="@+id/tb_3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Ambos"
-                    android:id="@+id/tb_3"
                     style="?attr/materialButtonOutlinedStyle" />
 
             </com.google.android.material.button.MaterialButtonToggleGroup>
@@ -67,6 +72,7 @@
                 android:layout_height="wrap_content"
                 android:text="¿Cuántos son?"/>
             <EditText
+                android:id="@+id/cantp_edit"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -77,16 +83,19 @@
                 android:layout_marginLeft="10dp"
                 android:text="¿Necesitas Wifi?"/>
             <ToggleButton
+                android:id="@+id/wifi_tb"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginLeft="10dp"
+                android:checked="true"
                 android:textOn="CON WIFI"
-                android:textOff="SIN WIFI"></ToggleButton>
+                android:textOff="SIN WIFI"/>
 
         </LinearLayout>
         <!--Posteriormente se deberia consultar precio min y max alñ definir rango-->
         <com.google.android.material.slider.RangeSlider
+            android:id="@+id/rango_precio_rs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             rangoPrecio:labelBehavior="withinBounds"
@@ -100,14 +109,14 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <Button
-                android:id="@+id/buttonReiniciar"
+                android:id="@+id/limpiar_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Reiniciar"
+                android:text="Limpiar"
                 />
             <Button
-                android:id="@+id/buttonBuscar"
+                android:id="@+id/buscar_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
