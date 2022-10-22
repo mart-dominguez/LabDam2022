@@ -1,5 +1,7 @@
 package com.mdgz.dam.labdam2022;
 
+import static java.time.temporal.ChronoUnit.DAYS;
+
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -19,12 +21,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.mdgz.dam.labdam2022.databinding.FragmentDetalleAlojamientoBinding;
-import com.mdgz.dam.labdam2022.model.Alojamiento;
-import com.mdgz.dam.labdam2022.repo.AlojamientoRepository;
 
 import java.time.Duration;
+import java.time.temporal.ChronoUnit;
 import java.time.temporal.Temporal;
 import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,7 +34,6 @@ import java.util.Calendar;
  * create an instance of this fragment.
  */
 public class DetalleAlojamientoFragment extends Fragment {
-    Button btnInicio;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -41,7 +42,9 @@ public class DetalleAlojamientoFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    Double precioFinal;
+    Calendar finicio = Calendar.getInstance();
+    Calendar ffin = Calendar.getInstance();
     public DetalleAlojamientoFragment() {
         // Required empty public constructor
     }
@@ -88,9 +91,28 @@ public class DetalleAlojamientoFragment extends Fragment {
             binding.txtNombre.setText(bundle.getString("nombre"));
             binding.txtDescripcion.setText(bundle.getString("descripcion"));
             binding.txtCapacidad.setText(bundle.getString("capacidad"));
-            Double precioFinal = bundle.getDouble("precio base");
+            precioFinal = bundle.getDouble("precio base");
             binding.txtPrecio.setText("$"+precioFinal.toString());
-        }
+
+
+        binding.txtFinEstadia.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                //long daysDiff = ffin.getTime().getTime() - finicio.getTime().getTime();
+                precioFinal = bundle.getDouble("precio base");
+                binding.txtPrecio.setText("$"+precioFinal.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });}
 
         binding.btnFav.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,9 +134,9 @@ public class DetalleAlojamientoFragment extends Fragment {
                 DatePickerDialog datePicker = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int day) {
-
-                        binding.txtInicioEstadia.setText( day+"/"+month+"/"+year);
-
+                        int month2 = month+1;
+                        binding.txtInicioEstadia.setText( day+"/"+month2+"/"+year);
+                        finicio.set(year,month,day);
 
                     }
                 }, yy, mm, dd);
@@ -132,9 +154,9 @@ public class DetalleAlojamientoFragment extends Fragment {
                 DatePickerDialog datePicker = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int day) {
-
-                        binding.txtFinEstadia.setText( day+"/"+month+"/"+year);
-
+                        int month2 = month+1;
+                        binding.txtFinEstadia.setText( day+"/"+month2+"/"+year);
+                        ffin.set(year,month,day);
 
                     }
                 }, yy, mm, dd);
@@ -143,9 +165,9 @@ public class DetalleAlojamientoFragment extends Fragment {
         });
 
 
-
         return view;
     }
+
     private class InputValuesTextWatcher implements TextWatcher {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {

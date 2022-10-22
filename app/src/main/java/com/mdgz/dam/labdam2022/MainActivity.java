@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
                 bundle.putString("nombre","hab1");
                 bundle.putString("descripcion", "lorem ipsum hate y mas cosas xdnt");
                 bundle.putString("capacidad","2");
+                bundle.putDouble("precio base",3000);
                 FragmentManager fragmentManager = getSupportFragmentManager();
                DetalleAlojamientoFragment detalleAlojamientoFragment = new DetalleAlojamientoFragment();
                detalleAlojamientoFragment.setArguments(bundle);
