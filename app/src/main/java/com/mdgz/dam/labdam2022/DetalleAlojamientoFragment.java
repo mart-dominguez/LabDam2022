@@ -22,16 +22,17 @@ import android.widget.TextView;
 
 import com.mdgz.dam.labdam2022.databinding.FragmentDetalleAlojamientoBinding;
 
+import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.Temporal;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link DetalleAlojamientoFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * A simple {@link Fragment} subclass. Use the {@link DetalleAlojamientoFragment#newInstance}
+ * factory method to create an instance of this fragment.
  */
 public class DetalleAlojamientoFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
@@ -42,16 +43,21 @@ public class DetalleAlojamientoFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    FragmentDetalleAlojamientoBinding binding;
     Double precioFinal;
-    Calendar finicio = Calendar.getInstance();
-    Calendar ffin = Calendar.getInstance();
+    LocalDate fechaInicio = null;
+    LocalDate fechaFin = null;
+    long cantidadDeDias = -1;
+//    Calendar finicio = Calendar.getInstance();
+//    Calendar ffin = Calendar.getInstance();
+
     public DetalleAlojamientoFragment() {
         // Required empty public constructor
     }
 
     /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
+     * Use this factory method to create a new instance of this fragment using the provided
+     * parameters.
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
@@ -80,44 +86,44 @@ public class DetalleAlojamientoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        FragmentDetalleAlojamientoBinding binding;
-        binding= FragmentDetalleAlojamientoBinding.inflate(inflater, container,false);
+        binding = FragmentDetalleAlojamientoBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
         Bundle bundle = this.getArguments();
-        if(bundle!= null){
+        if (bundle != null) {
             //AlojamientoRepository alojamiento = new AlojamientoRepository();
             //int id = bundle.getInt("id");
             binding.txtNombre.setText(bundle.getString("nombre"));
             binding.txtDescripcion.setText(bundle.getString("descripcion"));
             binding.txtCapacidad.setText(bundle.getString("capacidad"));
             precioFinal = bundle.getDouble("precio base");
-            binding.txtPrecio.setText("$"+precioFinal.toString());
+            binding.txtPrecio.setText("$" + precioFinal.toString());
 
 
-        binding.txtFinEstadia.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            binding.txtFinEstadia.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-            }
+                }
 
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                //long daysDiff = ffin.getTime().getTime() - finicio.getTime().getTime();
-                precioFinal = bundle.getDouble("precio base");
-                binding.txtPrecio.setText("$"+precioFinal.toString());
-            }
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                    //long daysDiff = ffin.getTime().getTime() - finicio.getTime().getTime();
+                    precioFinal = bundle.getDouble("precio base");
+                    binding.txtPrecio.setText("$" + precioFinal.toString());
+                }
 
-            @Override
-            public void afterTextChanged(Editable editable) {
+                @Override
+                public void afterTextChanged(Editable editable) {
 
-            }
-        });}
+                }
+            });
+        }
 
         binding.btnFav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                 binding.txtFinEstadia.setText("hate");
+                binding.txtFinEstadia.setText("hate");
                 MisFavoritosFragment misFavoritosFragment = new MisFavoritosFragment();
                 misFavoritosFragment.setArguments(bundle);
 
@@ -125,7 +131,7 @@ public class DetalleAlojamientoFragment extends Fragment {
         });
         binding.btnInicioestadia.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view ){
+            public void onClick(View view) {
                 final Calendar calendario = Calendar.getInstance();
                 int yy = calendario.get(Calendar.YEAR);
                 int mm = calendario.get(Calendar.MONTH);
@@ -134,18 +140,19 @@ public class DetalleAlojamientoFragment extends Fragment {
                 DatePickerDialog datePicker = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int day) {
-                        int month2 = month+1;
-                        binding.txtInicioEstadia.setText( day+"/"+month2+"/"+year);
-                        finicio.set(year,month,day);
-
+//                        int month2 = month + 1;
+                        binding.txtInicioEstadia.setText(day + "/" + month + "/" + year);
+                        fechaInicio = LocalDate.of(year, month, day);
+//                        finicio.set(year,month,day);
+                        setearCantidadDeDias();
                     }
                 }, yy, mm, dd);
                 datePicker.show();
             }
-            });
+        });
         binding.btnFinestadia.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view ){
+            public void onClick(View view) {
                 final Calendar calendario = Calendar.getInstance();
                 int yy = calendario.get(Calendar.YEAR);
                 int mm = calendario.get(Calendar.MONTH);
@@ -154,10 +161,11 @@ public class DetalleAlojamientoFragment extends Fragment {
                 DatePickerDialog datePicker = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int day) {
-                        int month2 = month+1;
-                        binding.txtFinEstadia.setText( day+"/"+month2+"/"+year);
-                        ffin.set(year,month,day);
-
+//                        int month2 = month + 1;
+                        binding.txtFinEstadia.setText(day + "/" + month + "/" + year);
+//                        ffin.set(year,month,day);
+                        fechaFin = LocalDate.of(year, month, day);
+                        setearCantidadDeDias();
                     }
                 }, yy, mm, dd);
                 datePicker.show();
@@ -183,7 +191,20 @@ public class DetalleAlojamientoFragment extends Fragment {
         public void afterTextChanged(Editable editable) {
 
         }
+
     }
 
+    private void calcularDias() {
+        if (fechaFin != null && fechaInicio != null) {
+            cantidadDeDias = DAYS.between(fechaInicio, fechaFin);
+        }else{
+            cantidadDeDias = -1;
+        }
+    }
+
+    private void setearCantidadDeDias() {
+        calcularDias();
+        binding.cantidadDeDias.setText("Cantidad de dias: " + cantidadDeDias);
+    }
 
 }
