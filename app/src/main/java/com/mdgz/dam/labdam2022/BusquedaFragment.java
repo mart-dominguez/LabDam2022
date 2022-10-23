@@ -35,8 +35,6 @@ public class BusquedaFragment extends Fragment {
     Button bLimpiar;
 
     int cantidadP= -1;
-    double minRango= -1;
-    double maxRango = -1;
 
 
     @Override
@@ -61,9 +59,52 @@ public class BusquedaFragment extends Fragment {
         ArrayAdapter<Ciudad> adapter =new ArrayAdapter <Ciudad> (getContext(), android.R.layout.simple_spinner_dropdown_item, ciudades);
         sCiudad.setAdapter(adapter);
         view = binding.getRoot();
+
+        bBuscar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                    //llamar fragmento de alogamiento y pasarlo los datos del filtrado.
+                    //se implementará en proximas etapas.
+                    ;
+            }
+        });
+        bLimpiar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //ciudad a NULL
+                tbWifi.setChecked(true);
+                etPersonas.setText("");
+                cantidadP=-1;
+                btgTipo.check(binding.tb3.getId());
+                rsRangoPrecio.setValueFrom(1000);//hardcoded
+                rsRangoPrecio.setValueTo(50000);//hardcoded
+            }
+        });
+        tbWifi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(btgTipo.getCheckedButtonId()!=binding.tb2.getId()){
+                    tbWifi.setChecked(true);
+                }
+            }
+        });
+        btgTipo.addOnButtonCheckedListener(new MaterialButtonToggleGroup.OnButtonCheckedListener() {
+            @Override
+            public void onButtonChecked(MaterialButtonToggleGroup group, int checkedId, boolean isChecked) {
+                if(btgTipo.getCheckedButtonId()!=binding.tb2.getId()){
+                    tbWifi.setChecked(true);
+                }
+            }
+        });
+
+
+
+
+
+
         return view;
     }
-    binding.tbWifi.setOnClickListener(){};
+
 
 
 
