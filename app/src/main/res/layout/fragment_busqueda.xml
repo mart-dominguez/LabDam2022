@@ -15,7 +15,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/form_busqueda" />
+            android:text="¿A dónde vas?" />
         <Spinner
             android:id="@+id/s_ciudad"
             android:layout_width="match_parent"
@@ -76,7 +76,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginLeft="10dp"/>
+                android:layout_marginLeft="10dp"
+                android:inputType="number"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -94,6 +95,10 @@
 
         </LinearLayout>
         <!--Posteriormente se deberia consultar precio min y max alñ definir rango-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="¿Cuánto querés pagar?"/>
         <com.google.android.material.slider.RangeSlider
             android:id="@+id/rango_precio_rs"
             android:layout_width="match_parent"
@@ -102,7 +107,11 @@
             android:valueFrom="1000"
             android:valueTo="50000"
             android:stepSize="1000"
+            android:tickVisible="true"
             rangoPrecio:values="@array/initial_slider_values"
+
+
+
             />
         <LinearLayout
             android:layout_width="match_parent"

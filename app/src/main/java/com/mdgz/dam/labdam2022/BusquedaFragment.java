@@ -3,6 +3,7 @@ package com.mdgz.dam.labdam2022;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -21,6 +22,7 @@ import com.mdgz.dam.labdam2022.model.Ciudad;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
 
 
 public class BusquedaFragment extends Fragment {
@@ -58,15 +60,40 @@ public class BusquedaFragment extends Fragment {
         ciudades.add(new Ciudad (3, "Buenos Aires", "sfe"));
         ArrayAdapter<Ciudad> adapter =new ArrayAdapter <Ciudad> (getContext(), android.R.layout.simple_spinner_dropdown_item, ciudades);
         sCiudad.setAdapter(adapter);
+
         view = binding.getRoot();
+
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            //FALTA PONER LA CIUDAD Y EL BOTON TIPO
+            //int iCiudad =adapter.getPosition(bundle.getCiudad("ciudad"));
+            //sCiudad.setSelection(iCiudad);
+            etPersonas.setText(bundle.getString("capacidad"));
+            cantidadP = Integer.parseInt(etPersonas.getText().toString()); //chequear
+            //btgTipo.setSelected(bundle.getInt("tipo"));
+            tbWifi.setChecked(bundle.getBoolean("wifi"));
+            rsRangoPrecio.setValues(bundle.getFloat("minRango"), bundle.getFloat("maxRango"));
+        }
 
         bBuscar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    //llamar fragmento de alogamiento y pasarlo los datos del filtrado.
-                    //se implementará en proximas etapas.
-                    ;
-            }
+                //llamar fragmento de resultado y pasarlo los datos del filtro.
+                Bundle filtro = new Bundle();
+                filtro.putLong("ciudad", sCiudad.getSelectedItemId());
+                filtro.putInt("tipo", btgTipo.getCheckedButtonId());
+                filtro.putString("capacidad", etPersonas.getText().toString());
+                filtro.putBoolean("wifi", tbWifi.isChecked());
+                filtro.putFloat("minRango", Collections.min(rsRangoPrecio.getValues()));
+                filtro.putFloat("maxRango", Collections.max(rsRangoPrecio.getValues()));
+
+                ResultadoBusquedaFragment resultadoFragment = new ResultadoBusquedaFragment();
+                FragmentManager frgMngr = getActivity().getSupportFragmentManager();
+                frgMngr.beginTransaction()
+                        .replace(R.id.fragmentContainerView,resultadoFragment)
+                        .addToBackStack(null)
+                        .commit();
+            };
         });
         bLimpiar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,6 +105,7 @@ public class BusquedaFragment extends Fragment {
                 btgTipo.check(binding.tb3.getId());
                 rsRangoPrecio.setValueFrom(1000);//hardcoded
                 rsRangoPrecio.setValueTo(50000);//hardcoded
+                //rsRangoPrecio.setValues("@array/initial_slider_values"); //HACERLO ANDAR
             }
         });
         tbWifi.setOnClickListener(new View.OnClickListener() {
@@ -102,65 +130,7 @@ public class BusquedaFragment extends Fragment {
 
 
 
+
         return view;
     }
-
-
-
-
-//    private class InputValuesTextWatcher implements TextWatcher {
-//        @Override
-//        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//
-//        }
-//
-//        @Override
-//        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//            if(CheckValidValuesOnInput()){
-//                binding.buscarButton.setEnabled(true);
-//            }
-//            else{
-//                binding.busquedaSpinner.setEnabled(false);
-//            }
-//        }
-//
-//
-//
-//        @Override
-//        public void afterTextChanged(Editable editable) {
-//
-//        }
-//    }
-//    protected Boolean CheckValidValuesOnInput(){
-//        try {
-//            cantidadP= Integer.parseInt(binding.cantpEdit.getText().toString());
-//
-//        }catch (Exception e){
-//            cantidadP = -1;
-//            return false;
-//        }
-//        try {
-//            tasaEfecAnual = Double.parseDouble(binding.tasaEfectivaAnualEditText.getText().toString());
-//        }catch (Exception e){
-//            tasaEfecAnual = -1;
-//            return false;
-//        }
-//        try {
-//            capitalInvertir = Double.parseDouble(binding.capitalInvertirEditText.getText().toString());
-//        }catch (Exception e){
-//            capitalInvertir = -1;
-//            return false;
-//        }
-//
-//
-//        if(tasaNomAnual <= 0 || tasaEfecAnual<= 0 || capitalInvertir <= 0){
-//            tasaNomAnual = -1;
-//            tasaEfecAnual = -1;
-//            capitalInvertir = -1;
-//            return false;
-//        }
-//
-//        return true;
-//    }
-
 }
