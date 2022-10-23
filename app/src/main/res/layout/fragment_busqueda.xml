@@ -10,5 +10,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="@string/form_busqueda" />
+    <Button
+        android:id="@+id/ir_a_resultados"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="IR a resultados">
+
+    </Button>
 
 </FrameLayout>
