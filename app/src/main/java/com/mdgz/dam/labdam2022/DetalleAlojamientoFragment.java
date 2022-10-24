@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentManager;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,6 +49,7 @@ public class DetalleAlojamientoFragment extends Fragment {
     LocalDate fechaInicio = null;
     LocalDate fechaFin = null;
     long cantidadDeDias = -1;
+    double precioBase = -1;
 //    Calendar finicio = Calendar.getInstance();
 //    Calendar ffin = Calendar.getInstance();
 
@@ -98,27 +100,33 @@ public class DetalleAlojamientoFragment extends Fragment {
             binding.txtCapacidad.setText(bundle.getString("capacidad"));
             precioFinal = bundle.getDouble("precio base");
             binding.txtPrecio.setText("$" + precioFinal.toString());
+            precioBase = bundle.getDouble("precio base");
 
 
-            binding.txtFinEstadia.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                }
-
-                @Override
-                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                    //long daysDiff = ffin.getTime().getTime() - finicio.getTime().getTime();
-                    setearCantidadDeDias();
-                    precioFinal = bundle.getDouble("precio base")*cantidadDeDias;
-                    binding.txtPrecio.setText("$" + precioFinal.toString());
-                }
-
-                @Override
-                public void afterTextChanged(Editable editable) {
-
-                }
-            });
+//            binding.txtFinEstadia.addTextChangedListener(new TextWatcher() {
+//                @Override
+//                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//                }
+//
+//                @Override
+//                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+////                    //long daysDiff = ffin.getTime().getTime() - finicio.getTime().getTime();
+////                    setearCantidadDeDias();
+////                    Log.e("Dias", "cantidadedias: " + cantidadDeDias);
+////                    precioFinal = bundle.getDouble("precio base") * cantidadDeDias;
+////                    binding.txtPrecio.setText("$" + precioFinal.toString());
+//                }
+//
+//                @Override
+//                public void afterTextChanged(Editable editable) {
+////long daysDiff = ffin.getTime().getTime() - finicio.getTime().getTime();
+////                    setearCantidadDeDias();
+////                    Log.e("Dias", "cantidadedias: " + cantidadDeDias);
+////                    precioFinal = bundle.getDouble("precio base") * cantidadDeDias;
+////                    binding.txtPrecio.setText("$" + precioFinal.toString());
+//                }
+//            });
         }
 
         binding.btnFav.setOnClickListener(new View.OnClickListener() {
@@ -141,9 +149,9 @@ public class DetalleAlojamientoFragment extends Fragment {
                 DatePickerDialog datePicker = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int day) {
-//                        int month2 = month + 1;
-                        binding.txtInicioEstadia.setText(day + "/" + month + "/" + year);
-                        fechaInicio = LocalDate.of(year, month, day);
+                        int month2 = month + 1;
+                        binding.txtInicioEstadia.setText(day + "/" + month2 + "/" + year);
+                        fechaInicio = LocalDate.of(year, month2, day);
 //                        finicio.set(year,month,day);
                         setearCantidadDeDias();
                     }
@@ -162,10 +170,10 @@ public class DetalleAlojamientoFragment extends Fragment {
                 DatePickerDialog datePicker = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int day) {
-//                        int month2 = month + 1;
-                        binding.txtFinEstadia.setText(day + "/" + month + "/" + year);
+                        int month2 = month + 1;
+                        binding.txtFinEstadia.setText(day + "/" + month2 + "/" + year);
 //                        ffin.set(year,month,day);
-                        fechaFin = LocalDate.of(year, month, day);
+                        fechaFin = LocalDate.of(year, month2, day);
                         setearCantidadDeDias();
                     }
                 }, yy, mm, dd);
@@ -206,6 +214,9 @@ public class DetalleAlojamientoFragment extends Fragment {
     private void setearCantidadDeDias() {
         calcularDias();
         binding.cantidadDeDias.setText("Cantidad de dias: " + cantidadDeDias);
+        if(cantidadDeDias != -1 && precioBase != -1){
+            binding.txtPrecio.setText("Precio: " + cantidadDeDias * precioBase);
+        }
     }
 
 }
