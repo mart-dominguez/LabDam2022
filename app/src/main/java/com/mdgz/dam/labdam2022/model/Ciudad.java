@@ -5,6 +5,7 @@ public class Ciudad {
     String nombre;
     String abreviatura;
 
+
     public Ciudad(){}
 
     public Ciudad(Integer id, String nombre, String abreviatura) {
@@ -35,5 +36,10 @@ public class Ciudad {
 
     public void setAbreviatura(String abreviatura) {
         this.abreviatura = abreviatura;
+    }
+
+    @Override
+    public String toString() {
+        return  nombre;
     }
 }

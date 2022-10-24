@@ -3,12 +3,136 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:rangoPrecio="http://schemas.android.com/apk/res-auto"
+    xmlns:tipoAlojamiento="http://schemas.android.com/apk/res-auto"
     tools:context=".BusquedaFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/form_busqueda" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="¿A dónde vas?" />
+        <Spinner
+            android:id="@+id/s_ciudad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/text_tipo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="¿Qué estás buscando?"/>
+
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/grupo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tipoAlojamiento:singleSelection="true"
+                tipoAlojamiento:checkedButton="@id/tb_3">
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/tb_1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Hotel"
+                    style="?attr/materialButtonOutlinedStyle" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/tb_2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Departamento"
+                    style="?attr/materialButtonOutlinedStyle" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/tb_3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Ambos"
+                    style="?attr/materialButtonOutlinedStyle" />
+
+            </com.google.android.material.button.MaterialButtonToggleGroup>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="¿Cuántos son?"/>
+            <EditText
+                android:id="@+id/cantp_edit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                android:inputType="number"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="¿Necesitas Wifi?"/>
+            <ToggleButton
+                android:id="@+id/wifi_tb"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                android:checked="true"
+                android:textOn="CON WIFI"
+                android:textOff="SIN WIFI"/>
+
+        </LinearLayout>
+        <!--Posteriormente se deberia consultar precio min y max alñ definir rango-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="¿Cuánto querés pagar?"/>
+        <com.google.android.material.slider.RangeSlider
+            android:id="@+id/rango_precio_rs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            rangoPrecio:labelBehavior="withinBounds"
+            android:valueFrom="1000"
+            android:valueTo="50000"
+            android:stepSize="1000"
+            rangoPrecio:values="@array/initial_slider_values"
+
+
+
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/limpiar_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Limpiar"
+                />
+            <Button
+                android:id="@+id/buscar_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+
+                android:text="Buscar"/>
+        </LinearLayout>
+    </LinearLayout>
+
 
 </FrameLayout>

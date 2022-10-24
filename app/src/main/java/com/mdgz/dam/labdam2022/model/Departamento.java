@@ -15,8 +15,8 @@ public class Departamento extends Alojamiento{
         super();
     }
 
-    public Departamento(Integer id, String titulo, String descripcion, Integer capacidad, Double precioBase, Boolean tieneWifi, Double costoLimpieza, Integer cantidadHabitaciones,Ubicacion ubicacion) {
-        super(id, titulo, descripcion, capacidad, precioBase);
+    public Departamento(Integer id, String titulo, String descripcion, Integer capacidad, Double precioBase, Boolean tieneWifi, Double costoLimpieza, Integer cantidadHabitaciones,Ubicacion ubicacion, String imageUrl) {
+        super(id, titulo, descripcion, capacidad, precioBase, imageUrl);
         this.tieneWifi = tieneWifi;
         this.costoLimpieza = costoLimpieza;
         this.cantidadHabitaciones = cantidadHabitaciones;
