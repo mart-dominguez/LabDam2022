@@ -109,7 +109,8 @@ public class DetalleAlojamientoFragment extends Fragment {
                 @Override
                 public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                     //long daysDiff = ffin.getTime().getTime() - finicio.getTime().getTime();
-                    precioFinal = bundle.getDouble("precio base");
+                    setearCantidadDeDias();
+                    precioFinal = bundle.getDouble("precio base")*cantidadDeDias;
                     binding.txtPrecio.setText("$" + precioFinal.toString());
                 }
 
