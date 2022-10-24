@@ -107,7 +107,6 @@
             android:valueFrom="1000"
             android:valueTo="50000"
             android:stepSize="1000"
-            android:tickVisible="true"
             rangoPrecio:values="@array/initial_slider_values"
 
 
