@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.navigation.Navigation;
 
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -19,11 +20,9 @@ import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.slider.RangeSlider;
 import com.mdgz.dam.labdam2022.databinding.FragmentBusquedaBinding;
 import com.mdgz.dam.labdam2022.model.Ciudad;
-
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
-
 
 public class BusquedaFragment extends Fragment {
 
@@ -40,9 +39,20 @@ public class BusquedaFragment extends Fragment {
 
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
+
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
+                             
         View view;
         binding = FragmentBusquedaBinding.inflate(inflater, container, false);
         tbWifi= binding.wifiTb;
@@ -87,12 +97,7 @@ public class BusquedaFragment extends Fragment {
                 filtro.putFloat("minRango", Collections.min(rsRangoPrecio.getValues()));
                 filtro.putFloat("maxRango", Collections.max(rsRangoPrecio.getValues()));
 
-                ResultadoBusquedaFragment resultadoFragment = new ResultadoBusquedaFragment();
-                FragmentManager frgMngr = getActivity().getSupportFragmentManager();
-                frgMngr.beginTransaction()
-                        .replace(R.id.fragmentContainerView,resultadoFragment)
-                        .addToBackStack(null)
-                        .commit();
+                Navigation.findNavController(view).navigate(R.id.action_busquedaFragment_to_resultadoBusquedaFragment, filtro);
             };
         });
         bLimpiar.setOnClickListener(new View.OnClickListener() {

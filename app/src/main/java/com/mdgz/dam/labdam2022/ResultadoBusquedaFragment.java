@@ -3,10 +3,20 @@ package com.mdgz.dam.labdam2022;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.mdgz.dam.labdam2022.adapter.ResultadoAlojamientoRecyclerAdapter;
+import com.mdgz.dam.labdam2022.databinding.FragmentResultadoBusquedaBinding;
+import com.mdgz.dam.labdam2022.model.Alojamiento;
+import com.mdgz.dam.labdam2022.repo.AlojamientoRepository;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +24,10 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class ResultadoBusquedaFragment extends Fragment {
+    FragmentResultadoBusquedaBinding binding;
+    private RecyclerView resultRecyclerView;
+    private RecyclerView.Adapter resultRecyclerAdapter;
+    private RecyclerView.LayoutManager resultRecyclerLayoutManager;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -53,12 +67,32 @@ public class ResultadoBusquedaFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_resultado_busqueda, container, false);
+        binding =  FragmentResultadoBusquedaBinding.inflate(inflater, container, false);
+
+        resultRecyclerView = binding.resultadosRecycler;
+        resultRecyclerLayoutManager = new LinearLayoutManager(getContext());
+        resultRecyclerView.setHasFixedSize(true);
+        resultRecyclerView.setLayoutManager(resultRecyclerLayoutManager);
+        List<Alojamiento> alojamientos = AlojamientoRepository._ALOJAMIENTOS;
+        resultRecyclerAdapter = new ResultadoAlojamientoRecyclerAdapter(alojamientos);
+        binding.resultadosRecycler.setAdapter(resultRecyclerAdapter);
+
+        return binding.getRoot();
     }
+
+
+//    private void AlojamientoItemOnClick(View v, Alojamiento alojamiento){
+//        Bundle bundle = new Bundle();
+//        bundle.putInt("alojamiento_id", alojamiento.getId());
+//        Navigation.findNavController(v).navigate(R.id.action_detalleAlojamientoFragment_to_busquedaFragment, bundle);
+//    }
 }
