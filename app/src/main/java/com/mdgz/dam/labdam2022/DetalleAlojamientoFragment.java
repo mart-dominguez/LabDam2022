@@ -22,6 +22,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.mdgz.dam.labdam2022.databinding.FragmentDetalleAlojamientoBinding;
+import com.mdgz.dam.labdam2022.model.Alojamiento;
+import com.mdgz.dam.labdam2022.repo.AlojamientoRepository;
 
 import java.text.SimpleDateFormat;
 import java.time.Duration;
@@ -29,6 +31,7 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.Temporal;
 import java.util.Calendar;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -50,9 +53,8 @@ public class DetalleAlojamientoFragment extends Fragment {
     LocalDate fechaFin = null;
     long cantidadDeDias = -1;
     double precioBase = -1;
-//    Calendar finicio = Calendar.getInstance();
-//    Calendar ffin = Calendar.getInstance();
-
+    int id = -1;
+    Alojamiento alojamiento;
     public DetalleAlojamientoFragment() {
         // Required empty public constructor
     }
@@ -90,49 +92,19 @@ public class DetalleAlojamientoFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentDetalleAlojamientoBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
-
         Bundle bundle = this.getArguments();
         if (bundle != null) {
-            //AlojamientoRepository alojamiento = new AlojamientoRepository();
-            //int id = bundle.getInt("id");
-            binding.txtNombre.setText(bundle.getString("nombre"));
-            binding.txtDescripcion.setText(bundle.getString("descripcion"));
-            binding.txtCapacidad.setText(bundle.getString("capacidad"));
-            precioFinal = bundle.getDouble("precio base");
-            binding.txtPrecio.setText("$" + precioFinal.toString());
-            precioBase = bundle.getDouble("precio base");
+            id = bundle.getInt("alojamiento_id");
+            if(id !=-1){
+                setearAlojamiento(id);
+            }
 
-
-//            binding.txtFinEstadia.addTextChangedListener(new TextWatcher() {
-//                @Override
-//                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//
-//                }
-//
-//                @Override
-//                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-////                    //long daysDiff = ffin.getTime().getTime() - finicio.getTime().getTime();
-////                    setearCantidadDeDias();
-////                    Log.e("Dias", "cantidadedias: " + cantidadDeDias);
-////                    precioFinal = bundle.getDouble("precio base") * cantidadDeDias;
-////                    binding.txtPrecio.setText("$" + precioFinal.toString());
-//                }
-//
-//                @Override
-//                public void afterTextChanged(Editable editable) {
-////long daysDiff = ffin.getTime().getTime() - finicio.getTime().getTime();
-////                    setearCantidadDeDias();
-////                    Log.e("Dias", "cantidadedias: " + cantidadDeDias);
-////                    precioFinal = bundle.getDouble("precio base") * cantidadDeDias;
-////                    binding.txtPrecio.setText("$" + precioFinal.toString());
-//                }
-//            });
+            //binding.txtPrecio.setText("$"+alojamiento.getPrecioBase().toString());
         }
 
         binding.btnFav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                binding.txtFinEstadia.setText("hate");
                 MisFavoritosFragment misFavoritosFragment = new MisFavoritosFragment();
                 misFavoritosFragment.setArguments(bundle);
 
@@ -152,7 +124,6 @@ public class DetalleAlojamientoFragment extends Fragment {
                         int month2 = month + 1;
                         binding.txtInicioEstadia.setText(day + "/" + month2 + "/" + year);
                         fechaInicio = LocalDate.of(year, month2, day);
-//                        finicio.set(year,month,day);
                         setearCantidadDeDias();
                     }
                 }, yy, mm, dd);
@@ -172,7 +143,6 @@ public class DetalleAlojamientoFragment extends Fragment {
                     public void onDateSet(DatePicker view, int year, int month, int day) {
                         int month2 = month + 1;
                         binding.txtFinEstadia.setText(day + "/" + month2 + "/" + year);
-//                        ffin.set(year,month,day);
                         fechaFin = LocalDate.of(year, month2, day);
                         setearCantidadDeDias();
                     }
@@ -209,6 +179,28 @@ public class DetalleAlojamientoFragment extends Fragment {
         }else{
             cantidadDeDias = -1;
         }
+    }
+    private void buscarAlojamiento(int id){
+        List<Alojamiento> alojamientos = AlojamientoRepository._ALOJAMIENTOS;
+        int i =0;
+        do{
+           if( alojamientos.get(i).getId() != id){
+               i++;
+           }
+           else{
+               alojamiento= alojamientos.get(i);
+               i=alojamientos.size()+1;
+           }
+
+        }while(i<alojamientos.size());
+    }
+    private void setearAlojamiento(int id){
+        buscarAlojamiento(id);
+        binding.txtNombre.setText(alojamiento.getTitulo());
+        binding.txtDescripcion.setText(alojamiento.getDescripcion());
+        //binding.txtCapacidad.setText(alojamiento.getCapacidad());
+        precioBase= alojamiento.getPrecioBase();
+        binding.txtPrecio.setText("$"+alojamiento.getPrecioBase().toString());
     }
 
     private void setearCantidadDeDias() {
