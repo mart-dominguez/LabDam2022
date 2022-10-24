@@ -25,7 +25,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class BusquedaFragment extends Fragment {
-
     FragmentBusquedaBinding binding;
     Spinner sCiudad;
     com.google.android.material.button.MaterialButtonToggleGroup btgTipo;
@@ -41,11 +40,6 @@ public class BusquedaFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-
     }
 
     @Override
