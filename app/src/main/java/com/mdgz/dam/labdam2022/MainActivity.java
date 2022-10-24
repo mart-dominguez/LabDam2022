@@ -26,22 +26,7 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         View root = binding.getRoot();
         setContentView(root);
-        binding.help.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view ){
-                Bundle bundle = new Bundle();
-                bundle.putString("nombre","hab1");
-                bundle.putString("descripcion", "lorem ipsum hate y mas cosas xdnt");
-                bundle.putString("capacidad","2");
-                bundle.putDouble("precio base",3000);
-                FragmentManager fragmentManager = getSupportFragmentManager();
-               DetalleAlojamientoFragment detalleAlojamientoFragment = new DetalleAlojamientoFragment();
-               detalleAlojamientoFragment.setArguments(bundle);
-                fragmentManager.beginTransaction()
-                        .replace(R.id.fragmentContainerView, detalleAlojamientoFragment)
-                        .addToBackStack(null).commit();
-            }
-        });
+
         setSupportActionBar(binding.toolbar);
 //        ActionBar ab = getSupportActionBar();
 ////        ab.setHomeAsUpIndicator(R.drawable.ic_menu);
