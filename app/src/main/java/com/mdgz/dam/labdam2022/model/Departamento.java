@@ -15,6 +15,21 @@ public class Departamento extends Alojamiento{
         super();
     }
 
+    @Override
+    public String getTitulo() {
+        return super.titulo;
+    }
+
+    @Override
+    public Integer getCapacidad() {
+        return super.capacidad;
+    }
+
+    @Override
+    public Double getPrecioBase() {
+        return super.precioBase;
+    }
+
     public Departamento(Integer id, String titulo, String descripcion, Integer capacidad, Double precioBase, Boolean tieneWifi, Double costoLimpieza, Integer cantidadHabitaciones,Ubicacion ubicacion) {
         super(id, titulo, descripcion, capacidad, precioBase);
         this.tieneWifi = tieneWifi;

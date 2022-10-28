@@ -24,4 +24,9 @@ public abstract class Alojamiento {
         this.capacidad = capacidad;
         this.precioBase = precioBase;
     }
+
+
+    public abstract String getTitulo();
+    public abstract Integer getCapacidad();
+    public abstract Double getPrecioBase();
 }
