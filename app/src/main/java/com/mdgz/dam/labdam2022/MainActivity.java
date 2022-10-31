@@ -14,6 +14,7 @@ import android.view.MenuItem;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.mdgz.dam.labdam2022.databinding.ActivityMainBinding;
+import com.mdgz.dam.labdam2022.persistencia.room.bd.BaseDeDatos;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,6 +28,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         setearToolbar();
+
+        //------------------------------------------------------------------------------------------------
+        BaseDeDatos bd = BaseDeDatos.getInstance(getApplicationContext());
+        /* EJECUCION DE PRUEBA PARA QUE SE CREE LA BD: si no se llama a algun metodo de algun dao,
+           por mas que se haya construido la bd, no se va a crear.
+           Entonces se llama a este metodo sólo para "iniciarla".
+        */
+        bd.ciudadDao().getCiudadPorId(1);
+        //------------------------------------------------------------------------------------------------
 
     }
 
@@ -73,6 +83,13 @@ public class MainActivity extends AppCompatActivity {
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration);
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        // Cerrar la conexion de la base de datos
+        BaseDeDatos.getInstance(getApplicationContext()).close();
+        super.onDestroy();
     }
 
 }

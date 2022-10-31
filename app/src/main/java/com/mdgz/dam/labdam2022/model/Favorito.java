@@ -6,14 +6,12 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-import java.time.Instant;
-import java.util.Date;
 import java.util.UUID;
 
-@Entity(tableName = "Reserva",
+@Entity(tableName = "Favorito",
         foreignKeys = {@ForeignKey(entity = Departamento.class, parentColumns = "id", childColumns = "departamentoID"),
                        @ForeignKey(entity = Habitacion.class, parentColumns = "id", childColumns = "habitacionID")})
-public class Reserva {
+public class Favorito {
 
     @PrimaryKey//(autoGenerate = true)
     @NonNull
@@ -23,21 +21,12 @@ public class Reserva {
     private UUID habitacionID;
     private UUID departamentoID;
     private UUID usuarioID; // raro
-    private Date fechaIngreso;
-    private Date fechaSalida;
 
-    //private Instant fechaIngreso;
-    //private Instant fechaEgreso;
-    //private Boolean cancelada;
-    //private Double monto;
-
-    public Reserva(UUID id, UUID habitacionID, UUID departamentoID, UUID usuarioID, Date fechaIngreso, Date fechaSalida){
+    public Favorito(UUID id, UUID habitacionID, UUID departamentoID, UUID usuarioID){
         this.id = id;
         this.habitacionID = habitacionID;
         this.departamentoID = departamentoID;
         this.usuarioID = usuarioID;
-        this.fechaIngreso = fechaIngreso;
-        this.fechaSalida = fechaSalida;
     }
 
     @NonNull
@@ -57,14 +46,6 @@ public class Reserva {
         return usuarioID;
     }
 
-    public Date getFechaIngreso() {
-        return fechaIngreso;
-    }
-
-    public Date getFechaSalida() {
-        return fechaSalida;
-    }
-
     public void setId(@NonNull UUID id) {
         this.id = id;
     }
@@ -79,13 +60,5 @@ public class Reserva {
 
     public void setUsuarioID(UUID usuarioID) {
         this.usuarioID = usuarioID;
-    }
-
-    public void setFechaIngreso(Date fechaIngreso) {
-        this.fechaIngreso = fechaIngreso;
-    }
-
-    public void setFechaSalida(Date fechaSalida) {
-        this.fechaSalida = fechaSalida;
     }
 }

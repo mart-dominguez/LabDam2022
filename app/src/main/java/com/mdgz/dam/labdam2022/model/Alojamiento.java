@@ -1,14 +1,24 @@
 package com.mdgz.dam.labdam2022.model;
 
-import java.util.Objects;
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
+import java.util.Objects;
+import java.util.UUID;
+
+@Entity(tableName = "Alojamiento")
 public abstract class Alojamiento {
 
-    protected Integer id;
-    protected String  titulo;
-    protected String  descripcion;
-    protected Integer capacidad;
-    protected Double  precioBase;
+    @PrimaryKey
+    @NonNull
+    @ColumnInfo(name = "id")
+    private UUID id;
+    private String  titulo;
+    private String  descripcion;
+    private Integer capacidad;
+    private Double  precioBase;
 
     public abstract Ubicacion getUbicacion();
 
@@ -16,7 +26,7 @@ public abstract class Alojamiento {
         super();
     }
 
-    public Alojamiento(Integer id, String titulo, String descripcion, Integer capacidad, Double precioBase) {
+    public Alojamiento(UUID id, String titulo, String descripcion, Integer capacidad, Double precioBase) {
         this.id = id;
         this.titulo = titulo;
         this.descripcion = descripcion;
@@ -24,7 +34,7 @@ public abstract class Alojamiento {
         this.precioBase = precioBase;
     }
 
-    public Integer getId() {
+    public UUID getId() {
         return id;
     }
 
@@ -42,6 +52,26 @@ public abstract class Alojamiento {
 
     public Double getPrecioBase() {
         return precioBase;
+    }
+
+    public void setId(@NonNull UUID id) {
+        this.id = id;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public void setCapacidad(Integer capacidad) {
+        this.capacidad = capacidad;
+    }
+
+    public void setPrecioBase(Double precioBase) {
+        this.precioBase = precioBase;
     }
 
     @Override

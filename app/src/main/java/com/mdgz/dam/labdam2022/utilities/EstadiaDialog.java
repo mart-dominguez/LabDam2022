@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.text.Editable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.DatePicker;
@@ -15,12 +16,20 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.mdgz.dam.labdam2022.R;
 import com.mdgz.dam.labdam2022.databinding.AlertDialogEstadiaBinding;
 import com.mdgz.dam.labdam2022.model.Alojamiento;
+import com.mdgz.dam.labdam2022.model.Departamento;
+import com.mdgz.dam.labdam2022.model.Reserva;
+import com.mdgz.dam.labdam2022.persistencia.room.bd.BaseDeDatos;
 
+
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
+import java.util.List;
+import java.util.UUID;
 
 /* Devuelve un AlertDialog personalizado para las estadias */
 public class EstadiaDialog {
@@ -42,7 +51,28 @@ public class EstadiaDialog {
         builder.setPositiveButton("Reservar", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id)
             {
-                // Logica para reservar
+
+                BaseDeDatos bd = BaseDeDatos.getInstance(context);
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+                LocalDate desde = LocalDate.parse(binding.adeFechaInicioInput.getText().toString(),formatter);
+                LocalDate hasta = LocalDate.parse(binding.adeFechaFinInput.getText().toString(),formatter);
+
+                if(alojamiento.getClass() == Departamento.class){
+                    bd.reservaDao().insertarReserva(new Reserva(UUID.randomUUID(),
+                            null,
+                            alojamiento.getId(),
+                            UUID.randomUUID(),
+                            Date.from(desde.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()),
+                            Date.from(hasta.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant())));
+                }else{
+                    bd.reservaDao().insertarReserva(new Reserva(UUID.randomUUID(),
+                            alojamiento.getId(),
+                            null,
+                            UUID.randomUUID(),
+                            Date.from(desde.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()),
+                            Date.from(hasta.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant())));
+                }
+
             }
         });
 

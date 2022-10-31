@@ -17,10 +17,13 @@ import com.mdgz.dam.labdam2022.databinding.CardAlojamientoBinding;
 import com.mdgz.dam.labdam2022.databinding.CardAlojamientoExpandableBinding;
 import com.mdgz.dam.labdam2022.model.Alojamiento;
 import com.mdgz.dam.labdam2022.model.Departamento;
+import com.mdgz.dam.labdam2022.model.Favorito;
 import com.mdgz.dam.labdam2022.model.Habitacion;
+import com.mdgz.dam.labdam2022.persistencia.room.bd.BaseDeDatos;
 
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
 public class AlojamientoAdapter extends RecyclerView.Adapter<AlojamientoAdapter.AlojamientoViewHolder> {
 
@@ -82,7 +85,23 @@ public class AlojamientoAdapter extends RecyclerView.Adapter<AlojamientoAdapter.
             binding.caFavoriteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //Logica para agregar a favorito y desagregar de favorito
+                    // Logica para agregar a favorito (antes hay que chequear si ya se encuentra en favoritos --> PENDIENTE)
+                    BaseDeDatos bd = BaseDeDatos.getInstance(context);
+                    if(alojamiento.getClass() == Departamento.class){
+                        bd.favoritoDao().insertarFavorito(new Favorito(
+                                UUID.randomUUID(),
+                                null,
+                                alojamiento.getId(),
+                                UUID.randomUUID()
+                        ));
+                    }else{
+                        bd.favoritoDao().insertarFavorito(new Favorito(
+                                UUID.randomUUID(),
+                                alojamiento.getId(),
+                                null,
+                                UUID.randomUUID()
+                        ));
+                    }
                     //...
                     binding.caFavoriteButton.setImageResource(R.drawable.ic_baseline_favorite_filled_24);
                 }
@@ -169,8 +188,7 @@ public class AlojamientoAdapter extends RecyclerView.Adapter<AlojamientoAdapter.
             binding.caRatingCaption.setText(Utilities.round2(rating) + " (" + resenias + ")");
             binding.caPrecioText.setText("$"+ alojamiento.getPrecioBase() + "/noche");
             binding.caDescription.setText(alojamiento.getDescripcion());
-            if(alojamiento.getUbicacion() != null)
-            binding.caUbicacion.setText(alojamiento.getUbicacion().getCalle() + " " + alojamiento.getUbicacion().getNumero() + ", " + alojamiento.getUbicacion().getCiudad());
+            binding.caUbicacion.setText(alojamiento.getUbicacion().getCalle() + " " + alojamiento.getUbicacion().getNumero() + ", " + alojamiento.getUbicacion().getCiudad().getNombre());
 
 
             expandableBinding.caePersonasValor.setText(alojamiento.getCapacidad() + " ocupantes");

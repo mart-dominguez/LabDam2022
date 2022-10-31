@@ -25,7 +25,10 @@ import android.widget.Switch;
 import com.google.android.material.slider.RangeSlider;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.mdgz.dam.labdam2022.databinding.FragmentBusquedaBinding;
+import com.mdgz.dam.labdam2022.model.Ciudad;
+import com.mdgz.dam.labdam2022.persistencia.room.bd.BaseDeDatos;
 import com.mdgz.dam.labdam2022.utilities.EstadiaDialog;
+import com.mdgz.dam.labdam2022.utilities.ListaDeAlojamientos;
 import com.mdgz.dam.labdam2022.utilities.Utilities;
 import com.mdgz.dam.labdam2022.viewmodels.LogViewModel;
 

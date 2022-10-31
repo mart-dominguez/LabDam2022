@@ -1,9 +1,19 @@
 package com.mdgz.dam.labdam2022.model;
 
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "Ciudad")
 public class Ciudad {
-    Integer id;
-    String nombre;
-    String abreviatura;
+
+    @PrimaryKey
+    @NonNull
+    @ColumnInfo(name = "id")
+    private Integer id;
+    private String nombre;
+    private String abreviatura;
 
     public Ciudad(){}
 
