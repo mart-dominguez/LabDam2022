@@ -19,6 +19,8 @@ import com.mdgz.dam.labdam2022.model.Alojamiento;
 import com.mdgz.dam.labdam2022.model.Departamento;
 import com.mdgz.dam.labdam2022.model.Favorito;
 import com.mdgz.dam.labdam2022.model.Habitacion;
+import com.mdgz.dam.labdam2022.persistencia.FavoritoDataSource;
+import com.mdgz.dam.labdam2022.persistencia.room.FavoritoRoomDataSource;
 import com.mdgz.dam.labdam2022.persistencia.room.bd.BaseDeDatos;
 
 import java.util.List;
@@ -60,13 +62,15 @@ public class AlojamientoAdapter extends RecyclerView.Adapter<AlojamientoAdapter.
     }
 
     //View Holder, encargado de "buscar los widgets"
-    public static class AlojamientoViewHolder extends RecyclerView.ViewHolder
+    public static class AlojamientoViewHolder extends RecyclerView.ViewHolder implements FavoritoDataSource.GuardarFavoritoCallback
     {
         CardAlojamientoBinding binding;
         CardAlojamientoExpandableBinding expandableBinding;
         private Activity activity;
         private Context context;
         LayoutInflater inflater;
+
+        private AlojamientoViewHolder alojamientoViewHolder;
 
         //Constructor
         public AlojamientoViewHolder(CardAlojamientoBinding binding, Activity activity, Context context, LayoutInflater inflater) //Recibe la vista inflada
@@ -77,6 +81,7 @@ public class AlojamientoAdapter extends RecyclerView.Adapter<AlojamientoAdapter.
             this.activity = activity;
             this.context = context;
             this.inflater = inflater;
+            alojamientoViewHolder = this;
         }
 
         //1. Seteo de los "nuevos" datos del alojamiento de la fila asociada al holder
@@ -86,24 +91,29 @@ public class AlojamientoAdapter extends RecyclerView.Adapter<AlojamientoAdapter.
                 @Override
                 public void onClick(View v) {
                     // Logica para agregar a favorito (antes hay que chequear si ya se encuentra en favoritos --> PENDIENTE)
-                    BaseDeDatos bd = BaseDeDatos.getInstance(context);
+                    // Y si ya se encuentra en favorito, hay que eliminarlo, pero la interfaz FavoritoDataSource propuesta en
+                    // el lab no tiene un metodo para eliminar, asi que habria que agregarlo
+
+                    //Aca esta hecho solo para agregar a favorito.
+                    Favorito fav;
                     if(alojamiento.getClass() == Departamento.class){
-                        bd.favoritoDao().insertarFavorito(new Favorito(
+                        fav = new Favorito(
                                 UUID.randomUUID(),
                                 null,
                                 alojamiento.getId(),
                                 UUID.randomUUID()
-                        ));
+                        );
                     }else{
-                        bd.favoritoDao().insertarFavorito(new Favorito(
+                        fav = new Favorito(
                                 UUID.randomUUID(),
                                 alojamiento.getId(),
                                 null,
                                 UUID.randomUUID()
-                        ));
+                        );
                     }
-                    //...
-                    binding.caFavoriteButton.setImageResource(R.drawable.ic_baseline_favorite_filled_24);
+                    FavoritoRoomDataSource favoritoRoomDataSource = new FavoritoRoomDataSource(context);
+                    favoritoRoomDataSource.guardarFavorito(fav, alojamientoViewHolder);
+
                 }
             });
 
@@ -111,7 +121,8 @@ public class AlojamientoAdapter extends RecyclerView.Adapter<AlojamientoAdapter.
             binding.caReservarButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    EstadiaDialog.create(activity,inflater,context,alojamiento).show();
+                    EstadiaDialog estadiaDialog = new EstadiaDialog();
+                    estadiaDialog.create(activity,inflater,context,alojamiento).show();
                 }
             });
 
@@ -204,6 +215,10 @@ public class AlojamientoAdapter extends RecyclerView.Adapter<AlojamientoAdapter.
 
         }
 
+        @Override
+        public void resultado(boolean exito) {
+            if(exito) binding.caFavoriteButton.setImageResource(R.drawable.ic_baseline_favorite_filled_24);
+        }
     }
 
 

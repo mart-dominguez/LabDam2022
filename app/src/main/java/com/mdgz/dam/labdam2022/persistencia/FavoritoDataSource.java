@@ -9,10 +9,10 @@ public interface FavoritoDataSource {
     interface GuardarFavoritoCallback {
         void resultado(final boolean exito);
     }
-    interface RecuperarFavoritoCallback {
+    interface RecuperarFavoritosCallback {
         void resultado(final boolean exito, final List<Favorito> resultados);
     }
     void guardarFavorito(final Favorito entidad, final FavoritoDataSource.GuardarFavoritoCallback callback);
-    void recuperarFavorito(final FavoritoDataSource.RecuperarFavoritoCallback callback);
+    void recuperarFavoritos(final FavoritoDataSource.RecuperarFavoritosCallback callback);
 
 }

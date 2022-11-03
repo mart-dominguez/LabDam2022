@@ -8,6 +8,8 @@ import androidx.room.Query;
 import com.mdgz.dam.labdam2022.model.Reserva;
 
 import java.util.List;
+import java.util.UUID;
+
 @Dao
 public interface ReservaDao {
 
@@ -19,6 +21,6 @@ public interface ReservaDao {
 
     //Buscar por id
     @Query("SELECT * FROM Reserva WHERE id = :id")
-    Reserva getReservaPorId(Integer id);
+    Reserva getReservaPorId(UUID id);
 
 }

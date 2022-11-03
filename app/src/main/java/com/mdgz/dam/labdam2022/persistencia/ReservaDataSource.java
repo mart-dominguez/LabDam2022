@@ -9,10 +9,10 @@ public interface ReservaDataSource {
     interface GuardarReservaCallback {
         void resultado(final boolean exito);
     }
-    interface RecuperarReservaCallback {
+    interface RecuperarReservasCallback {
         void resultado(final boolean exito, final List<Reserva> resultados);
     }
     void guardarReserva(final Reserva entidad, final ReservaDataSource.GuardarReservaCallback callback);
-    void recuperarReserva(final ReservaDataSource.RecuperarReservaCallback callback);
+    void recuperarReservas(final ReservaDataSource.RecuperarReservasCallback callback);
     
 }

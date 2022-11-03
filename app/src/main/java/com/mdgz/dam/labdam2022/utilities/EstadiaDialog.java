@@ -18,6 +18,8 @@ import com.mdgz.dam.labdam2022.databinding.AlertDialogEstadiaBinding;
 import com.mdgz.dam.labdam2022.model.Alojamiento;
 import com.mdgz.dam.labdam2022.model.Departamento;
 import com.mdgz.dam.labdam2022.model.Reserva;
+import com.mdgz.dam.labdam2022.persistencia.ReservaDataSource;
+import com.mdgz.dam.labdam2022.persistencia.room.ReservaRoomDataSource;
 import com.mdgz.dam.labdam2022.persistencia.room.bd.BaseDeDatos;
 
 
@@ -32,9 +34,14 @@ import java.util.List;
 import java.util.UUID;
 
 /* Devuelve un AlertDialog personalizado para las estadias */
-public class EstadiaDialog {
+public class EstadiaDialog implements ReservaDataSource.GuardarReservaCallback{
 
-    public static AlertDialog create(Activity activity, LayoutInflater inflater, Context context, Alojamiento alojamiento)
+    EstadiaDialog estadiaDialog;
+    public EstadiaDialog(){
+        estadiaDialog = this;
+    }
+
+    public AlertDialog create(Activity activity, LayoutInflater inflater, Context context, Alojamiento alojamiento)
     {
         //Setting up inicial
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
@@ -51,6 +58,7 @@ public class EstadiaDialog {
         builder.setPositiveButton("Reservar", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id)
             {
+                Reserva reserva;
 
                 BaseDeDatos bd = BaseDeDatos.getInstance(context);
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
@@ -58,20 +66,23 @@ public class EstadiaDialog {
                 LocalDate hasta = LocalDate.parse(binding.adeFechaFinInput.getText().toString(),formatter);
 
                 if(alojamiento.getClass() == Departamento.class){
-                    bd.reservaDao().insertarReserva(new Reserva(UUID.randomUUID(),
+                    reserva = new Reserva(UUID.randomUUID(),
                             null,
                             alojamiento.getId(),
                             UUID.randomUUID(),
                             Date.from(desde.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()),
-                            Date.from(hasta.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant())));
+                            Date.from(hasta.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
                 }else{
-                    bd.reservaDao().insertarReserva(new Reserva(UUID.randomUUID(),
+                    reserva = new Reserva(UUID.randomUUID(),
                             alojamiento.getId(),
                             null,
                             UUID.randomUUID(),
                             Date.from(desde.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()),
-                            Date.from(hasta.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant())));
+                            Date.from(hasta.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
                 }
+
+                ReservaRoomDataSource reservaRoomDataSource = new ReservaRoomDataSource(context);
+                reservaRoomDataSource.guardarReserva(reserva, estadiaDialog);
 
             }
         });
@@ -110,7 +121,7 @@ public class EstadiaDialog {
                             binding.adePrecioValue.setText("$" + Utilities.round2(precio));
                         }
                     }
-                }, year,month,day);
+                }, year,month-1,day);
                 datePickerDialog.show();
             }
 
@@ -139,7 +150,7 @@ public class EstadiaDialog {
                             binding.adePrecioValue.setText("$" + Utilities.round2(precio));
                         }
                     }
-                }, year,month,day);
+                }, year,month-1,day);
                 datePickerDialog.show();
             }
 
@@ -165,5 +176,12 @@ public class EstadiaDialog {
         long dias = ChronoUnit.DAYS.between(desde, hasta);
         double precio = dias > 0 ? precioBase * dias : precioBase;
         return precio;
+    }
+
+    @Override
+    public void resultado(boolean exito) {
+        //Mostrar que la reserva se logro con exito o no (Poner algun alert dialog)
+        if(exito)Log.i("RESERVA!","EXITOSA");
+        else Log.i("RESERVA!","NO EXITOSA");
     }
 }

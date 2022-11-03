@@ -8,6 +8,7 @@ import androidx.room.Query;
 import com.mdgz.dam.labdam2022.model.Habitacion;
 
 import java.util.List;
+import java.util.UUID;
 
 @Dao
 public interface HabitacionDao {
@@ -23,6 +24,6 @@ public interface HabitacionDao {
 
     //Buscar por id
     @Query("SELECT * FROM Habitacion WHERE id = :id")
-    Habitacion getHabitacionPorId(Integer id);
+    Habitacion getHabitacionPorId(UUID id);
     
 }

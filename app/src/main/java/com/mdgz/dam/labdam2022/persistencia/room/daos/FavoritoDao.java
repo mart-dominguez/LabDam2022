@@ -9,6 +9,8 @@ import androidx.room.Query;
 import com.mdgz.dam.labdam2022.model.Favorito;
 
 import java.util.List;
+import java.util.UUID;
+
 @Dao
 public interface FavoritoDao {
 
@@ -23,5 +25,5 @@ public interface FavoritoDao {
 
     //Buscar por id
     @Query("SELECT * FROM Favorito WHERE id = :id")
-    Favorito getFavoritoPorId(Integer id);
+    Favorito getFavoritoPorId(UUID id);
 }

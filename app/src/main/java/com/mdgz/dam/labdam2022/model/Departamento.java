@@ -69,5 +69,8 @@ public class Departamento extends Alojamiento{
         return ubicacion;
     }
 
+    public void setUbicacion(Ubicacion ubicacion){this.ubicacion = ubicacion;
+    }
+
 
 }

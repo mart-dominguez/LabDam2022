@@ -17,6 +17,17 @@ import android.view.ViewGroup;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mdgz.dam.labdam2022.databinding.FragmentResultadoBusquedaBinding;
+import com.mdgz.dam.labdam2022.model.Alojamiento;
+import com.mdgz.dam.labdam2022.model.Departamento;
+import com.mdgz.dam.labdam2022.model.Habitacion;
+import com.mdgz.dam.labdam2022.persistencia.AlojamientoDataSource;
+import com.mdgz.dam.labdam2022.persistencia.room.AlojamientoRoomDataSource;
+import com.mdgz.dam.labdam2022.persistencia.room.bd.BaseDeDatos;
+import com.mdgz.dam.labdam2022.persistencia.room.daos.CiudadDao;
+import com.mdgz.dam.labdam2022.persistencia.room.daos.DepartamentoDao;
+import com.mdgz.dam.labdam2022.persistencia.room.daos.HabitacionDao;
+import com.mdgz.dam.labdam2022.persistencia.room.daos.HotelDao;
+import com.mdgz.dam.labdam2022.persistencia.room.daos.UbicacionDao;
 import com.mdgz.dam.labdam2022.utilities.AlojamientoAdapter;
 import com.mdgz.dam.labdam2022.utilities.ListaDeAlojamientos;
 import com.mdgz.dam.labdam2022.utilities.JSONLogs;
@@ -27,10 +38,12 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 
-public class ResultadoBusquedaFragment extends Fragment {
+public class ResultadoBusquedaFragment extends Fragment implements AlojamientoDataSource.RecuperarAlojamientosCallback {
 
     private FragmentResultadoBusquedaBinding binding;
     private RecyclerView recyclerView;
@@ -58,9 +71,14 @@ public class ResultadoBusquedaFragment extends Fragment {
         //RecyclerView
         recyclerView = binding.recyclerView;
 
-        listaDeAlojamientos = new ListaDeAlojamientos();
+        // BUSCAR LISTA DE ALOJAMIENTOS DESDE LA BD
+        AlojamientoRoomDataSource alojamientoRoomDataSource = new AlojamientoRoomDataSource(getContext());
+        alojamientoRoomDataSource.recuperarAlojamientos(this);
 
-        mAdapter = new AlojamientoAdapter(listaDeAlojamientos.getLista(),getActivity());
+        //listaDeAlojamientos = new ListaDeAlojamientos();
+
+        //mAdapter = new AlojamientoAdapter(listaDeAlojamientos.getLista(),getActivity());
+        // Ahora el adapter se setea en el callback implementado
         recyclerView.setAdapter(mAdapter);
 
 
@@ -74,7 +92,8 @@ public class ResultadoBusquedaFragment extends Fragment {
             LocalDateTime now = Utilities.nowArgentina();
             long ms = ChronoUnit.MILLIS.between(log.getTimestamp(),now);   //Tiempo de navegacion entre los 2 fragmentos
             log.setTiempo_busqueda(ms + " milliseconds");
-            log.setCant_resultados(listaDeAlojamientos.getLista().size());
+            //log.setCant_resultados(listaDeAlojamientos.getLista().size());
+            log.setCant_resultados(mAdapter.getItemCount());
             logViewModel.guardar(getContext());
             logViewModel.setGuardado(false);
         }
@@ -91,4 +110,8 @@ public class ResultadoBusquedaFragment extends Fragment {
 
     }
 
+    @Override
+    public void resultado(boolean exito, List<Alojamiento> resultados) {
+        if (exito) mAdapter = mAdapter = new AlojamientoAdapter(resultados,getActivity());
+    }
 }

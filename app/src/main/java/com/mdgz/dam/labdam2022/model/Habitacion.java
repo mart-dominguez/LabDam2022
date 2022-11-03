@@ -69,6 +69,7 @@ public class Habitacion extends Alojamiento {
         return hotel.getUbicacion();
     }
 
+
     public Integer getHotelID() {
         return hotelID;
     }

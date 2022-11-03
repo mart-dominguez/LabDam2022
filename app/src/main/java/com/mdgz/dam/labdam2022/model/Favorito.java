@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.util.UUID;
@@ -21,6 +22,9 @@ public class Favorito {
     private UUID habitacionID;
     private UUID departamentoID;
     private UUID usuarioID; // raro
+
+    @Ignore
+    private Alojamiento alojamiento;
 
     public Favorito(UUID id, UUID habitacionID, UUID departamentoID, UUID usuarioID){
         this.id = id;
@@ -60,5 +64,13 @@ public class Favorito {
 
     public void setUsuarioID(UUID usuarioID) {
         this.usuarioID = usuarioID;
+    }
+
+    public Alojamiento getAlojamiento() {
+        return alojamiento;
+    }
+
+    public void setAlojamiento(Alojamiento alojamiento) {
+        this.alojamiento = alojamiento;
     }
 }

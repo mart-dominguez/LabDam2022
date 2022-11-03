@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.time.Instant;
@@ -30,6 +31,9 @@ public class Reserva {
     //private Instant fechaEgreso;
     //private Boolean cancelada;
     //private Double monto;
+
+    @Ignore
+    private Alojamiento alojamiento;
 
     public Reserva(UUID id, UUID habitacionID, UUID departamentoID, UUID usuarioID, Date fechaIngreso, Date fechaSalida){
         this.id = id;
@@ -87,5 +91,13 @@ public class Reserva {
 
     public void setFechaSalida(Date fechaSalida) {
         this.fechaSalida = fechaSalida;
+    }
+
+    public Alojamiento getAlojamiento() {
+        return alojamiento;
+    }
+
+    public void setAlojamiento(Alojamiento alojamiento) {
+        this.alojamiento = alojamiento;
     }
 }

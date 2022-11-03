@@ -8,6 +8,8 @@ import androidx.room.Query;
 import com.mdgz.dam.labdam2022.model.Departamento;
 
 import java.util.List;
+import java.util.UUID;
+
 @Dao
 public interface DepartamentoDao {
 
@@ -22,6 +24,6 @@ public interface DepartamentoDao {
 
     //Buscar por id
     @Query("SELECT * FROM Departamento WHERE id = :id")
-    Departamento getDepartamentoPorId(Integer id);
+    Departamento getDepartamentoPorId(UUID id);
 
 }
