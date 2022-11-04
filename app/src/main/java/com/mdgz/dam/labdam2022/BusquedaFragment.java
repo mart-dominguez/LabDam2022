@@ -3,10 +3,17 @@ package com.mdgz.dam.labdam2022;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
+
+import com.mdgz.dam.labdam2022.repo.CiudadRepository;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +30,9 @@ public class BusquedaFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    Button buttonBuscar;
+    Spinner spinner;
 
     public BusquedaFragment() {
         // Required empty public constructor
@@ -59,6 +69,33 @@ public class BusquedaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_busqueda, container, false);
+
+        View vista = inflater.inflate(R.layout.fragment_busqueda, container, false);
+
+        buttonBuscar = vista.findViewById(R.id.buttonBuscar);
+
+        spinner = vista.findViewById(R.id.spinner2);
+
+       // ArrayAdapter adapter = ArrayAdapter.createFromResource(this,
+       //         CiudadRepository.listaCiudadesNombres(), android.R.layout.simple_spinner_dropdown_item);
+
+        ArrayAdapter adapte2 = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_dropdown_item,
+                CiudadRepository.listaCiudadesNombres());
+
+        spinner.setAdapter(adapte2);
+        buttonBuscar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                transaction.setReorderingAllowed(true);
+
+                transaction.replace(R.id.linearLayoutBusqueda, ResultadoBusquedaFragment.newInstance("", ""));
+
+                transaction.commit();
+            }
+        });
+
+        return vista;
     }
 }

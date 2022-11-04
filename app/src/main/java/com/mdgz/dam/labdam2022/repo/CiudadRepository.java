@@ -16,4 +16,12 @@ public class CiudadRepository {
     public List<Ciudad> listaCiudades(){
         return  _CIUDADES;
     }
+
+    public static List<String> listaCiudadesNombres() {
+        List<String> nombres = List.of();
+        for (int i = 0; i < _CIUDADES.size(); i++){
+            nombres.add(_CIUDADES.get(i).getNombre());
+        }
+        return nombres;
+    }
 }

@@ -11,9 +11,14 @@
         android:id="@+id/materialToolbar"
         android:layout_width="409dp"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
+        android:background="#FFE500"
+        android:clickable="false"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
+        app:menu="@menu/toolbar_menu"
+        app:title="Búsqueda"
+        app:titleMargin="0dp"
+        app:titleTextColor="#3A3A3A"
         tools:layout_editor_absoluteX="1dp"
         tools:layout_editor_absoluteY="2dp" />
 
