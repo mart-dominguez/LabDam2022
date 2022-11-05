@@ -27,7 +27,7 @@ import com.mdgz.dam.labdam2022.persistencia.room.daos.UbicacionDao;
 import com.mdgz.dam.labdam2022.utilities.ListaDeAlojamientos;
 
 import java.util.concurrent.Executors;
-
+//
 @Database(entities = {Alojamiento.class, Favorito.class, Reserva.class, Ubicacion.class, Hotel.class, Ciudad.class, Departamento.class, Habitacion.class}, version = 1)
 @TypeConverters(Converters.class)
 public abstract class BaseDeDatos extends RoomDatabase {
