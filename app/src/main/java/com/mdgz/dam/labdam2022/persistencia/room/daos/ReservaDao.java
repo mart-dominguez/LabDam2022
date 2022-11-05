@@ -6,6 +6,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import com.mdgz.dam.labdam2022.model.Reserva;
+import com.mdgz.dam.labdam2022.persistencia.room.entidades.ReservaEntity;
 
 import java.util.List;
 import java.util.UUID;
@@ -14,13 +15,13 @@ import java.util.UUID;
 public interface ReservaDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertarReserva(Reserva Reserva);
+    void insertarReserva(ReservaEntity Reserva);
 
     @Query("SELECT * FROM Reserva")
-    List<Reserva> recuperarReservas();
+    List<ReservaEntity> recuperarReservas();
 
     //Buscar por id
     @Query("SELECT * FROM Reserva WHERE id = :id")
-    Reserva getReservaPorId(UUID id);
+    ReservaEntity getReservaPorId(UUID id);
 
 }

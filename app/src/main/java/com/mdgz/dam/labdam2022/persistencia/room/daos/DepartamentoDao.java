@@ -6,6 +6,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import com.mdgz.dam.labdam2022.model.Departamento;
+import com.mdgz.dam.labdam2022.persistencia.room.entidades.DepartamentoEntity;
 
 import java.util.List;
 import java.util.UUID;
@@ -14,16 +15,16 @@ import java.util.UUID;
 public interface DepartamentoDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertarDepartamento(Departamento departamento);
+    void insertarDepartamento(DepartamentoEntity departamento);
 
     @Insert
-    void insertarTodos(List<Departamento> departamentos);
+    void insertarTodos(List<DepartamentoEntity> departamentos);
 
     @Query("SELECT * FROM Departamento")
-    List<Departamento> recuperarDepartamentos();
+    List<DepartamentoEntity> recuperarDepartamentos();
 
     //Buscar por id
-    @Query("SELECT * FROM Departamento WHERE id = :id")
-    Departamento getDepartamentoPorId(UUID id);
+    @Query("SELECT * FROM Departamento WHERE idDepartamento = :id")
+    DepartamentoEntity getDepartamentoPorId(UUID id);
 
 }

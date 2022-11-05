@@ -7,29 +7,26 @@ import androidx.room.Ignore;
 
 import java.util.UUID;
 
-@Entity(tableName = "Habitacion",
-        foreignKeys = @ForeignKey(entity = Hotel.class, parentColumns = "id", childColumns = "hotelID"))
 public class Habitacion extends Alojamiento {
 
     private Integer camasIndividuales;
     private Integer camasMatrimoniales;
     private Boolean tieneEstacionamiento;
-    private Integer hotelID;
-    @Ignore
+
     private Hotel hotel;
 
     public Habitacion() {
         super();
     }
 
-    public Habitacion(UUID id, String titulo, String descripcion, Integer capacidad, Double precioBase, Integer camasIndividuales, Integer camasMatrimoniales, Boolean tieneEstacionamiento, Hotel hotel, Integer hotelID)
+    public Habitacion(UUID id, String titulo, String descripcion, Integer capacidad, Double precioBase, Integer camasIndividuales, Integer camasMatrimoniales, Boolean tieneEstacionamiento, Hotel hotel)
     {
         super(id, titulo, descripcion, capacidad, precioBase);
         this.camasIndividuales = camasIndividuales;
         this.camasMatrimoniales = camasMatrimoniales;
         this.tieneEstacionamiento = tieneEstacionamiento;
         this.hotel = hotel;
-        this.hotelID = hotelID;
+
     }
 
     public int getCamasIndividuales() {
@@ -70,11 +67,4 @@ public class Habitacion extends Alojamiento {
     }
 
 
-    public Integer getHotelID() {
-        return hotelID;
-    }
-
-    public void setHotelID(Integer hotelID) {
-        this.hotelID = hotelID;
-    }
 }

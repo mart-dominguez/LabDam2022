@@ -7,13 +7,16 @@ import com.mdgz.dam.labdam2022.model.Favorito;
 import com.mdgz.dam.labdam2022.model.Habitacion;
 import com.mdgz.dam.labdam2022.persistencia.FavoritoDataSource;
 import com.mdgz.dam.labdam2022.persistencia.room.bd.BaseDeDatos;
-import com.mdgz.dam.labdam2022.persistencia.room.daos.CiudadDao;
+import com.mdgz.dam.labdam2022.persistencia.room.daos.AlojamientoDao;
 import com.mdgz.dam.labdam2022.persistencia.room.daos.DepartamentoDao;
 import com.mdgz.dam.labdam2022.persistencia.room.daos.FavoritoDao;
 import com.mdgz.dam.labdam2022.persistencia.room.daos.HabitacionDao;
-import com.mdgz.dam.labdam2022.persistencia.room.daos.HotelDao;
-import com.mdgz.dam.labdam2022.persistencia.room.daos.UbicacionDao;
+import com.mdgz.dam.labdam2022.persistencia.room.entidades.AlojamientoEntity;
+import com.mdgz.dam.labdam2022.persistencia.room.entidades.FavoritoEntity;
+import com.mdgz.dam.labdam2022.persistencia.enumerados.TipoAlojamiento;
+import com.mdgz.dam.labdam2022.persistencia.room.mapeadores.FavoritoMapper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FavoritoRoomDataSource implements FavoritoDataSource {
@@ -21,24 +24,23 @@ public class FavoritoRoomDataSource implements FavoritoDataSource {
     private FavoritoDao favoritoDao;
     private DepartamentoDao departamentoDao;
     private HabitacionDao habitacionDao;
-    private CiudadDao ciudadDao;
-    private HotelDao hotelDao;
-    private UbicacionDao ubicacionDao;
+    private AlojamientoDao alojamientoDao;
+
+    private Context context;
 
     public FavoritoRoomDataSource(Context ctx){
         BaseDeDatos bd = BaseDeDatos.getInstance(ctx);
         favoritoDao = bd.favoritoDao();
         departamentoDao = bd.departamentoDao();
         habitacionDao = bd.habitacionDao();
-        ciudadDao = bd.ciudadDao();
-        hotelDao = bd.hotelDao();
-        ubicacionDao = bd.ubicacionDao();
+        alojamientoDao = bd.alojamientoDao();
+        context = ctx;
     }
 
     @Override
     public void guardarFavorito(Favorito entidad, GuardarFavoritoCallback callback) {
         try{
-            favoritoDao.insertarFavorito(entidad);
+            favoritoDao.insertarFavorito(FavoritoMapper.toEntity(entidad));
             callback.resultado(true);
         }catch (Exception e){
             callback.resultado(false);
@@ -48,22 +50,33 @@ public class FavoritoRoomDataSource implements FavoritoDataSource {
     @Override
     public void recuperarFavoritos(RecuperarFavoritosCallback callback) {
 
+        AlojamientoRoomDataSource alojamientoRoomDataSource = new AlojamientoRoomDataSource(context);
+
         try {
-            List<Favorito> favoritos = favoritoDao.recuperarFavoritos();
-            for (Favorito fav: favoritos) {
+            AlojamientoEntity alojamientoEntity;
+
+            List<Favorito> favoritos = new ArrayList<>();
+            Favorito favorito;
+
+            List<FavoritoEntity> favoritoEntities = favoritoDao.recuperarFavoritos();
+
+            for (FavoritoEntity fav: favoritoEntities) {
+                favorito = FavoritoMapper.toFavorito(fav);
+
+                alojamientoEntity = alojamientoDao.getAlojamientoPorId(fav.getAlojamientoID());
+
                 //Si es un favorito de un departamento
-                if(fav.getHabitacionID().equals(null)){
-                    Departamento dep = departamentoDao.getDepartamentoPorId(fav.getDepartamentoID());
-                    dep.setUbicacion(ubicacionDao.getUbicacionPorId(dep.getUbicacionID()));
-                    dep.getUbicacion().setCiudad(ciudadDao.getCiudadPorId(dep.getUbicacion().getCiudadID()));
-                    fav.setAlojamiento(dep);
-                }else { //Es un favorito de habitacion
-                    Habitacion hab = habitacionDao.getHabitacionPorId(fav.getHabitacionID());
-                    hab.setHotel(hotelDao.getHotelPorId(hab.getHotelID()));
-                    hab.getHotel().setUbicacion(ubicacionDao.getUbicacionPorId(hab.getHotel().getUbicacionID()));
-                    hab.getUbicacion().setCiudad(ciudadDao.getCiudadPorId(hab.getUbicacion().getCiudadID()));
-                    fav.setAlojamiento(hab);
+                if(alojamientoEntity.getTipo().equals(TipoAlojamiento.DEPARTAMENTO.name())){
+                    Departamento dep = alojamientoRoomDataSource.armarDepartamento(departamentoDao.getDepartamentoPorId(fav.getAlojamientoID()));
+                    favorito.setAlojamiento(dep);
                 }
+                //Si es un favorito de una habitacion
+                else{
+                    Habitacion hab = alojamientoRoomDataSource.armarHabitacion(habitacionDao.getHabitacionPorId(fav.getAlojamientoID()));
+                    favorito.setAlojamiento(hab);
+                }
+
+                favoritos.add(favorito);
             }
 
             callback.resultado(true, favoritos);

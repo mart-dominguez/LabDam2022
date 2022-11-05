@@ -30,11 +30,16 @@ public class MainActivity extends AppCompatActivity {
         setearToolbar();
 
         //------------------------------------------------------------------------------------------------
+        /*
+          La bd implementada por room NO se crea cuando se ejecuta build(). Se crea (si es que no existe) recien cuando
+          invocas a algun metodo de algun dao.
+          Por eso, invoco un metodo random aca, para que no se den problemas.
+          Por que podía pasar esto (si lo invocaba directamente cuando lo necesitaba):
+          - cuando presionas buscar, crea la bd y ejecuta en un hilo secundario el onCreate de la bd
+            (que carga los datos iniciales). Mientras tanto, en el hilo principal, el adapter queda como nulo y la
+            pantalla de resultados no muestra nada.
+         */
         BaseDeDatos bd = BaseDeDatos.getInstance(getApplicationContext());
-        /* EJECUCION DE PRUEBA PARA QUE SE CREE LA BD: si no se llama a algun metodo de algun dao,
-           por mas que se haya construido la bd, no se va a crear.
-           Entonces se llama a este metodo sólo para "iniciarla".
-        */
         bd.ciudadDao().getCiudadPorId(1);
         //------------------------------------------------------------------------------------------------
 

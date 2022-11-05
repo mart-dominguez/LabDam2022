@@ -1,4 +1,4 @@
-package com.mdgz.dam.labdam2022.repo;
+package com.mdgz.dam.labdam2022.repositorios;
 
 import com.mdgz.dam.labdam2022.model.Ciudad;
 

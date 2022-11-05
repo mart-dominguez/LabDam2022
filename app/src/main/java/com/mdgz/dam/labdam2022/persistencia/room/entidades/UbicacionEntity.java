@@ -1,40 +1,43 @@
-package com.mdgz.dam.labdam2022.model;
+package com.mdgz.dam.labdam2022.persistencia.room.entidades;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
-import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-public class Ubicacion {
+import com.mdgz.dam.labdam2022.model.Ciudad;
 
+
+@Entity(tableName = "Ubicacion",
+        foreignKeys = @ForeignKey(entity = CiudadEntity.class, parentColumns = "id", childColumns = "ciudadID"))
+public class UbicacionEntity {
+
+    @PrimaryKey
+    @NonNull
+    @ColumnInfo(name = "id")
     private Integer id;
     private double lat;
     private double lng;
     private String calle;
     private String numero;
+    private Integer ciudadID;
 
-    private Ciudad ciudad;
-
-    public Ubicacion(){
-
-    }
-
-    public Ubicacion(Integer id, double lat, double lng, String calle, String numero, Ciudad ciudad) {
+    public UbicacionEntity(Integer id, double lat, double lng, String calle, String numero, Integer ciudadID) {
         this.id = id;
         this.lat = lat;
         this.lng = lng;
         this.calle = calle;
         this.numero = numero;
-        this.ciudad = ciudad;
+        this.ciudadID = ciudadID;
     }
 
+    @NonNull
     public Integer getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(@NonNull Integer id) {
         this.id = id;
     }
 
@@ -70,12 +73,11 @@ public class Ubicacion {
         this.numero = numero;
     }
 
-    public Ciudad getCiudad() {
-        return ciudad;
+    public Integer getCiudadID() {
+        return ciudadID;
     }
 
-    public void setCiudad(Ciudad ciudad) {
-        this.ciudad = ciudad;
+    public void setCiudadID(Integer ciudadID) {
+        this.ciudadID = ciudadID;
     }
-
 }

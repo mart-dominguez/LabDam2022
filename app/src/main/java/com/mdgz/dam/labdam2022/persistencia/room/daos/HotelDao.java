@@ -6,22 +6,23 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import com.mdgz.dam.labdam2022.model.Hotel;
+import com.mdgz.dam.labdam2022.persistencia.room.entidades.HotelEntity;
 
 import java.util.List;
 @Dao
 public interface HotelDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertarHotel(Hotel hotel);
+    void insertarHotel(HotelEntity hotel);
 
     @Insert
-    void insertarTodos(List<Hotel> hoteles);
+    void insertarTodos(List<HotelEntity> hoteles);
 
     @Query("SELECT * FROM Hotel")
-    List<Hotel> recuperarHoteles();
+    List<HotelEntity> recuperarHoteles();
 
     //Buscar por id
     @Query("SELECT * FROM Hotel WHERE id = :id")
-    Hotel getHotelPorId(Integer id);
+    HotelEntity getHotelPorId(Integer id);
     
 }

@@ -28,6 +28,7 @@ import com.mdgz.dam.labdam2022.persistencia.room.daos.DepartamentoDao;
 import com.mdgz.dam.labdam2022.persistencia.room.daos.HabitacionDao;
 import com.mdgz.dam.labdam2022.persistencia.room.daos.HotelDao;
 import com.mdgz.dam.labdam2022.persistencia.room.daos.UbicacionDao;
+import com.mdgz.dam.labdam2022.repositorios.AlojamientoRepository;
 import com.mdgz.dam.labdam2022.utilities.AlojamientoAdapter;
 import com.mdgz.dam.labdam2022.utilities.ListaDeAlojamientos;
 import com.mdgz.dam.labdam2022.utilities.JSONLogs;
@@ -72,8 +73,8 @@ public class ResultadoBusquedaFragment extends Fragment implements AlojamientoDa
         recyclerView = binding.recyclerView;
 
         // BUSCAR LISTA DE ALOJAMIENTOS DESDE LA BD
-        AlojamientoRoomDataSource alojamientoRoomDataSource = new AlojamientoRoomDataSource(getContext());
-        alojamientoRoomDataSource.recuperarAlojamientos(this);
+        AlojamientoRepository alojamientoRepository = AlojamientoRepository.getInstance(getContext());
+        alojamientoRepository.recuperarAlojamientos(this);
 
         //listaDeAlojamientos = new ListaDeAlojamientos();
 
@@ -112,6 +113,6 @@ public class ResultadoBusquedaFragment extends Fragment implements AlojamientoDa
 
     @Override
     public void resultado(boolean exito, List<Alojamiento> resultados) {
-        if (exito) mAdapter = mAdapter = new AlojamientoAdapter(resultados,getActivity());
+        if (exito) mAdapter = new AlojamientoAdapter(resultados,getActivity());
     }
 }

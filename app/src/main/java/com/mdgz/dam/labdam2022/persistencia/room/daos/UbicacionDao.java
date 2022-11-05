@@ -6,22 +6,23 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import com.mdgz.dam.labdam2022.model.Ubicacion;
+import com.mdgz.dam.labdam2022.persistencia.room.entidades.UbicacionEntity;
 
 import java.util.List;
 @Dao
 public interface UbicacionDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertarUbicacion(Ubicacion ubicacion);
+    void insertarUbicacion(UbicacionEntity ubicacion);
 
     @Insert
-    void insertarTodos(List<Ubicacion> ubicaciones);
+    void insertarTodos(List<UbicacionEntity> ubicaciones);
 
     @Query("SELECT * FROM Ubicacion")
-    List<Ubicacion> recuperarUbicaciones();
+    List<UbicacionEntity> recuperarUbicaciones();
 
     //Buscar por id
     @Query("SELECT * FROM Ubicacion WHERE id = :id")
-    Ubicacion getUbicacionPorId(Integer id);
+    UbicacionEntity getUbicacionPorId(Integer id);
     
 }

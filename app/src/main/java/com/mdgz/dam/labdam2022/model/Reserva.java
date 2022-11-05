@@ -11,18 +11,10 @@ import java.time.Instant;
 import java.util.Date;
 import java.util.UUID;
 
-@Entity(tableName = "Reserva",
-        foreignKeys = {@ForeignKey(entity = Departamento.class, parentColumns = "id", childColumns = "departamentoID"),
-                       @ForeignKey(entity = Habitacion.class, parentColumns = "id", childColumns = "habitacionID")})
+
 public class Reserva {
 
-    @PrimaryKey//(autoGenerate = true)
-    @NonNull
-    @ColumnInfo(name = "id")
     private UUID id;
-    //private UUID alojamientoID;
-    private UUID habitacionID;
-    private UUID departamentoID;
     private UUID usuarioID; // raro
     private Date fechaIngreso;
     private Date fechaSalida;
@@ -32,29 +24,20 @@ public class Reserva {
     //private Boolean cancelada;
     //private Double monto;
 
-    @Ignore
+    //@Ignore
     private Alojamiento alojamiento;
 
-    public Reserva(UUID id, UUID habitacionID, UUID departamentoID, UUID usuarioID, Date fechaIngreso, Date fechaSalida){
+    public Reserva(UUID id, UUID usuarioID, Date fechaIngreso, Date fechaSalida, Alojamiento alojamiento){
         this.id = id;
-        this.habitacionID = habitacionID;
-        this.departamentoID = departamentoID;
         this.usuarioID = usuarioID;
         this.fechaIngreso = fechaIngreso;
         this.fechaSalida = fechaSalida;
+        this.alojamiento = alojamiento;
     }
 
     @NonNull
     public UUID getId() {
         return id;
-    }
-
-    public UUID getHabitacionID() {
-        return habitacionID;
-    }
-
-    public UUID getDepartamentoID() {
-        return departamentoID;
     }
 
     public UUID getUsuarioID() {
@@ -71,14 +54,6 @@ public class Reserva {
 
     public void setId(@NonNull UUID id) {
         this.id = id;
-    }
-
-    public void setHabitacionID(UUID habitacionID) {
-        this.habitacionID = habitacionID;
-    }
-
-    public void setDepartamentoID(UUID departamentoID) {
-        this.departamentoID = departamentoID;
     }
 
     public void setUsuarioID(UUID usuarioID) {

@@ -21,6 +21,7 @@ import com.mdgz.dam.labdam2022.model.Reserva;
 import com.mdgz.dam.labdam2022.persistencia.ReservaDataSource;
 import com.mdgz.dam.labdam2022.persistencia.room.ReservaRoomDataSource;
 import com.mdgz.dam.labdam2022.persistencia.room.bd.BaseDeDatos;
+import com.mdgz.dam.labdam2022.repositorios.ReservaRepository;
 
 
 import java.sql.Date;
@@ -58,31 +59,21 @@ public class EstadiaDialog implements ReservaDataSource.GuardarReservaCallback{
         builder.setPositiveButton("Reservar", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id)
             {
-                Reserva reserva;
 
-                BaseDeDatos bd = BaseDeDatos.getInstance(context);
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
                 LocalDate desde = LocalDate.parse(binding.adeFechaInicioInput.getText().toString(),formatter);
                 LocalDate hasta = LocalDate.parse(binding.adeFechaFinInput.getText().toString(),formatter);
 
-                if(alojamiento.getClass() == Departamento.class){
-                    reserva = new Reserva(UUID.randomUUID(),
-                            null,
-                            alojamiento.getId(),
-                            UUID.randomUUID(),
-                            Date.from(desde.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()),
-                            Date.from(hasta.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
-                }else{
-                    reserva = new Reserva(UUID.randomUUID(),
-                            alojamiento.getId(),
-                            null,
-                            UUID.randomUUID(),
-                            Date.from(desde.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()),
-                            Date.from(hasta.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
-                }
+                Reserva reserva = new Reserva(
+                        UUID.randomUUID(),
+                        UUID.randomUUID(),
+                        Date.from(desde.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()),
+                        Date.from(hasta.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()),
+                        alojamiento
+                );
 
-                ReservaRoomDataSource reservaRoomDataSource = new ReservaRoomDataSource(context);
-                reservaRoomDataSource.guardarReserva(reserva, estadiaDialog);
+                ReservaRepository reservaRepository = ReservaRepository.getInstance(context);
+                reservaRepository.guardarReserva(reserva, estadiaDialog);
 
             }
         });

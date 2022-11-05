@@ -22,6 +22,7 @@ import com.mdgz.dam.labdam2022.model.Habitacion;
 import com.mdgz.dam.labdam2022.persistencia.FavoritoDataSource;
 import com.mdgz.dam.labdam2022.persistencia.room.FavoritoRoomDataSource;
 import com.mdgz.dam.labdam2022.persistencia.room.bd.BaseDeDatos;
+import com.mdgz.dam.labdam2022.repositorios.FavoritoRepository;
 
 import java.util.List;
 import java.util.Random;
@@ -99,20 +100,18 @@ public class AlojamientoAdapter extends RecyclerView.Adapter<AlojamientoAdapter.
                     if(alojamiento.getClass() == Departamento.class){
                         fav = new Favorito(
                                 UUID.randomUUID(),
-                                null,
-                                alojamiento.getId(),
-                                UUID.randomUUID()
+                                UUID.randomUUID(),
+                                alojamiento
                         );
                     }else{
                         fav = new Favorito(
                                 UUID.randomUUID(),
-                                alojamiento.getId(),
-                                null,
-                                UUID.randomUUID()
+                                UUID.randomUUID(),
+                                alojamiento
                         );
                     }
-                    FavoritoRoomDataSource favoritoRoomDataSource = new FavoritoRoomDataSource(context);
-                    favoritoRoomDataSource.guardarFavorito(fav, alojamientoViewHolder);
+                    FavoritoRepository favoritoRepository = FavoritoRepository.getInstance(context);
+                    favoritoRepository.guardarFavorito(fav, alojamientoViewHolder);
 
                 }
             });

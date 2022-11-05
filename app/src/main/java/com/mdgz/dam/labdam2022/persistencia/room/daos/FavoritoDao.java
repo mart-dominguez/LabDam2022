@@ -7,6 +7,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import com.mdgz.dam.labdam2022.model.Favorito;
+import com.mdgz.dam.labdam2022.persistencia.room.entidades.FavoritoEntity;
 
 import java.util.List;
 import java.util.UUID;
@@ -15,15 +16,15 @@ import java.util.UUID;
 public interface FavoritoDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertarFavorito(Favorito favorito);
+    void insertarFavorito(FavoritoEntity favorito);
 
     @Query("SELECT * FROM Favorito")
-    List<Favorito> recuperarFavoritos();
+    List<FavoritoEntity> recuperarFavoritos();
 
     @Delete
-    void eliminarFavorito(Favorito favorito);
+    void eliminarFavorito(FavoritoEntity favorito);
 
     //Buscar por id
     @Query("SELECT * FROM Favorito WHERE id = :id")
-    Favorito getFavoritoPorId(UUID id);
+    FavoritoEntity getFavoritoPorId(UUID id);
 }

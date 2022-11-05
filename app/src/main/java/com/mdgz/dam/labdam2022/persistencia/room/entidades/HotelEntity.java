@@ -1,38 +1,38 @@
-package com.mdgz.dam.labdam2022.model;
+package com.mdgz.dam.labdam2022.persistencia.room.entidades;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
-import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 
-public class Hotel {
+@Entity(tableName = "Hotel",
+        foreignKeys = @ForeignKey(entity = UbicacionEntity.class, parentColumns = "id", childColumns = "ubicacionID"))
 
+public class HotelEntity {
+
+    @PrimaryKey
+    @NonNull
+    @ColumnInfo(name = "id")
     private Integer id;
     private String nombre;
     private Integer categoria;
+    private Integer ubicacionID;
 
-    private Ubicacion ubicacion;
-
-    public Hotel(){
-        super();
-    }
-
-    public Hotel(Integer id, String nombre, Integer categoria, Ubicacion ubicacion) {
+    public HotelEntity(Integer id, String nombre, Integer categoria, Integer ubicacionID) {
         this.id = id;
         this.nombre = nombre;
         this.categoria = categoria;
-        this.ubicacion = ubicacion;
-
+        this.ubicacionID = ubicacionID;
     }
 
+    @NonNull
     public Integer getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(@NonNull Integer id) {
         this.id = id;
     }
 
@@ -52,12 +52,11 @@ public class Hotel {
         this.categoria = categoria;
     }
 
-    public Ubicacion getUbicacion() {
-        return ubicacion;
+    public Integer getUbicacionID() {
+        return ubicacionID;
     }
 
-    public void setUbicacion(Ubicacion ubicacion) {
-        this.ubicacion = ubicacion;
+    public void setUbicacionID(Integer ubicacionID) {
+        this.ubicacionID = ubicacionID;
     }
-
 }

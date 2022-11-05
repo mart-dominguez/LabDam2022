@@ -6,22 +6,23 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import com.mdgz.dam.labdam2022.model.Ciudad;
+import com.mdgz.dam.labdam2022.persistencia.room.entidades.CiudadEntity;
 
 import java.util.List;
 @Dao
 public interface CiudadDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertarCiudad(Ciudad ciudad);
+    void insertarCiudad(CiudadEntity ciudad);
 
     @Insert
-    void insertarTodos(List<Ciudad> ciudades);
+    void insertarTodos(List<CiudadEntity> ciudades);
 
     @Query("SELECT * FROM Ciudad")
-    List<Ciudad> recuperarCiudades();
+    List<CiudadEntity> recuperarCiudades();
 
     //Buscar por id
     @Query("SELECT * FROM Ciudad WHERE id = :id")
-    Ciudad getCiudadPorId(Integer id);
+    CiudadEntity getCiudadPorId(Integer id);
     
 }
