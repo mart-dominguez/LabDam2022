@@ -1,6 +1,7 @@
 package com.mdgz.dam.labdam2022;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -35,7 +36,10 @@ public class ResultadoBusquedaFragment extends Fragment {
     public ResultadoBusquedaFragment() {
         // Required empty public constructor
     }
-
+    public interface OnVerDetallesListener{
+        public void verDetalles();
+    }
+    private static OnVerDetallesListener listenerDetalles;
     public static ResultadoBusquedaFragment newInstance(String param1, String param2) {
         ResultadoBusquedaFragment fragment = new ResultadoBusquedaFragment();
         return fragment;
@@ -45,6 +49,16 @@ public class ResultadoBusquedaFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+    }
+
+    @Override
+    public void onAttach(@NonNull Context activity) {
+        super.onAttach(activity);
+        try {
+            listenerDetalles = (ResultadoBusquedaFragment.OnVerDetallesListener) activity;
+        }catch (ClassCastException e){
+            throw new ClassCastException(activity.toString() + "must implement interface");
+        }
     }
 
     @Override
@@ -82,6 +96,12 @@ public class ResultadoBusquedaFragment extends Fragment {
                 titulo = v.findViewById(R.id.txtTitulo);
                 capacidad = v.findViewById(R.id.txtCapacidad);
                 btnDetalle = v.findViewById(R.id.btnVerDetalle);
+                btnDetalle.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        listenerDetalles.verDetalles();//A buscar hay que pasarle un conjunto de info a buscar
+                    }
+                });
             }
         }
         public AlojamientoRecyclerAdapter(List<Alojamiento> myDataset) {

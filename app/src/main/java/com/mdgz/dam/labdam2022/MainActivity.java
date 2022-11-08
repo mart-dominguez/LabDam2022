@@ -13,7 +13,7 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements BusquedaFragment.OnBuscarListener{
+public class MainActivity extends AppCompatActivity implements BusquedaFragment.OnBuscarListener, ResultadoBusquedaFragment.OnVerDetallesListener{
 
 
 
@@ -70,5 +70,14 @@ public class MainActivity extends AppCompatActivity implements BusquedaFragment.
         NavController navController = navHostFragment.getNavController();
 
         navController.navigate(R.id.action_busquedaFragment_to_resultadoBusquedaFragment);
+    }
+
+    @Override
+    public void verDetalles() {
+        NavHostFragment navHostFragment =
+                (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView);
+        NavController navController = navHostFragment.getNavController();
+
+        navController.navigate(R.id.action_resultadoBusquedaFragment_to_detalleAlojamientoFragment);
     }
 }
