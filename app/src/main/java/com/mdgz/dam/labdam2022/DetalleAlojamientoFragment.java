@@ -7,6 +7,10 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.mdgz.dam.labdam2022.databinding.FragmentDetalleAlojamientoBinding;
+import com.mdgz.dam.labdam2022.model.Alojamiento;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,9 +24,12 @@ public class DetalleAlojamientoFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    private FragmentDetalleAlojamientoBinding binding;
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private Alojamiento alojamiento;
 
     public DetalleAlojamientoFragment() {
         // Required empty public constructor
@@ -50,15 +57,30 @@ public class DetalleAlojamientoFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            alojamiento = getArguments().getParcelable("alojamiento");
         }
+
+
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        binding = FragmentDetalleAlojamientoBinding.inflate(inflater, container, false);
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_detalle_alojamiento, container, false);
+        View thisView = inflater.inflate(R.layout.fragment_detalle_alojamiento, container, false);
+        TextView tituloText = binding.tituloText;
+        TextView descripcionText = binding.descripcionText;thisView.findViewById(R.id.descripcionText);
+        TextView capacidadText = binding.capacidadText;
+        TextView precioText = binding.precioText;
+        /* TOREAD
+        https://www.geeksforgeeks.org/how-to-implement-google-map-inside-fragment-in-android/
+         */
+        tituloText.setText(alojamiento.getTitulo());
+        descripcionText.setText(alojamiento.getDescripcion());
+        capacidadText.setText(alojamiento.getCapacidad());
+        precioText.setText(String.valueOf(alojamiento.getPrecioBase()));
+        return thisView;
     }
 }
