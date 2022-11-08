@@ -63,7 +63,7 @@ public class AlojamientoAdapter extends RecyclerView.Adapter<AlojamientoAdapter.
     }
 
     //View Holder, encargado de "buscar los widgets"
-    public static class AlojamientoViewHolder extends RecyclerView.ViewHolder implements FavoritoDataSource.GuardarFavoritoCallback
+    public static class AlojamientoViewHolder extends RecyclerView.ViewHolder
     {
         CardAlojamientoBinding binding;
         CardAlojamientoExpandableBinding expandableBinding;
@@ -111,7 +111,12 @@ public class AlojamientoAdapter extends RecyclerView.Adapter<AlojamientoAdapter.
                         );
                     }
                     FavoritoRepository favoritoRepository = FavoritoRepository.getInstance(context);
-                    favoritoRepository.guardarFavorito(fav, alojamientoViewHolder);
+                    favoritoRepository.guardarFavorito(fav, new FavoritoDataSource.GuardarFavoritoCallback() {
+                        @Override
+                        public void resultado(boolean exito) {
+                            if(exito) binding.caFavoriteButton.setImageResource(R.drawable.ic_baseline_favorite_filled_24);
+                        }
+                    });
 
                 }
             });
@@ -214,10 +219,6 @@ public class AlojamientoAdapter extends RecyclerView.Adapter<AlojamientoAdapter.
 
         }
 
-        @Override
-        public void resultado(boolean exito) {
-            if(exito) binding.caFavoriteButton.setImageResource(R.drawable.ic_baseline_favorite_filled_24);
-        }
     }
 
 
