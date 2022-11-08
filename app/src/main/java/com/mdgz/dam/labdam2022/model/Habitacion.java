@@ -11,6 +11,26 @@ public class Habitacion  extends Alojamiento {
         super();
     }
 
+    @Override
+    public String getTitulo() {
+        return super.titulo;
+    }
+
+    @Override
+    public Integer getCapacidad() {
+        return super.capacidad;
+    }
+
+    @Override
+    public Double getPrecioBase() {
+        return super.precioBase;
+    }
+
+    @Override
+    public String getDescripcion() {
+        return super.descripcion;
+    }
+
     public Habitacion(Integer id, String titulo, String descripcion, Integer capacidad, Double precioBase, int camasIndividuales, int camasMatrimoniales, Boolean tieneEstacionamiento, Hotel hotel) {
         super(id, titulo, descripcion, capacidad, precioBase);
         this.camasIndividuales = camasIndividuales;
@@ -63,5 +83,6 @@ public class Habitacion  extends Alojamiento {
     public Ubicacion getUbicacion() {
         return hotel.getUbicacion();
     }
+
 
 }

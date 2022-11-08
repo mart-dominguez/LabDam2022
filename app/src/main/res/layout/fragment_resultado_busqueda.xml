@@ -5,10 +5,10 @@
     android:layout_height="match_parent"
     tools:context=".ResultadoBusquedaFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerAlojamiento"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/resultado_busqueda" />
+        android:layout_height="match_parent" />
 
 </FrameLayout>
