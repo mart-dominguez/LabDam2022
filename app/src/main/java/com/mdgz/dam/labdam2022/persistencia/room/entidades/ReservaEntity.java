@@ -19,8 +19,8 @@ public class ReservaEntity {
     @NonNull
     @ColumnInfo(name = "id")
     private UUID id;
-    private UUID alojamientoID;
-    private UUID usuarioID; // raro
+    private UUID alojamientoID;     //M..0.1
+    private UUID usuarioID;         //M..0.1
     private Date fechaIngreso;
     private Date fechaSalida;
 

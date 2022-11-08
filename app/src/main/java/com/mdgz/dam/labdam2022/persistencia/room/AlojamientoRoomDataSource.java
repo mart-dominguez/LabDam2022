@@ -10,6 +10,7 @@ import com.mdgz.dam.labdam2022.model.Habitacion;
 import com.mdgz.dam.labdam2022.model.Hotel;
 import com.mdgz.dam.labdam2022.model.Ubicacion;
 import com.mdgz.dam.labdam2022.persistencia.AlojamientoDataSource;
+import com.mdgz.dam.labdam2022.persistencia.enumerados.TipoAlojamiento;
 import com.mdgz.dam.labdam2022.persistencia.room.bd.BaseDeDatos;
 import com.mdgz.dam.labdam2022.persistencia.room.daos.AlojamientoDao;
 import com.mdgz.dam.labdam2022.persistencia.room.daos.CiudadDao;
@@ -40,7 +41,8 @@ public class AlojamientoRoomDataSource implements AlojamientoDataSource {
     private UbicacionDao ubicacionDao;
     private AlojamientoDao alojamientoDao;
 
-    public AlojamientoRoomDataSource(Context ctx){
+    public AlojamientoRoomDataSource(Context ctx)
+    {
         BaseDeDatos bd = BaseDeDatos.getInstance(ctx);
         departamentoDao = bd.departamentoDao();
         habitacionDao = bd.habitacionDao();
@@ -64,11 +66,13 @@ public class AlojamientoRoomDataSource implements AlojamientoDataSource {
             AlojamientoEntity alojamiento = AlojamientoMapper.toEntity(entidad);
             alojamientoDao.insertarAlojamiento(alojamiento);
 
-            if(entidad.getClass() == Departamento.class) {
+            if(alojamiento.getTipo().equals(TipoAlojamiento.DEPARTAMENTO))
+            {
                 DepartamentoEntity departamento = AlojamientoMapper.toDepartamentoEntity((Departamento) entidad);
                 departamentoDao.insertarDepartamento(departamento);
             }
-            else{
+            else
+            {
                 HotelEntity hotel = HotelMapper.toEntity(((Habitacion)entidad).getHotel());
                 hotelDao.insertarHotel(hotel);
 

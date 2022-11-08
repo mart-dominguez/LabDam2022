@@ -14,7 +14,8 @@ public class AlojamientoRepository {
     private AlojamientoDataSource alojamientoDataSource;
 
     // patron singleton
-    private AlojamientoRepository(Context ctx){
+    private AlojamientoRepository(Context ctx)
+    {
         alojamientoDataSource = new AlojamientoRoomDataSource(ctx);
     }
 

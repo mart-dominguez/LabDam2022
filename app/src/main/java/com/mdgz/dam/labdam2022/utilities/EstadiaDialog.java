@@ -5,9 +5,9 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.text.Editable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 
 import androidx.appcompat.app.AlertDialog;
@@ -16,11 +16,8 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.mdgz.dam.labdam2022.R;
 import com.mdgz.dam.labdam2022.databinding.AlertDialogEstadiaBinding;
 import com.mdgz.dam.labdam2022.model.Alojamiento;
-import com.mdgz.dam.labdam2022.model.Departamento;
 import com.mdgz.dam.labdam2022.model.Reserva;
 import com.mdgz.dam.labdam2022.persistencia.ReservaDataSource;
-import com.mdgz.dam.labdam2022.persistencia.room.ReservaRoomDataSource;
-import com.mdgz.dam.labdam2022.persistencia.room.bd.BaseDeDatos;
 import com.mdgz.dam.labdam2022.repositorios.ReservaRepository;
 
 
@@ -30,51 +27,23 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.Calendar;
-import java.util.List;
 import java.util.UUID;
 
 /* Devuelve un AlertDialog personalizado para las estadias */
-public class EstadiaDialog implements ReservaDataSource.GuardarReservaCallback{
+public class EstadiaDialog {
 
-    EstadiaDialog estadiaDialog;
-    public EstadiaDialog(){
-        estadiaDialog = this;
-    }
 
-    public AlertDialog create(Activity activity, LayoutInflater inflater, Context context, Alojamiento alojamiento)
+    public static AlertDialog create(Activity activity, LayoutInflater inflater, Context context, Alojamiento alojamiento)
     {
         //Setting up inicial
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setTitle("Nueva reserva");
         builder.setMessage("Complete los siguientes campos");
         builder.setIcon(R.drawable.ic_round_edit_calendar_24);
-
-        AlertDialogEstadiaBinding binding = AlertDialogEstadiaBinding.inflate(inflater);
-        builder.setView(binding.getRoot());
-        binding.adePrecioValue.setText("$" + alojamiento.getPrecioBase());
-        binding.adeReservaCaption.setText("Usted desea realizar una reserva en: " +
-                alojamiento.getTitulo() + ". Compruebe sus datos antes de continuar.");
-
         builder.setPositiveButton("Reservar", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id)
             {
-
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
-                LocalDate desde = LocalDate.parse(binding.adeFechaInicioInput.getText().toString(),formatter);
-                LocalDate hasta = LocalDate.parse(binding.adeFechaFinInput.getText().toString(),formatter);
-
-                Reserva reserva = new Reserva(
-                        UUID.randomUUID(),
-                        UUID.randomUUID(),
-                        Date.from(desde.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()),
-                        Date.from(hasta.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()),
-                        alojamiento
-                );
-
-                ReservaRepository reservaRepository = ReservaRepository.getInstance(context);
-                reservaRepository.guardarReserva(reserva, estadiaDialog);
-
+                //La funcion se sobreescribe al final con onShow()
             }
         });
 
@@ -85,6 +54,14 @@ public class EstadiaDialog implements ReservaDataSource.GuardarReservaCallback{
             }
         });
 
+        //Layout
+        AlertDialogEstadiaBinding binding = AlertDialogEstadiaBinding.inflate(inflater);
+        binding.adePrecioValue.setText("$" + alojamiento.getPrecioBase());
+        StringBuilder reservaCaption = new StringBuilder();
+        reservaCaption.append("Usted desea realizar una reserva en: ").append(alojamiento.getTitulo()).append(". Compruebe sus datos antes de continuar.");
+        binding.adeReservaCaption.setText(reservaCaption.toString());
+        binding.adeOcupantesEdit.clearFocus();
+        binding.getRoot().requestFocus();
 
 
         //Manejo del layout
@@ -96,7 +73,7 @@ public class EstadiaDialog implements ReservaDataSource.GuardarReservaCallback{
                 LocalDateTime ahora = Utilities.nowArgentina();
                 //Establece desde que fecha se mostrará el calendario
                 int year = ahora.getYear();
-                int month = ahora.getMonthValue();
+                int month = ahora.getMonthValue() - 1;
                 int day = ahora.getDayOfMonth();
 
                 //Lanzar el calendario y obtener la fecha seleccionada
@@ -104,6 +81,7 @@ public class EstadiaDialog implements ReservaDataSource.GuardarReservaCallback{
                     @Override
                     public void onDateSet(DatePicker datePicker, int i, int i1, int i2)         //i : anio, i1: mes, i2: dia
                     {
+                        i1 += 1;
                         binding.adeFechaInicioInput.setText(i2 + "/" + i1 + "/" + i);
                         if(binding.adeFechaFinInput.getText().length() > 0)
                         {
@@ -112,7 +90,7 @@ public class EstadiaDialog implements ReservaDataSource.GuardarReservaCallback{
                             binding.adePrecioValue.setText("$" + Utilities.round2(precio));
                         }
                     }
-                }, year,month-1,day);
+                }, year,month,day);
                 datePickerDialog.show();
             }
 
@@ -126,13 +104,14 @@ public class EstadiaDialog implements ReservaDataSource.GuardarReservaCallback{
             {
                 LocalDateTime ahora = Utilities.nowArgentina();
                 int year = ahora.getYear();
-                int month = ahora.getMonthValue();
+                int month = ahora.getMonthValue() - 1;
                 int day = ahora.getDayOfMonth();
 
                 DatePickerDialog datePickerDialog = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int i, int i1, int i2)
                     {
+                        i1 += 1;
                         binding.adeFechaFinInput.setText(i2 + "/" + i1 + "/" + i);
                         if(binding.adeFechaInicioInput.getText().length() > 0)
                         {
@@ -141,7 +120,7 @@ public class EstadiaDialog implements ReservaDataSource.GuardarReservaCallback{
                             binding.adePrecioValue.setText("$" + Utilities.round2(precio));
                         }
                     }
-                }, year,month-1,day);
+                }, year,month,day);
                 datePickerDialog.show();
             }
 
@@ -156,8 +135,66 @@ public class EstadiaDialog implements ReservaDataSource.GuardarReservaCallback{
             }
         });
 
-        return builder.create();
+        builder.setView(binding.getRoot());
+
+        //Se sobreescribe el metodo onShow que evita que el AlertDialog desaparezca siempre que se presiona el boton reserva
+        AlertDialog dialog = builder.create();
+        dialog.setOnShowListener(new DialogInterface.OnShowListener()
+        {
+            @Override
+            public void onShow(DialogInterface dialogInterface)
+            {
+                Button reservar = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+                reservar.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View view)
+                    {
+                        boolean valido = false;
+
+                        if(binding.adeFechaInicioInput.getText().length() == 0)
+                            binding.adeFechaInicioInput.setError("Sin selección");
+                        else if(binding.adeFechaFinInput.getText().length() == 0)
+                            binding.adeFechaFinInput.setError("Sin selección");
+                        else if(binding.adeOcupantesEdit.getText().length() == 0)
+                            binding.adeOcupantesEdit.setError("Sin selección");
+                        else valido = true;
+
+                        if(valido)
+                        {
+                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+                            LocalDate desde = LocalDate.parse(binding.adeFechaInicioInput.getText().toString(),formatter);
+                            LocalDate hasta = LocalDate.parse(binding.adeFechaFinInput.getText().toString(),formatter);
+
+                            Reserva reserva = new Reserva(
+                                    UUID.randomUUID(),
+                                    UUID.randomUUID(),
+                                    Date.from(desde.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()),
+                                    Date.from(hasta.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()),
+                                    alojamiento
+                            );
+
+                            ReservaRepository reservaRepository = ReservaRepository.getInstance(context);
+                            reservaRepository.guardarReserva(reserva, new ReservaDataSource.GuardarReservaCallback() {
+                                @Override
+                                public void resultado(boolean exito)
+                                {
+                                    EstadiaDialogConfirm.create(activity,exito).show();
+                                }
+                            });
+                            dialog.dismiss(); //Para que el AlertDialog desaparezca cuando los datos son validos
+                        }
+
+                    }
+                });
+            }
+        });
+
+        return dialog;
     }
+
+
+
 
     private static double getPrecio(TextInputEditText fechaDesde, TextInputEditText fechaHasta, double precioBase)
     {
@@ -169,10 +206,33 @@ public class EstadiaDialog implements ReservaDataSource.GuardarReservaCallback{
         return precio;
     }
 
-    @Override
-    public void resultado(boolean exito) {
-        //Mostrar que la reserva se logro con exito o no (Poner algun alert dialog)
-        if(exito)Log.i("RESERVA!","EXITOSA");
-        else Log.i("RESERVA!","NO EXITOSA");
+    private static class EstadiaDialogConfirm
+    {
+        public static AlertDialog create(Activity activity, boolean resultado)
+        {
+            //Setting up inicial
+            AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+            if(resultado)
+            {
+                builder.setTitle("Confirmación");
+                builder.setMessage("La reserva ha sido completada!");
+                builder.setIcon(R.drawable.ic_baseline_check_24);
+            }
+            else
+            {
+                builder.setTitle("Error");
+                builder.setMessage("Ha ocurrido un error y la acción no se pudo completar");
+                builder.setIcon(R.drawable.ic_baseline_close_24);
+            }
+
+            builder.setPositiveButton("Continuar", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    //Continuar
+                }
+            });
+
+            return builder.create();
+        }
     }
 }
