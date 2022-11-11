@@ -1,11 +1,18 @@
 package com.mdgz.dam.labdam2022.persistencia.room.mapeadores;
 
+import com.mdgz.dam.labdam2022.model.Ciudad;
 import com.mdgz.dam.labdam2022.model.Ubicacion;
 import com.mdgz.dam.labdam2022.persistencia.room.entidades.UbicacionEntity;
+import com.mdgz.dam.labdam2022.repositorios.CiudadRepository;
 
-public class UbicacionMapper {
+public final class UbicacionMapper
+{
+    private UbicacionMapper(){};
 
-    public static UbicacionEntity toEntity(Ubicacion ubicacion){
+    private static CiudadRepository ciudadRepository;
+
+    public static UbicacionEntity toEntity(Ubicacion ubicacion)
+    {
         return new UbicacionEntity(
                 ubicacion.getId(),
                 ubicacion.getLat(),
@@ -16,14 +23,20 @@ public class UbicacionMapper {
         );
     }
 
-    public static Ubicacion toUbicacion(UbicacionEntity ubicacionEntity){
+    public static Ubicacion toModel(UbicacionEntity ubicacionEntity)
+    {
+        if(ciudadRepository == null) ciudadRepository = CiudadRepository.getInstance();
+
+        Ciudad[] ciudad = new Ciudad[1];
+        ciudadRepository.getByID(ubicacionEntity.getCiudadID(),(exito, ciudad1) -> {ciudad[0] = ciudad1;});
+
         return new Ubicacion(
                 ubicacionEntity.getId(),
                 ubicacionEntity.getLat(),
                 ubicacionEntity.getLng(),
                 ubicacionEntity.getCalle(),
                 ubicacionEntity.getNumero(),
-                null // se lo setea en la interfaz, y se lo obtiene del mapper de la ciudad
+                ciudad[0]
         );
     }
 

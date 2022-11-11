@@ -15,6 +15,13 @@ import android.view.MenuItem;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.mdgz.dam.labdam2022.databinding.ActivityMainBinding;
 import com.mdgz.dam.labdam2022.persistencia.room.bd.BaseDeDatos;
+import com.mdgz.dam.labdam2022.repositorios.AlojamientoRepository;
+import com.mdgz.dam.labdam2022.repositorios.CiudadRepository;
+import com.mdgz.dam.labdam2022.repositorios.FavoritoRepository;
+import com.mdgz.dam.labdam2022.repositorios.HotelRepository;
+import com.mdgz.dam.labdam2022.repositorios.ReservaRepository;
+import com.mdgz.dam.labdam2022.repositorios.UbicacionRepository;
+import com.mdgz.dam.labdam2022.repositorios.UsuarioRepository;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,22 +33,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
         setearToolbar();
 
-        //------------------------------------------------------------------------------------------------
-        /*
-          La bd implementada por room NO se crea cuando se ejecuta build(). Se crea (si es que no existe) recien cuando
-          invocas a algun metodo de algun dao.
-          Por eso, invoco un metodo random aca, para que no se den problemas.
-          Por que podía pasar esto (si lo invocaba directamente cuando lo necesitaba):
-          - cuando presionas buscar, crea la bd y ejecuta en un hilo secundario el onCreate de la bd
-            (que carga los datos iniciales). Mientras tanto, en el hilo principal, el adapter queda como nulo y la
-            pantalla de resultados no muestra nada.
-         */
-        BaseDeDatos bd = BaseDeDatos.getInstance(getApplicationContext());
-        bd.ciudadDao().getCiudadPorId(1);
-        //------------------------------------------------------------------------------------------------
+        //Creamos todas las instancias para ya tenerlas disponibles más tarde sin necesidad del context
+        AlojamientoRepository.getInstance(getApplicationContext());
+        CiudadRepository.getInstance(getApplicationContext());
+        FavoritoRepository.getInstance(getApplicationContext());
+        HotelRepository.getInstance(getApplicationContext());
+        ReservaRepository.getInstance(getApplicationContext());
+        UbicacionRepository.getInstance(getApplicationContext());
+        UsuarioRepository.getInstance(getApplicationContext());
+
 
     }
 

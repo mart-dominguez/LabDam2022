@@ -7,7 +7,7 @@ import androidx.room.Ignore;
 
 import java.util.UUID;
 
-public class Departamento extends Alojamiento{
+public class Departamento extends Alojamiento {
 
     private Boolean tieneWifi;
     private Double costoLimpieza;

@@ -18,42 +18,31 @@ import android.view.ViewGroup;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mdgz.dam.labdam2022.databinding.FragmentResultadoBusquedaBinding;
 import com.mdgz.dam.labdam2022.model.Alojamiento;
-import com.mdgz.dam.labdam2022.model.Departamento;
-import com.mdgz.dam.labdam2022.model.Habitacion;
-import com.mdgz.dam.labdam2022.persistencia.AlojamientoDataSource;
-import com.mdgz.dam.labdam2022.persistencia.room.AlojamientoRoomDataSource;
-import com.mdgz.dam.labdam2022.persistencia.room.bd.BaseDeDatos;
-import com.mdgz.dam.labdam2022.persistencia.room.daos.CiudadDao;
-import com.mdgz.dam.labdam2022.persistencia.room.daos.DepartamentoDao;
-import com.mdgz.dam.labdam2022.persistencia.room.daos.HabitacionDao;
-import com.mdgz.dam.labdam2022.persistencia.room.daos.HotelDao;
-import com.mdgz.dam.labdam2022.persistencia.room.daos.UbicacionDao;
+import com.mdgz.dam.labdam2022.model.Favorito;
 import com.mdgz.dam.labdam2022.repositorios.AlojamientoRepository;
+import com.mdgz.dam.labdam2022.repositorios.FavoritoRepository;
 import com.mdgz.dam.labdam2022.utilities.AlojamientoAdapter;
-import com.mdgz.dam.labdam2022.utilities.ListaDeAlojamientos;
-import com.mdgz.dam.labdam2022.utilities.JSONLogs;
+import com.mdgz.dam.labdam2022.persistencia.DatosIniciales;
 import com.mdgz.dam.labdam2022.utilities.Utilities;
 import com.mdgz.dam.labdam2022.viewmodels.LogViewModel;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 
-public class ResultadoBusquedaFragment extends Fragment implements AlojamientoDataSource.RecuperarAlojamientosCallback {
+public class ResultadoBusquedaFragment extends Fragment {
 
     private FragmentResultadoBusquedaBinding binding;
+    private LogViewModel logViewModel;
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private AlojamientoAdapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private FloatingActionButton btnBuscar;
 
     //Clase donde se crea la lista de alojamientos genericos
-    private ListaDeAlojamientos listaDeAlojamientos;
+    private DatosIniciales listaDeAlojamientos;
 
 
     @Override
@@ -71,33 +60,17 @@ public class ResultadoBusquedaFragment extends Fragment implements AlojamientoDa
 
         //RecyclerView
         recyclerView = binding.recyclerView;
-
-        // BUSCAR LISTA DE ALOJAMIENTOS DESDE LA BD
-        AlojamientoRepository alojamientoRepository = AlojamientoRepository.getInstance(getContext());
-        alojamientoRepository.recuperarAlojamientos(this);
-
-        //listaDeAlojamientos = new ListaDeAlojamientos();
-
-        //mAdapter = new AlojamientoAdapter(listaDeAlojamientos.getLista(),getActivity());
-        // Ahora el adapter se setea en el callback implementado
+        mAdapter = new AlojamientoAdapter(getActivity());
         recyclerView.setAdapter(mAdapter);
 
+        // BUSCAR LISTA DE ALOJAMIENTOS DESDE LA BD
+        buscarDatos();
 
-        SharedPreferences pref = getContext().getSharedPreferences("com.mdgz.dam.labdam2022_preferences",0);
-        LogViewModel logViewModel = new ViewModelProvider(getActivity()).get(LogViewModel.class);
+        //SharedPreferences pref = getContext().getSharedPreferences("com.mdgz.dam.labdam2022_preferences",0);
+        logViewModel = new ViewModelProvider(getActivity()).get(LogViewModel.class);
 
         //Preguntar si la preferencia esta activada
-        if(logViewModel.isGuardado())
-        {
-            LogViewModel.SearchLog log = logViewModel.getLog();
-            LocalDateTime now = Utilities.nowArgentina();
-            long ms = ChronoUnit.MILLIS.between(log.getTimestamp(),now);   //Tiempo de navegacion entre los 2 fragmentos
-            log.setTiempo_busqueda(ms + " milliseconds");
-            //log.setCant_resultados(listaDeAlojamientos.getLista().size());
-            log.setCant_resultados(mAdapter.getItemCount());
-            logViewModel.guardar(getContext());
-            logViewModel.setGuardado(false);
-        }
+        guardarLog();
 
         //FloatingButton
         btnBuscar = binding.btnNuevaBusqueda;
@@ -111,8 +84,42 @@ public class ResultadoBusquedaFragment extends Fragment implements AlojamientoDa
 
     }
 
-    @Override
-    public void resultado(boolean exito, List<Alojamiento> resultados) {
-        if (exito) mAdapter = new AlojamientoAdapter(resultados,getActivity());
+    private void buscarDatos()
+    {
+        AlojamientoRepository alojamientoRepository = AlojamientoRepository.getInstance(getContext());
+        FavoritoRepository favoritoRepository = FavoritoRepository.getInstance(getContext());
+        List<Alojamiento> alojamientos = new ArrayList<>();
+        List<Favorito> favoritos = new ArrayList<>();
+
+        alojamientoRepository.getTodasHabitaciones((exito, resultados) ->
+        {
+            if(exito) alojamientos.addAll(resultados);
+        });
+        alojamientoRepository.getTodosDepartamentos((exito, resultados) ->
+        {
+            if(exito) alojamientos.addAll(resultados);
+        });
+        favoritoRepository.getTodos((exito, resultados) ->
+        {
+            if(exito) favoritos.addAll(resultados);
+        });
+
+        mAdapter.setData(alojamientos,favoritos);
     }
+
+    private void guardarLog()
+    {
+        if(logViewModel.isGuardado())
+        {
+            LogViewModel.SearchLog log = logViewModel.getLog();
+            LocalDateTime now = Utilities.nowArgentina();
+            long ms = ChronoUnit.MILLIS.between(log.getTimestamp(),now);   //Tiempo de navegacion entre los 2 fragmentos
+            log.setTiempo_busqueda(ms + " milliseconds");
+            //log.setCant_resultados(listaDeAlojamientos.getLista().size());
+            log.setCant_resultados(mAdapter.getItemCount());
+            logViewModel.guardar(getContext());
+            logViewModel.setGuardado(false);
+        }
+    }
+
 }

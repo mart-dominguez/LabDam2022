@@ -3,8 +3,8 @@ package com.mdgz.dam.labdam2022.repositorios;
 import android.content.Context;
 
 import com.mdgz.dam.labdam2022.model.Reserva;
-import com.mdgz.dam.labdam2022.persistencia.ReservaDataSource;
-import com.mdgz.dam.labdam2022.persistencia.room.ReservaRoomDataSource;
+import com.mdgz.dam.labdam2022.persistencia.interfaces.ReservaDataSource;
+import com.mdgz.dam.labdam2022.persistencia.room.impl.ReservaRoomDataSource;
 
 public class ReservaRepository {
 
@@ -21,11 +21,17 @@ public class ReservaRepository {
         return _REPO;
     }
 
-    public void guardarReserva(final Reserva entidad, final ReservaDataSource.GuardarReservaCallback callback){
-        reservaDataSource.guardarReserva(entidad,callback);
+    public static ReservaRepository getInstance()
+    {
+        if(_REPO==null) throw new RuntimeException();
+        else return _REPO;
     }
-    public void recuperarReservas(final ReservaDataSource.RecuperarReservasCallback callback){
-        reservaDataSource.recuperarReservas(callback);
+
+    public void guardar(final Reserva entidad, final ReservaDataSource.GuardarReservaCallback callback){
+        reservaDataSource.guardar(entidad,callback);
+    }
+    public void getTodas(final ReservaDataSource.RecuperarReservasCallback callback){
+        reservaDataSource.getTodas(callback);
     }
     
 }

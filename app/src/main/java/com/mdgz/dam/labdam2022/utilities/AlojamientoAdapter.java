@@ -19,30 +19,45 @@ import com.mdgz.dam.labdam2022.model.Alojamiento;
 import com.mdgz.dam.labdam2022.model.Departamento;
 import com.mdgz.dam.labdam2022.model.Favorito;
 import com.mdgz.dam.labdam2022.model.Habitacion;
-import com.mdgz.dam.labdam2022.persistencia.FavoritoDataSource;
-import com.mdgz.dam.labdam2022.persistencia.room.FavoritoRoomDataSource;
-import com.mdgz.dam.labdam2022.persistencia.room.bd.BaseDeDatos;
+import com.mdgz.dam.labdam2022.model.Usuario;
+import com.mdgz.dam.labdam2022.persistencia.interfaces.FavoritoDataSource;
+import com.mdgz.dam.labdam2022.persistencia.room.entidades.FavoritoHabitacionEntity;
+import com.mdgz.dam.labdam2022.persistencia.room.entidades.UsuarioEntity;
 import com.mdgz.dam.labdam2022.repositorios.FavoritoRepository;
+import com.mdgz.dam.labdam2022.repositorios.UsuarioRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
-public class AlojamientoAdapter extends RecyclerView.Adapter<AlojamientoAdapter.AlojamientoViewHolder> {
+public class AlojamientoAdapter extends RecyclerView.Adapter<AlojamientoAdapter.AlojamientoViewHolder>
+{
 
-    private List<Alojamiento> alojamientos;
+    private List<Alojamiento> alojamientos = new ArrayList<>();
     private Activity activity;
 
-    public AlojamientoAdapter(List<Alojamiento> alojamientos, Activity activity){
+    private static List<Favorito> favoritos = new ArrayList<>();    //Los favoritos
+    private static List<Alojamiento> favoritosAlojamiento = new ArrayList<>();  //Sus alojamientos correspondientes
+    private static FavoritoRepository favoritoRepository;
+
+    private static Usuario[] usuario = new Usuario[1];
+
+
+    public AlojamientoAdapter(Activity activity)
+    {
         this.activity = activity;
-        this.alojamientos = alojamientos;
+        favoritoRepository = FavoritoRepository.getInstance();
+        UsuarioRepository.getInstance().getTodos((exito, resultados) -> {usuario[0] = resultados.get(0);});
     }
 
     @NonNull
     @Override       //Metodo que se ejecuta una vez por cada fila que se visualiza
-    public AlojamientoAdapter.AlojamientoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int tipo)
+    public AlojamientoAdapter.AlojamientoViewHolder onCreateViewHolder(@NonNull ViewGroup parent,int tipo)
     {
-        return new AlojamientoViewHolder(CardAlojamientoBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false),
+        return new AlojamientoViewHolder(
+                CardAlojamientoBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false),
                 activity, parent.getContext(),LayoutInflater.from(parent.getContext()));
                 //Argumentos adicionales para crear el AlertDialog
     }
@@ -65,13 +80,14 @@ public class AlojamientoAdapter extends RecyclerView.Adapter<AlojamientoAdapter.
     //View Holder, encargado de "buscar los widgets"
     public static class AlojamientoViewHolder extends RecyclerView.ViewHolder
     {
-        CardAlojamientoBinding binding;
-        CardAlojamientoExpandableBinding expandableBinding;
+        private CardAlojamientoBinding binding;
+        private CardAlojamientoExpandableBinding expandableBinding;
+
+        //EstadiaAlertDialog
         private Activity activity;
         private Context context;
-        LayoutInflater inflater;
+        private LayoutInflater inflater;
 
-        private AlojamientoViewHolder alojamientoViewHolder;
 
         //Constructor
         public AlojamientoViewHolder(CardAlojamientoBinding binding, Activity activity, Context context, LayoutInflater inflater) //Recibe la vista inflada
@@ -82,42 +98,38 @@ public class AlojamientoAdapter extends RecyclerView.Adapter<AlojamientoAdapter.
             this.activity = activity;
             this.context = context;
             this.inflater = inflater;
-            alojamientoViewHolder = this;
         }
 
         //1. Seteo de los "nuevos" datos del alojamiento de la fila asociada al holder
         public void bind(Alojamiento alojamiento)
         {
-            binding.caFavoriteButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // Logica para agregar a favorito (antes hay que chequear si ya se encuentra en favoritos --> PENDIENTE)
-                    // Y si ya se encuentra en favorito, hay que eliminarlo, pero la interfaz FavoritoDataSource propuesta en
-                    // el lab no tiene un metodo para eliminar, asi que habria que agregarlo
 
-                    //Aca esta hecho solo para agregar a favorito.
-                    Favorito fav;
-                    if(alojamiento.getClass() == Departamento.class){
-                        fav = new Favorito(
-                                UUID.randomUUID(),
-                                UUID.randomUUID(),
-                                alojamiento
-                        );
-                    }else{
-                        fav = new Favorito(
-                                UUID.randomUUID(),
-                                UUID.randomUUID(),
-                                alojamiento
-                        );
-                    }
-                    FavoritoRepository favoritoRepository = FavoritoRepository.getInstance(context);
-                    favoritoRepository.guardarFavorito(fav, new FavoritoDataSource.GuardarFavoritoCallback() {
-                        @Override
-                        public void resultado(boolean exito) {
-                            if(exito) binding.caFavoriteButton.setImageResource(R.drawable.ic_baseline_favorite_filled_24);
+            binding.caFavoriteButton.setOnClickListener(view ->
+            {
+                //Logica para agregar a favoritos: si hace clic con el corazon vacio -> guarda favorito
+                //                                 si hace clic con el corazon lleno -> elimina favorito
+                if(favoritosAlojamiento.contains(alojamiento))
+                {
+                    int index = favoritosAlojamiento.indexOf(alojamiento);
+                    AlojamientoAdapter.favoritoRepository.eliminar(favoritos.get(index),exito ->
+                    {
+                        if(exito) {
+                            favoritosAlojamiento.remove(index);
+                            favoritos.remove(index);
+                            binding.caFavoriteButton.setImageResource(R.drawable.ic_baseline_favorite_border_24);
                         }
                     });
-
+                }else
+                {
+                    Favorito favorito = new Favorito(UUID.randomUUID(),usuario[0],alojamiento);
+                    AlojamientoAdapter.favoritoRepository.guardar(favorito,exito ->
+                    {
+                        if(exito) {
+                            favoritosAlojamiento.add(alojamiento);
+                            favoritos.add(favorito);
+                            binding.caFavoriteButton.setImageResource(R.drawable.ic_baseline_favorite_filled_24);
+                        }
+                    });
                 }
             });
 
@@ -125,8 +137,7 @@ public class AlojamientoAdapter extends RecyclerView.Adapter<AlojamientoAdapter.
             binding.caReservarButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    EstadiaDialog estadiaDialog = new EstadiaDialog();
-                    estadiaDialog.create(activity,inflater,context,alojamiento).show();
+                    EstadiaDialog.create(activity,inflater,context,alojamiento).show();
                 }
             });
 
@@ -169,7 +180,6 @@ public class AlojamientoAdapter extends RecyclerView.Adapter<AlojamientoAdapter.
             int desayuno = r.nextInt(2);
             int cochera = r.nextInt(2);
             int abierto = r.nextInt(2);
-
 
 
             if(alojamiento.getClass().equals(Departamento.class)) //Departamento
@@ -217,17 +227,30 @@ public class AlojamientoAdapter extends RecyclerView.Adapter<AlojamientoAdapter.
             valor = abierto == 1 ? "Cerrado" : "Abierto ahora";
             expandableBinding.caeSituacionTitle.setText(valor);
 
+            //Comprobar si el alojamiento ya fue añadido a favoritos anteriormente
+            if(favoritosAlojamiento.contains(alojamiento))
+            {
+                binding.caFavoriteButton.setImageResource(R.drawable.ic_baseline_favorite_filled_24);
+            }
+
         }
 
     }
 
 
-    public void setData(List<Alojamiento> lista)
+    public void setData(List<Alojamiento> lista,List<Favorito> favoritos)
     {
         AlojamientoDifference diferenciador = new AlojamientoDifference(lista,alojamientos);
         DiffUtil.DiffResult resultado = DiffUtil.calculateDiff(diferenciador);
         alojamientos.clear();
         alojamientos.addAll(lista);
+
+        //Obtengo los favoritos y los mapeo a sus alojamientos
+        AlojamientoAdapter.favoritos.clear();
+        AlojamientoAdapter.favoritosAlojamiento.clear();
+        List<Alojamiento> favs = favoritos.stream().map(Favorito::getAlojamiento).collect(Collectors.toList());
+        AlojamientoAdapter.favoritosAlojamiento.addAll(favs);
+        AlojamientoAdapter.favoritos.addAll(favoritos);
 
         //Avisar de cambio en valores al adaptador
         resultado.dispatchUpdatesTo(this);

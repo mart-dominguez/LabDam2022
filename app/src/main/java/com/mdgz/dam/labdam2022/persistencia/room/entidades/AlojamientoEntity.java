@@ -9,36 +9,23 @@ import com.mdgz.dam.labdam2022.persistencia.enumerados.TipoAlojamiento;
 
 import java.util.UUID;
 
-@Entity(tableName = "Alojamiento")
+//NO se mapea a una tabla SQL
 public class AlojamientoEntity {
 
-    @PrimaryKey
-    @NonNull
-    @ColumnInfo(name = "id")
-    private UUID id;
     private String  titulo;
     private String  descripcion;
     private Integer capacidad;
     private Double  precioBase;
-    private TipoAlojamiento tipo;
 
-    public AlojamientoEntity(@NonNull UUID id, String titulo, String descripcion, Integer capacidad, Double precioBase, TipoAlojamiento tipo) {
-        this.id = id;
+    public AlojamientoEntity(String titulo, String descripcion, Integer capacidad, Double precioBase)
+    {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.capacidad = capacidad;
         this.precioBase = precioBase;
-        this.tipo = tipo;
     }
 
-    @NonNull
-    public UUID getId() {
-        return id;
-    }
 
-    public void setId(@NonNull UUID id) {
-        this.id = id;
-    }
 
     public String getTitulo() {
         return titulo;
@@ -72,11 +59,4 @@ public class AlojamientoEntity {
         this.precioBase = precioBase;
     }
 
-    public TipoAlojamiento getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(TipoAlojamiento tipo) {
-        this.tipo = tipo;
-    }
 }

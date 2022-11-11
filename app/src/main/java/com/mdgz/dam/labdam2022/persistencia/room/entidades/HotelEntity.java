@@ -4,11 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 
 @Entity(tableName = "Hotel",
-        foreignKeys = @ForeignKey(entity = UbicacionEntity.class, parentColumns = "id", childColumns = "ubicacionID"))
+        foreignKeys = @ForeignKey(entity = UbicacionEntity.class, parentColumns = "id", childColumns = "ubicacionID"),
+        indices = {@Index(value = {"ubicacionID"})})
 
 public class HotelEntity {
 

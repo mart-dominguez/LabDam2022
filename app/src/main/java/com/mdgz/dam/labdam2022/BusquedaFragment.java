@@ -9,37 +9,17 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
-import androidx.preference.CheckBoxPreference;
 
 import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.EditText;
-import android.widget.Switch;
 
 import com.google.android.material.slider.RangeSlider;
-import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.mdgz.dam.labdam2022.databinding.FragmentBusquedaBinding;
-import com.mdgz.dam.labdam2022.model.Ciudad;
-import com.mdgz.dam.labdam2022.persistencia.room.bd.BaseDeDatos;
-import com.mdgz.dam.labdam2022.utilities.EstadiaDialog;
-import com.mdgz.dam.labdam2022.utilities.ListaDeAlojamientos;
 import com.mdgz.dam.labdam2022.utilities.Utilities;
 import com.mdgz.dam.labdam2022.viewmodels.LogViewModel;
-
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
 
 public class BusquedaFragment extends Fragment {
 

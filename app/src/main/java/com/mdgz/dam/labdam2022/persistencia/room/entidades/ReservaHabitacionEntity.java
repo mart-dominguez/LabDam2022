@@ -5,28 +5,32 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import java.util.Date;
 import java.util.UUID;
 
-@Entity(tableName = "Reserva",
-        foreignKeys = @ForeignKey(entity = AlojamientoEntity.class, parentColumns = "id", childColumns = "alojamientoID"))
+@Entity(tableName = "reserva_habitacion",
+        foreignKeys = {
+        @ForeignKey(entity = HabitacionEntity.class, parentColumns = "id", childColumns = "habitacionID"),
+                @ForeignKey(entity = UsuarioEntity.class, parentColumns = "id", childColumns = "usuarioID")},
+        indices = {@Index(value = {"habitacionID"}),@Index(value = {"usuarioID"})})
 
-public class ReservaEntity {
+public class ReservaHabitacionEntity {
 
     @PrimaryKey
     @NonNull
     @ColumnInfo(name = "id")
     private UUID id;
-    private UUID alojamientoID;     //M..0.1
+    private UUID habitacionID;     //M..0.1
     private UUID usuarioID;         //M..0.1
     private Date fechaIngreso;
     private Date fechaSalida;
 
-    public ReservaEntity(@NonNull UUID id, UUID alojamientoID, UUID usuarioID, Date fechaIngreso, Date fechaSalida) {
+    public ReservaHabitacionEntity(@NonNull UUID id, UUID habitacionID, UUID usuarioID, Date fechaIngreso, Date fechaSalida) {
         this.id = id;
-        this.alojamientoID = alojamientoID;
+        this.habitacionID = habitacionID;
         this.usuarioID = usuarioID;
         this.fechaIngreso = fechaIngreso;
         this.fechaSalida = fechaSalida;
@@ -41,12 +45,12 @@ public class ReservaEntity {
         this.id = id;
     }
 
-    public UUID getAlojamientoID() {
-        return alojamientoID;
+    public UUID getHabitacionID() {
+        return habitacionID;
     }
 
-    public void setAlojamientoID(UUID alojamientoID) {
-        this.alojamientoID = alojamientoID;
+    public void setHabitacionID(UUID habitacionID) {
+        this.habitacionID = habitacionID;
     }
 
     public UUID getUsuarioID() {

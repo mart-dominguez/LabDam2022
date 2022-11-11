@@ -13,13 +13,13 @@ import java.util.UUID;
 public class Favorito {
 
     private UUID id;
-    private UUID usuarioID; // raro
+    private Usuario usuario;
 
     private Alojamiento alojamiento;
 
-    public Favorito(UUID id, UUID usuarioID, Alojamiento alojamiento){
+    public Favorito(UUID id, Usuario usuario, Alojamiento alojamiento){
         this.id = id;
-        this.usuarioID = usuarioID;
+        this.usuario = usuario;
         this.alojamiento = alojamiento;
     }
 
@@ -29,16 +29,8 @@ public class Favorito {
     }
 
 
-    public UUID getUsuarioID() {
-        return usuarioID;
-    }
-
     public void setId(@NonNull UUID id) {
         this.id = id;
-    }
-
-    public void setUsuarioID(UUID usuarioID) {
-        this.usuarioID = usuarioID;
     }
 
     public Alojamiento getAlojamiento() {
@@ -47,5 +39,13 @@ public class Favorito {
 
     public void setAlojamiento(Alojamiento alojamiento) {
         this.alojamiento = alojamiento;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 }

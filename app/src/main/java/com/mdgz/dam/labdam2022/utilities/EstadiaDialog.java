@@ -17,8 +17,10 @@ import com.mdgz.dam.labdam2022.R;
 import com.mdgz.dam.labdam2022.databinding.AlertDialogEstadiaBinding;
 import com.mdgz.dam.labdam2022.model.Alojamiento;
 import com.mdgz.dam.labdam2022.model.Reserva;
-import com.mdgz.dam.labdam2022.persistencia.ReservaDataSource;
+import com.mdgz.dam.labdam2022.model.Usuario;
+import com.mdgz.dam.labdam2022.persistencia.interfaces.ReservaDataSource;
 import com.mdgz.dam.labdam2022.repositorios.ReservaRepository;
+import com.mdgz.dam.labdam2022.repositorios.UsuarioRepository;
 
 
 import java.sql.Date;
@@ -30,7 +32,12 @@ import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 
 /* Devuelve un AlertDialog personalizado para las estadias */
-public class EstadiaDialog {
+public final class EstadiaDialog
+{
+
+    private EstadiaDialog(){};
+    private static UsuarioRepository usuarioRepository;
+    private static ReservaRepository reservaRepository;
 
 
     public static AlertDialog create(Activity activity, LayoutInflater inflater, Context context, Alojamiento alojamiento)
@@ -162,25 +169,26 @@ public class EstadiaDialog {
 
                         if(valido)
                         {
+                            if(usuarioRepository == null) usuarioRepository = UsuarioRepository.getInstance();
+                            if(reservaRepository == null) reservaRepository = ReservaRepository.getInstance();
+                            Usuario[] usuario = new Usuario[1];
+                            usuarioRepository.getTodos((exito, resultados) -> {usuario[0] = resultados.get(0);});
+
                             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
                             LocalDate desde = LocalDate.parse(binding.adeFechaInicioInput.getText().toString(),formatter);
                             LocalDate hasta = LocalDate.parse(binding.adeFechaFinInput.getText().toString(),formatter);
 
                             Reserva reserva = new Reserva(
                                     UUID.randomUUID(),
-                                    UUID.randomUUID(),
+                                    usuario[0],
                                     Date.from(desde.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()),
                                     Date.from(hasta.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()),
                                     alojamiento
                             );
 
-                            ReservaRepository reservaRepository = ReservaRepository.getInstance(context);
-                            reservaRepository.guardarReserva(reserva, new ReservaDataSource.GuardarReservaCallback() {
-                                @Override
-                                public void resultado(boolean exito)
-                                {
-                                    EstadiaDialogConfirm.create(activity,exito).show();
-                                }
+                            reservaRepository.guardar(reserva, exito ->
+                            {
+                                EstadiaDialogConfirm.create(activity,exito).show();
                             });
                             dialog.dismiss(); //Para que el AlertDialog desaparezca cuando los datos son validos
                         }

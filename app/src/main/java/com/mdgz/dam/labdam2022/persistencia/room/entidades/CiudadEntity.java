@@ -15,7 +15,8 @@ public class CiudadEntity {
     private String nombre;
     private String abreviatura;
 
-    public CiudadEntity(Integer id, String nombre, String abreviatura) {
+    public CiudadEntity(Integer id, String nombre, String abreviatura)
+    {
         this.id = id;
         this.nombre = nombre;
         this.abreviatura = abreviatura;

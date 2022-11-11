@@ -2,12 +2,9 @@ package com.mdgz.dam.labdam2022.repositorios;
 
 import android.content.Context;
 
-import com.mdgz.dam.labdam2022.model.Alojamiento;
 import com.mdgz.dam.labdam2022.model.Favorito;
-import com.mdgz.dam.labdam2022.persistencia.AlojamientoDataSource;
-import com.mdgz.dam.labdam2022.persistencia.FavoritoDataSource;
-import com.mdgz.dam.labdam2022.persistencia.room.AlojamientoRoomDataSource;
-import com.mdgz.dam.labdam2022.persistencia.room.FavoritoRoomDataSource;
+import com.mdgz.dam.labdam2022.persistencia.interfaces.FavoritoDataSource;
+import com.mdgz.dam.labdam2022.persistencia.room.impl.FavoritoRoomDataSource;
 
 public class FavoritoRepository {
 
@@ -24,10 +21,21 @@ public class FavoritoRepository {
         return _REPO;
     }
 
-    public void guardarFavorito(final Favorito entidad, final FavoritoDataSource.GuardarFavoritoCallback callback){
-        favoritoDataSource.guardarFavorito(entidad,callback);
+    public static FavoritoRepository getInstance()
+    {
+        if(_REPO==null) throw new RuntimeException();
+        else return _REPO;
     }
-    public void recuperarFavoritos(final FavoritoDataSource.RecuperarFavoritosCallback callback){
-        favoritoDataSource.recuperarFavoritos(callback);
+
+    public void guardar(final Favorito entidad, final FavoritoDataSource.GuardarCallback callback){
+        favoritoDataSource.guardar(entidad,callback);
+    }
+    public void getTodos(final FavoritoDataSource.RecuperarCallback callback){
+        favoritoDataSource.getTodos(callback);
+    }
+
+    public void eliminar(Favorito favorito, FavoritoDataSource.EliminarCallback callback)
+    {
+        favoritoDataSource.eliminar(favorito,callback);
     }
 }

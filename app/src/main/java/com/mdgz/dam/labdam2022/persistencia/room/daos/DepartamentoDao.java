@@ -14,17 +14,17 @@ import java.util.UUID;
 @Dao
 public interface DepartamentoDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertarDepartamento(DepartamentoEntity departamento);
+    @Insert(onConflict = OnConflictStrategy.ABORT)
+    void insertar(DepartamentoEntity departamento);
 
     @Insert
     void insertarTodos(List<DepartamentoEntity> departamentos);
 
     @Query("SELECT * FROM Departamento")
-    List<DepartamentoEntity> recuperarDepartamentos();
+    List<DepartamentoEntity> getTodos();
 
     //Buscar por id
-    @Query("SELECT * FROM Departamento WHERE idDepartamento = :id")
-    DepartamentoEntity getDepartamentoPorId(UUID id);
+    @Query("SELECT * FROM Departamento WHERE id = :id")
+    DepartamentoEntity getByID(UUID id);
 
 }

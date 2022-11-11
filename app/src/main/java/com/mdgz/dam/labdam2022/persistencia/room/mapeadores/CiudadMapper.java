@@ -3,9 +3,13 @@ package com.mdgz.dam.labdam2022.persistencia.room.mapeadores;
 import com.mdgz.dam.labdam2022.model.Ciudad;
 import com.mdgz.dam.labdam2022.persistencia.room.entidades.CiudadEntity;
 
-public class CiudadMapper {
+public final class CiudadMapper
+{
 
-    public static CiudadEntity toEntity(Ciudad ciudad){
+    private CiudadMapper(){};
+
+    public static CiudadEntity toEntity(Ciudad ciudad)
+    {
 
         return new CiudadEntity(
                 ciudad.getId(),
@@ -15,7 +19,7 @@ public class CiudadMapper {
 
     }
 
-    public static Ciudad toCiudad(CiudadEntity ciudadEntity){
+    public static Ciudad toModel(CiudadEntity ciudadEntity){
 
         return new Ciudad(
                 ciudadEntity.getId(),

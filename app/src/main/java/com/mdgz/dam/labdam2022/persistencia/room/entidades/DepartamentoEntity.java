@@ -2,29 +2,39 @@ package com.mdgz.dam.labdam2022.persistencia.room.entidades;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
+import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import com.mdgz.dam.labdam2022.model.Ubicacion;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.UUID;
 @Entity(tableName = "Departamento",
-        foreignKeys = { @ForeignKey(entity = UbicacionEntity.class, parentColumns = "id", childColumns = "ubicacionID"),
-                        @ForeignKey(entity = AlojamientoEntity.class, parentColumns = "id", childColumns = "idDepartamento")})
-public class DepartamentoEntity {
+        foreignKeys = { @ForeignKey(entity = UbicacionEntity.class, parentColumns = "id", childColumns = "ubicacionID")
+                        },
+        indices = {@Index(value = {"ubicacionID"})})
+public class DepartamentoEntity
+{
 
     @PrimaryKey
-    @NonNull
-    @ColumnInfo(name = "idDepartamento")
-    private UUID idDepartamento;
+    @NotNull
+    @ColumnInfo(name = "id")
+    private UUID id;
+    @Embedded
+    private AlojamientoEntity alojamiento;
     private Boolean tieneWifi;
     private Double costoLimpieza;
     private Integer cantidadHabitaciones;
     private Integer ubicacionID;
 
-    public DepartamentoEntity(@NonNull UUID idDepartamento, Boolean tieneWifi, Double costoLimpieza, Integer cantidadHabitaciones, Integer ubicacionID) {
-        this.idDepartamento = idDepartamento;
+    public DepartamentoEntity(@NonNull UUID id, AlojamientoEntity alojamiento, Boolean tieneWifi, Double costoLimpieza, Integer cantidadHabitaciones, Integer ubicacionID)
+    {
+        this.id = id;
+        this.alojamiento = alojamiento;
         this.tieneWifi = tieneWifi;
         this.costoLimpieza = costoLimpieza;
         this.cantidadHabitaciones = cantidadHabitaciones;
@@ -32,12 +42,12 @@ public class DepartamentoEntity {
     }
 
     @NonNull
-    public UUID getIdDepartamento() {
-        return idDepartamento;
+    public UUID getId() {
+        return id;
     }
 
-    public void setIdDepartamento(@NonNull UUID idDepartamento) {
-        this.idDepartamento = idDepartamento;
+    public void setId(@NonNull UUID id) {
+        this.id = id;
     }
 
     public Boolean getTieneWifi() {
@@ -70,5 +80,13 @@ public class DepartamentoEntity {
 
     public void setUbicacionID(Integer ubicacionID) {
         this.ubicacionID = ubicacionID;
+    }
+
+    public AlojamientoEntity getAlojamiento() {
+        return alojamiento;
+    }
+
+    public void setAlojamiento(AlojamientoEntity alojamiento) {
+        this.alojamiento = alojamiento;
     }
 }

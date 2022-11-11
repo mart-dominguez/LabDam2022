@@ -3,29 +3,42 @@ package com.mdgz.dam.labdam2022.persistencia.room.mapeadores;
 import com.mdgz.dam.labdam2022.model.Alojamiento;
 import com.mdgz.dam.labdam2022.model.Departamento;
 import com.mdgz.dam.labdam2022.model.Habitacion;
+import com.mdgz.dam.labdam2022.model.Hotel;
+import com.mdgz.dam.labdam2022.model.Ubicacion;
+import com.mdgz.dam.labdam2022.persistencia.interfaces.HotelDataSource;
 import com.mdgz.dam.labdam2022.persistencia.room.entidades.AlojamientoEntity;
 import com.mdgz.dam.labdam2022.persistencia.room.entidades.DepartamentoEntity;
 import com.mdgz.dam.labdam2022.persistencia.room.entidades.HabitacionEntity;
 import com.mdgz.dam.labdam2022.persistencia.enumerados.TipoAlojamiento;
+import com.mdgz.dam.labdam2022.persistencia.room.entidades.HotelEntity;
+import com.mdgz.dam.labdam2022.repositorios.HotelRepository;
+import com.mdgz.dam.labdam2022.repositorios.UbicacionRepository;
 
-public class AlojamientoMapper {
+public final class AlojamientoMapper
+{
 
-    public static AlojamientoEntity toEntity(Alojamiento alojamiento){
+    private AlojamientoMapper(){};
+    private static HotelRepository hotelRepository;
+    private static UbicacionRepository ubicacionRepository;
 
-        TipoAlojamiento tipo = alojamiento.getClass() == Departamento.class ? TipoAlojamiento.DEPARTAMENTO : TipoAlojamiento.HABITACION;
 
+    //Obtiene los atributos del Alojamiento
+    public static AlojamientoEntity toEmbeddedEntity(Alojamiento alojamiento)
+    {
+        //TipoAlojamiento tipo = alojamiento.getClass() == Departamento.class ? TipoAlojamiento.DEPARTAMENTO : TipoAlojamiento.HABITACION;
         return new AlojamientoEntity(
-                alojamiento.getId(),
                 alojamiento.getTitulo(),
                 alojamiento.getDescripcion(),
                 alojamiento.getCapacidad(),
-                alojamiento.getPrecioBase(),
-                tipo);
+                alojamiento.getPrecioBase()
+                );
     }
 
-    public static DepartamentoEntity toDepartamentoEntity(Departamento departamento){
-        return new DepartamentoEntity(
-                departamento.getId(),
+    public static DepartamentoEntity toEntity(Departamento departamento)
+    {
+        return new DepartamentoEntity
+                (departamento.getId(),
+                toEmbeddedEntity(departamento),
                 departamento.getTieneWifi(),
                 departamento.getCostoLimpieza(),
                 departamento.getCantidadHabitaciones(),
@@ -33,9 +46,11 @@ public class AlojamientoMapper {
         );
     }
 
-    public static HabitacionEntity toHabitacionEntity(Habitacion habitacion){
+    public static HabitacionEntity toEntity(Habitacion habitacion)
+    {
         return new HabitacionEntity(
                 habitacion.getId(),
+                toEmbeddedEntity(habitacion),
                 habitacion.getCamasIndividuales(),
                 habitacion.getCamasMatrimoniales(),
                 habitacion.getTieneEstacionamiento(),
@@ -43,34 +58,41 @@ public class AlojamientoMapper {
         );
     }
 
-    public static Alojamiento habitacionEntitytoAlojamiento(AlojamientoEntity alojEntity, HabitacionEntity habEntity){
+    public static Habitacion toModel(HabitacionEntity entity)
+    {
+        if(hotelRepository == null) hotelRepository = HotelRepository.getInstance();
+        final Hotel[] hotelModel = new Hotel[1];
+        hotelRepository.getByID(entity.getHotelID(), (exito, hotel) -> {hotelModel[0] = hotel;});
 
         return new Habitacion(
-                alojEntity.getId(),
-                alojEntity.getTitulo(),
-                alojEntity.getDescripcion(),
-                alojEntity.getCapacidad(),
-                alojEntity.getPrecioBase(),
-                habEntity.getCamasIndividuales(),
-                habEntity.getCamasMatrimoniales(),
-                habEntity.getTieneEstacionamiento(),
-                null // se lo setea en la interfaz, y se lo obtiene del mapper del hotel
-        );
+                entity.getId(),
+                entity.getAlojamiento().getTitulo(),
+                entity.getAlojamiento().getDescripcion(),
+                entity.getAlojamiento().getCapacidad(),
+                entity.getAlojamiento().getPrecioBase(),
+                entity.getCamasIndividuales(),
+                entity.getCamasMatrimoniales(),
+                entity.getTieneEstacionamiento(),
+                hotelModel[0]);
 
     }
 
-    public static Alojamiento departamentoEntityToAlojamiento(AlojamientoEntity alojEntity, DepartamentoEntity depEntity){
+    public static Departamento toModel(DepartamentoEntity entity)
+    {
+        if(ubicacionRepository == null) ubicacionRepository = UbicacionRepository.getInstance();
+        final Ubicacion[] ubicacionModel = new Ubicacion[1];
+        ubicacionRepository.getByID(entity.getUbicacionID(), (exito, ubicacion) -> {ubicacionModel[0] = ubicacion;});
 
         return new Departamento(
-                alojEntity.getId(),
-                alojEntity.getTitulo(),
-                alojEntity.getDescripcion(),
-                alojEntity.getCapacidad(),
-                alojEntity.getPrecioBase(),
-                depEntity.getTieneWifi(),
-                depEntity.getCostoLimpieza(),
-                depEntity.getCantidadHabitaciones(),
-                null // se lo setea en la interfaz, y se lo obtiene del mapper de la ubicacion
+                entity.getId(),
+                entity.getAlojamiento().getTitulo(),
+                entity.getAlojamiento().getDescripcion(),
+                entity.getAlojamiento().getCapacidad(),
+                entity.getAlojamiento().getPrecioBase(),
+                entity.getTieneWifi(),
+                entity.getCostoLimpieza(),
+                entity.getCantidadHabitaciones(),
+                ubicacionModel[0]
         );
 
     }

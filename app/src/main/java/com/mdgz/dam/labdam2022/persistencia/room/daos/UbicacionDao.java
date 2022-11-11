@@ -12,17 +12,17 @@ import java.util.List;
 @Dao
 public interface UbicacionDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertarUbicacion(UbicacionEntity ubicacion);
+    @Insert(onConflict = OnConflictStrategy.ABORT)
+    void insertar(UbicacionEntity ubicacion);
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.ABORT)
     void insertarTodos(List<UbicacionEntity> ubicaciones);
 
     @Query("SELECT * FROM Ubicacion")
-    List<UbicacionEntity> recuperarUbicaciones();
+    List<UbicacionEntity> getTodas();
 
     //Buscar por id
     @Query("SELECT * FROM Ubicacion WHERE id = :id")
-    UbicacionEntity getUbicacionPorId(Integer id);
+    UbicacionEntity getByID(Integer id);
     
 }

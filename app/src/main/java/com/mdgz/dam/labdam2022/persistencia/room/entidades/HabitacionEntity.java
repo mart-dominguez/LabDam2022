@@ -2,31 +2,39 @@ package com.mdgz.dam.labdam2022.persistencia.room.entidades;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
+import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import com.mdgz.dam.labdam2022.model.Hotel;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.UUID;
 
 @Entity(tableName = "Habitacion",
-        foreignKeys = { @ForeignKey(entity = HotelEntity.class, parentColumns = "id", childColumns = "hotelID"),
-                        @ForeignKey(entity = AlojamientoEntity.class, parentColumns = "id", childColumns = "idHabitacion")})
+        foreignKeys = { @ForeignKey(entity = HotelEntity.class, parentColumns = "id", childColumns = "hotelID")
+                        },
+        indices = {@Index(value = {"hotelID"})})
 
 public class HabitacionEntity {
 
     @PrimaryKey
-    @NonNull
-    @ColumnInfo(name = "idHabitacion")
-    private UUID idHabitacion;
+    @ColumnInfo(name = "id")
+    @NotNull
+    private UUID id;
+    @Embedded
+    private AlojamientoEntity alojamiento;
     private Integer camasIndividuales;
     private Integer camasMatrimoniales;
     private Boolean tieneEstacionamiento;
     private Integer hotelID;
 
-    public HabitacionEntity(@NonNull UUID idHabitacion, Integer camasIndividuales, Integer camasMatrimoniales, Boolean tieneEstacionamiento, Integer hotelID) {
-        this.idHabitacion = idHabitacion;
+    public HabitacionEntity(@NonNull UUID id, AlojamientoEntity alojamiento, Integer camasIndividuales, Integer camasMatrimoniales, Boolean tieneEstacionamiento, Integer hotelID) {
+        this.id = id;
+        this.alojamiento = alojamiento;
         this.camasIndividuales = camasIndividuales;
         this.camasMatrimoniales = camasMatrimoniales;
         this.tieneEstacionamiento = tieneEstacionamiento;
@@ -34,21 +42,19 @@ public class HabitacionEntity {
     }
 
     @NonNull
-    public UUID getIdHabitacion() {
-        return idHabitacion;
+    public UUID getId() {
+        return id;
     }
 
-    public void setIdHabitacion(@NonNull UUID idHabitacion) {
-        this.idHabitacion = idHabitacion;
+    public void setId(@NonNull UUID id) {
+        this.id= id;
     }
 
     public Integer getCamasIndividuales() {
         return camasIndividuales;
     }
 
-    public void setCamasIndividuales(Integer camasIndividuales) {
-        this.camasIndividuales = camasIndividuales;
-    }
+    public void setCamasIndividuales(Integer camasIndividuales) { this.camasIndividuales = camasIndividuales;}
 
     public Integer getCamasMatrimoniales() {
         return camasMatrimoniales;
@@ -72,5 +78,13 @@ public class HabitacionEntity {
 
     public void setHotelID(Integer hotelID) {
         this.hotelID = hotelID;
+    }
+
+    public AlojamientoEntity getAlojamiento() {
+        return alojamiento;
+    }
+
+    public void setAlojamiento(AlojamientoEntity alojamiento) {
+        this.alojamiento = alojamiento;
     }
 }

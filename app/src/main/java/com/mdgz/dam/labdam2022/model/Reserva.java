@@ -15,7 +15,7 @@ import java.util.UUID;
 public class Reserva {
 
     private UUID id;
-    private UUID usuarioID; // raro
+    private Usuario usuario;
     private Date fechaIngreso;
     private Date fechaSalida;
 
@@ -27,9 +27,9 @@ public class Reserva {
     //@Ignore
     private Alojamiento alojamiento;
 
-    public Reserva(UUID id, UUID usuarioID, Date fechaIngreso, Date fechaSalida, Alojamiento alojamiento){
+    public Reserva(UUID id, Usuario usuario, Date fechaIngreso, Date fechaSalida, Alojamiento alojamiento){
         this.id = id;
-        this.usuarioID = usuarioID;
+        this.usuario = usuario;
         this.fechaIngreso = fechaIngreso;
         this.fechaSalida = fechaSalida;
         this.alojamiento = alojamiento;
@@ -38,10 +38,6 @@ public class Reserva {
     @NonNull
     public UUID getId() {
         return id;
-    }
-
-    public UUID getUsuarioID() {
-        return usuarioID;
     }
 
     public Date getFechaIngreso() {
@@ -54,10 +50,6 @@ public class Reserva {
 
     public void setId(@NonNull UUID id) {
         this.id = id;
-    }
-
-    public void setUsuarioID(UUID usuarioID) {
-        this.usuarioID = usuarioID;
     }
 
     public void setFechaIngreso(Date fechaIngreso) {
@@ -74,5 +66,13 @@ public class Reserva {
 
     public void setAlojamiento(Alojamiento alojamiento) {
         this.alojamiento = alojamiento;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 }

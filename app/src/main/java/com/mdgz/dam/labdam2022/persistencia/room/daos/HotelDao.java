@@ -12,17 +12,17 @@ import java.util.List;
 @Dao
 public interface HotelDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertarHotel(HotelEntity hotel);
+    @Insert(onConflict = OnConflictStrategy.ABORT)
+    void insertar(HotelEntity hotel);
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.ABORT)
     void insertarTodos(List<HotelEntity> hoteles);
 
     @Query("SELECT * FROM Hotel")
-    List<HotelEntity> recuperarHoteles();
+    List<HotelEntity> getTodos();
 
     //Buscar por id
     @Query("SELECT * FROM Hotel WHERE id = :id")
-    HotelEntity getHotelPorId(Integer id);
+    HotelEntity getByID(Integer id);
     
 }

@@ -1,4 +1,4 @@
-package com.mdgz.dam.labdam2022.persistencia;
+package com.mdgz.dam.labdam2022.persistencia.interfaces;
 
 import com.mdgz.dam.labdam2022.model.Reserva;
 
@@ -12,7 +12,7 @@ public interface ReservaDataSource {
     interface RecuperarReservasCallback {
         void resultado(final boolean exito, final List<Reserva> resultados);
     }
-    void guardarReserva(final Reserva entidad, final ReservaDataSource.GuardarReservaCallback callback);
-    void recuperarReservas(final ReservaDataSource.RecuperarReservasCallback callback);
+    void guardar(final Reserva entidad, final ReservaDataSource.GuardarReservaCallback callback);
+    void getTodas(final ReservaDataSource.RecuperarReservasCallback callback);
     
 }
