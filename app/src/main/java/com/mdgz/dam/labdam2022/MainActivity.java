@@ -8,10 +8,13 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.mdgz.dam.labdam2022.model.Alojamiento;
 
 public class MainActivity extends AppCompatActivity implements BusquedaFragment.OnBuscarListener, ResultadoBusquedaFragment.OnVerDetallesListener{
 
@@ -73,11 +76,12 @@ public class MainActivity extends AppCompatActivity implements BusquedaFragment.
     }
 
     @Override
-    public void verDetalles() {
+    public void verDetalles(Alojamiento alojamiento) {
         NavHostFragment navHostFragment =
                 (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView);
         NavController navController = navHostFragment.getNavController();
-
-        navController.navigate(R.id.action_resultadoBusquedaFragment_to_detalleAlojamientoFragment);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("alojamiento", (Parcelable) alojamiento);
+        navController.navigate(R.id.action_resultadoBusquedaFragment_to_detalleAlojamientoFragment, bundle);
     }
 }

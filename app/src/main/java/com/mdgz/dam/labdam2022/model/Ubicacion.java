@@ -1,15 +1,14 @@
 package com.mdgz.dam.labdam2022.model;
 
-public class Ubicacion {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Ubicacion implements Parcelable {
     private double lat;
     private double lng;
     private String calle;
     private String numero;
     private Ciudad ciudad;
-
-    public Ubicacion(){
-
-    }
 
     public Ubicacion(double lat, double lng, String calle, String numero, Ciudad ciudad) {
         this.lat = lat;
@@ -18,6 +17,26 @@ public class Ubicacion {
         this.numero = numero;
         this.ciudad = ciudad;
     }
+
+    protected Ubicacion(Parcel in) {
+        lat = in.readDouble();
+        lng = in.readDouble();
+        calle = in.readString();
+        numero = in.readString();
+        ciudad = in.readParcelable(Ciudad.class.getClassLoader());
+    }
+
+    public static final Creator<Ubicacion> CREATOR = new Creator<Ubicacion>() {
+        @Override
+        public Ubicacion createFromParcel(Parcel in) {
+            return new Ubicacion(in);
+        }
+
+        @Override
+        public Ubicacion[] newArray(int size) {
+            return new Ubicacion[size];
+        }
+    };
 
     public double getLat() {
         return lat;
@@ -58,4 +77,28 @@ public class Ubicacion {
     public void setCiudad(Ciudad ciudad) {
         this.ciudad = ciudad;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeDouble(lat);
+        parcel.writeDouble(lng);
+        parcel.writeString(calle);
+        parcel.writeString(numero);
+        parcel.writeParcelable(ciudad, i);
+    }
+
+    private void readFromParcel(Parcel in) {
+        lat = in.readDouble();
+        lng = in.readDouble();
+        calle = in.readString();
+        numero = in.readString();
+        ciudad = in.readParcelable(Ciudad.class.getClassLoader());
+    }
+
 }

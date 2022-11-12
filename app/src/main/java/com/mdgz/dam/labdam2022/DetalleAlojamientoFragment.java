@@ -1,5 +1,6 @@
 package com.mdgz.dam.labdam2022;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -8,60 +9,27 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mdgz.dam.labdam2022.databinding.FragmentDetalleAlojamientoBinding;
 import com.mdgz.dam.labdam2022.model.Alojamiento;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link DetalleAlojamientoFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class DetalleAlojamientoFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private TextView titulo, descripcion, capacidad, precio;
 
     private FragmentDetalleAlojamientoBinding binding;
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
     private Alojamiento alojamiento;
 
     public DetalleAlojamientoFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment DetalleAlojamientoFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static DetalleAlojamientoFragment newInstance(String param1, String param2) {
-        DetalleAlojamientoFragment fragment = new DetalleAlojamientoFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
+        if (getArguments() != null && !getArguments().isEmpty()) {
             alojamiento = getArguments().getParcelable("alojamiento");
         }
-
-
-
     }
 
     @Override
@@ -70,17 +38,38 @@ public class DetalleAlojamientoFragment extends Fragment {
         binding = FragmentDetalleAlojamientoBinding.inflate(inflater, container, false);
         // Inflate the layout for this fragment
         View thisView = inflater.inflate(R.layout.fragment_detalle_alojamiento, container, false);
+
+        titulo = thisView.findViewById(R.id.tituloText);
+        descripcion = thisView.findViewById(R.id.descripcionText);
+        capacidad = thisView.findViewById(R.id.capacidadText);
+        precio = thisView.findViewById(R.id.precioText);
+
+        /*
         TextView tituloText = binding.tituloText;
         TextView descripcionText = binding.descripcionText;thisView.findViewById(R.id.descripcionText);
         TextView capacidadText = binding.capacidadText;
         TextView precioText = binding.precioText;
+         */
+
+
         /* TOREAD
         https://www.geeksforgeeks.org/how-to-implement-google-map-inside-fragment-in-android/
          */
-        tituloText.setText(alojamiento.getTitulo());
-        descripcionText.setText(alojamiento.getDescripcion());
-        capacidadText.setText(alojamiento.getCapacidad());
-        precioText.setText(String.valueOf(alojamiento.getPrecioBase()));
+        if (getArguments() != null && !getArguments().isEmpty()) { //TODO: Controlar esta comprobacion, capaz es innecesaria
+            alojamiento = getArguments().getParcelable("alojamiento");
+            titulo.setText(alojamiento.getTitulo());
+            descripcion.setText(alojamiento.getDescripcion());
+            capacidad.setText(String.valueOf(alojamiento.getCapacidad()));
+            precio.setText(String.valueOf(alojamiento.getPrecioBase()));
+        }else{
+            Context context = getContext();
+            CharSequence text = "ERROR, NO RECIBE LOS ARGUMENTOS";
+            int duration = Toast.LENGTH_SHORT;
+
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+
+        }
         return thisView;
     }
 }

@@ -9,15 +9,19 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.mdgz.dam.labdam2022.model.Ciudad;
+import com.mdgz.dam.labdam2022.repo.CiudadRepository;
+
 public class BusquedaFragment extends Fragment {
 
-    private Spinner tipoAlojamiento, cantOcupantes, ciudad;
+    private Spinner tipoAlojamiento, cantOcupantes, ciudades;
     private CheckBox wifi;
     private EditText precioMinimo, precioMaximo;
     private Button btnBuscar, btnLimpiar;
@@ -52,6 +56,15 @@ public class BusquedaFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_busqueda, container,false);
+
+        CiudadRepository repoCiudad = new CiudadRepository();
+        ciudades = v.findViewById(R.id.spinner_ciudad);
+
+        ArrayAdapter<Ciudad> adapter = new ArrayAdapter<Ciudad>(getActivity(), android.R.layout.simple_spinner_item, repoCiudad.listaCiudades());
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        ciudades.setAdapter(adapter);
+
         btnBuscar = v.findViewById(R.id.btn_Buscar);
         btnBuscar.setOnClickListener(new View.OnClickListener() {
             @Override

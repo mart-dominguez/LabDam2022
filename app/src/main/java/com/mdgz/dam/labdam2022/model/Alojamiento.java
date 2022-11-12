@@ -1,12 +1,21 @@
 package com.mdgz.dam.labdam2022.model;
 
-public abstract class Alojamiento {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Serializable;
+
+public abstract class Alojamiento implements Parcelable {
 
     protected Integer id;
     protected String titulo;
     protected String descripcion;
     protected Integer capacidad;
     protected Double precioBase;
+
+    public Alojamiento(Parcel parcel) {
+
+    }
 
     public abstract Ubicacion getUbicacion();
     public Double costoDia(){

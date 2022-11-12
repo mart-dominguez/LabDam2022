@@ -1,6 +1,9 @@
 package com.mdgz.dam.labdam2022.model;
 
-public class Habitacion  extends Alojamiento {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Habitacion  extends Alojamiento implements Parcelable {
 
     private int camasIndividuales;
     private int camasMatrimoniales;
@@ -10,6 +13,27 @@ public class Habitacion  extends Alojamiento {
     public Habitacion() {
         super();
     }
+
+    protected Habitacion(Parcel in) {
+        super(in);
+        camasIndividuales = in.readInt();
+        camasMatrimoniales = in.readInt();
+        byte tmpTieneEstacionamiento = in.readByte();
+        tieneEstacionamiento = tmpTieneEstacionamiento == 0 ? null : tmpTieneEstacionamiento == 1;
+        hotel = in.readParcelable(Hotel.class.getClassLoader());
+    }
+
+    public static final Creator<Habitacion> CREATOR = new Creator<Habitacion>() {
+        @Override
+        public Habitacion createFromParcel(Parcel in) {
+            return new Habitacion(in);
+        }
+
+        @Override
+        public Habitacion[] newArray(int size) {
+            return new Habitacion[size];
+        }
+    };
 
     @Override
     public String getTitulo() {
@@ -85,4 +109,25 @@ public class Habitacion  extends Alojamiento {
     }
 
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(camasIndividuales);
+        parcel.writeInt(camasMatrimoniales);
+        parcel.writeBoolean(tieneEstacionamiento);
+        parcel.writeParcelable(hotel, i);
+
+
+
+    }
+    private void readFromParcel(Parcel in) {
+        camasIndividuales = in.readInt();
+        camasMatrimoniales = in.readInt();
+        tieneEstacionamiento = in.readBoolean();
+        hotel = in.readParcelable(Hotel.class.getClassLoader());
+    }
 }

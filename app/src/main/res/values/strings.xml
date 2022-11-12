@@ -34,17 +34,11 @@
     <string name="ciudad">Ciudad</string>
     <string name="txt_buscar">Buscar</string>
     <string name="txt_limpiarCampos">Limpiar Campos</string>
-    <!--Modificar para agregar ciudades desde la BD?-->
-    <string-array name="ciudades">
-        <item>Santa Fe</item>
-        <item>Miami</item>
-        <item>Dubái</item>
-        <item>Kiev</item>
-        <item>Seúl</item>
-        <item>Cartagena</item>
-    </string-array>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Bienvenido a la App AlojarWorld</string>
+    <string name="capacidad">Capacidad:</string>
+    <string name="precio">Precio:</string>
+    <string name="ver_detalle">Ver Detalle</string>
 
 
 </resources>

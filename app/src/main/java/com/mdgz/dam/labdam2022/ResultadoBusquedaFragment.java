@@ -24,11 +24,7 @@ import org.w3c.dom.Text;
 
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ResultadoBusquedaFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class ResultadoBusquedaFragment extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -37,7 +33,7 @@ public class ResultadoBusquedaFragment extends Fragment {
         // Required empty public constructor
     }
     public interface OnVerDetallesListener{
-        public void verDetalles();
+        public void verDetalles(Alojamiento alojamiento);
     }
     private static OnVerDetallesListener listenerDetalles;
     public static ResultadoBusquedaFragment newInstance(String param1, String param2) {
@@ -74,7 +70,6 @@ public class ResultadoBusquedaFragment extends Fragment {
         mAdapter = new AlojamientoRecyclerAdapter(new AlojamientoRepository().listaCiudades());
         recyclerView.setAdapter(mAdapter);
 
-
         return thisView;
     }
 
@@ -95,13 +90,8 @@ public class ResultadoBusquedaFragment extends Fragment {
                 card = v.findViewById(R.id.cardAlojamiento);
                 titulo = v.findViewById(R.id.txtTitulo);
                 capacidad = v.findViewById(R.id.txtCapacidad);
+                precioBase = v.findViewById(R.id.txtPrecioBase);
                 btnDetalle = v.findViewById(R.id.btnVerDetalle);
-                btnDetalle.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        listenerDetalles.verDetalles();//A buscar hay que pasarle un conjunto de info a buscar
-                    }
-                });
             }
         }
         public AlojamientoRecyclerAdapter(List<Alojamiento> myDataset) {
@@ -123,14 +113,20 @@ public class ResultadoBusquedaFragment extends Fragment {
         public void onBindViewHolder(AlojamientoViewHolder alojamientoHolder, final int position) {
             //Setea todos los atributos al holder de alojamiento
             Alojamiento alojamiento = mDataset.get(position);
-           // alojamientoHolder.imgAloj.setTag(position);
+            // alojamientoHolder.imgAloj.setTag(position);
             alojamientoHolder.btnDetalle.setTag(position);
 
             alojamientoHolder.titulo.setText(alojamiento.getTitulo());
-            alojamientoHolder.capacidad.setText(alojamiento.getCapacidad().toString());//ponerlo como string
-            //alojamientoHolder.precioBase.setText(alojamiento.getPrecioBase().toString());//ponerlo como string
+            alojamientoHolder.capacidad.setText(alojamiento.getCapacidad().toString());
+            alojamientoHolder.precioBase.setText(alojamiento.getPrecioBase().toString());
             //alojamientoHolder.imgAloj.setImageResource();//Buscar la imagen
 
+            alojamientoHolder.btnDetalle.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    listenerDetalles.verDetalles(alojamiento);
+                }
+            });
         }
         @Override
         public int getItemCount() {

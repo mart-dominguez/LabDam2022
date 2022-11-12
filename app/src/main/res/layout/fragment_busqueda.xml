@@ -110,7 +110,6 @@
                 android:id="@+id/spinner_ciudad"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:entries="@array/ciudades"
                 android:gravity="center"
                 android:minHeight="48dp" />
         </LinearLayout>

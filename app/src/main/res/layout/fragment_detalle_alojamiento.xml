@@ -11,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:textSize="34sp" />
+        android:textSize="34sp"
+        />
 
     <TextView
         android:id="@+id/descripcionText"
@@ -31,7 +32,7 @@
                 android:id="@+id/capacidadMaxima"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Capacidad:" />
+                android:text="@string/capacidad" />
 
             <TextView
                 android:id="@+id/capacidadText"
@@ -47,7 +48,7 @@
                 android:id="@+id/precio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Precio:" />
+                android:text="@string/precio" />
 
             <TextView
                 android:id="@+id/precioText"
