@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    card_view:cardCornerRadius="@dimen/normal_margin"
+    card_view:cardElevation="@dimen/small_margin"
+    app:cardUseCompatPadding="true"
+    android:backgroundTint="@color/antique_white"
+    card_view:cardPreventCornerOverlap="false"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/rd_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="Hotel Buena Aventura"
+            android:layout_marginStart="@dimen/normal_margin"
+            android:layout_marginTop="@dimen/normal_margin"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+            />
+
+        <TextView
+            android:id="@+id/rd_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/rd_title"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="Excelentes habitaciones con vistas al mar mediterraneo, excelente servicio personalizado para todo publico"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+            android:textColor="@color/secondaryTextColor"
+            android:paddingStart="@dimen/normal_margin"
+            android:paddingEnd="@dimen/normal_margin"
+            />
+
+        <TextView
+            android:id="@+id/rd_fechaIngreso_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/rd_divider"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="Fecha de ingreso"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+            android:layout_marginStart="@dimen/normal_margin"
+            android:layout_marginEnd="@dimen/normal_margin"
+            android:layout_marginTop="@dimen/small_margin"
+            />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/rd_divider"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toBottomOf="@id/rd_description"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_margin="@dimen/small_margin"/>
+
+        <TextView
+            android:id="@+id/rd_fechaEgreso_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/small_margin"
+            android:layout_marginEnd="@dimen/normal_margin"
+            android:text="Fecha de egreso"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rd_divider" />
+
+        <TextView
+            android:id="@+id/rd_precio_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            app:layout_constraintTop_toTopOf="@id/rd_fechaIngreso_chip"
+            app:layout_constraintBottom_toBottomOf="@id/rd_fechaIngreso_chip"
+            app:layout_constraintStart_toEndOf="@id/rd_fechaIngreso_chip"
+            app:layout_constraintEnd_toStartOf="@id/rd_fechaEgreso_chip"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="$30000"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            android:textColor="@color/teal_700"
+            />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/rd_fechaIngreso_chip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/rd_fechaIngreso_text"
+            app:layout_constraintStart_toStartOf="@id/rd_fechaIngreso_text"
+            app:layout_constraintEnd_toEndOf="@id/rd_fechaIngreso_text"
+            android:text="25/11/22"
+            />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/rd_fechaEgreso_chip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/rd_fechaEgreso_text"
+            app:layout_constraintStart_toStartOf="@id/rd_fechaEgreso_text"
+            app:layout_constraintEnd_toEndOf="@id/rd_fechaEgreso_text"
+            android:text="31/11/22"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>
