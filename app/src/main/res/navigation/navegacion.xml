@@ -29,9 +29,6 @@
             <action
                 android:id="@+id/action_busquedaFragment_to_resultadoBusquedaFragment"
                 app:destination="@id/resultadoBusquedaFragment" />
-            <action
-                android:id="@+id/action_busquedaFragment_to_reservasFragment"
-                app:destination="@id/reservasFragment" />
         </fragment>
         <fragment
             android:id="@+id/detalleAlojamientoFragment"
@@ -52,15 +49,9 @@
         <action
             android:id="@+id/action_global_settingsFragment"
             app:destination="@id/settingsFragment" />
-        <fragment
-            android:id="@+id/reservasFragment"
-            android:name="com.mdgz.dam.labdam2022.ReservasFragment"
-            android:label="fragment_reservas"
-            tools:layout="@layout/fragment_reservas" >
-            <action
-                android:id="@+id/action_reservasFragment_to_busquedaFragment"
-                app:destination="@id/busquedaFragment" />
-        </fragment>
+        <action
+            android:id="@+id/action_global_reservasFragment"
+            app:destination="@id/reservasFragment" />
     </navigation>
     <fragment
         android:id="@+id/settingsFragment"
@@ -75,4 +66,9 @@
         android:name="com.mdgz.dam.labdam2022.DetalleLogs"
         android:label="@string/label_detalle_uso"
         tools:layout="@layout/fragment_detalle_logs" />
+    <fragment
+        android:id="@+id/reservasFragment"
+        android:name="com.mdgz.dam.labdam2022.ReservasFragment"
+        android:label="@string/opt_mis_reservas"
+        tools:layout="@layout/fragment_reservas" />
 </navigation>

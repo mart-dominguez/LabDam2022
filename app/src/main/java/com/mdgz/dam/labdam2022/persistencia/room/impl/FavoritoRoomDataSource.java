@@ -1,6 +1,7 @@
 package com.mdgz.dam.labdam2022.persistencia.room.impl;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.mdgz.dam.labdam2022.model.Departamento;
 import com.mdgz.dam.labdam2022.model.Favorito;
@@ -102,6 +103,12 @@ public class FavoritoRoomDataSource implements FavoritoDataSource {
         {
             callback.resultado(false,null);
         }
+    }
+
+    @Override
+    public void getFromUser(UUID id, RecuperarCallback callback) {
+        // No implementado
+        Log.e("Error:","Metodo getFromUser del FavoritoRoomDataSource no implementado.");
     }
 
     @Override

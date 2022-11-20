@@ -23,6 +23,7 @@ public interface FavoritoDataSource {
     void guardar(final Favorito entidad, final GuardarCallback callback);
     void getTodos(final RecuperarCallback callback);
     void getById(UUID id, final FavoritoDataSource.GetByIDCallback callback);
+    void getFromUser(UUID id, RecuperarCallback callback);
     void eliminar(Favorito favorito, FavoritoDataSource.EliminarCallback callback);
 
 

@@ -188,9 +188,10 @@ public final class EstadiaDialog
 
                             reservaRepository.guardar(reserva, exito ->
                             {
-                                EstadiaDialogConfirm.create(activity,exito).show();
+                                EstadiaDialogConfirm.create(activity,exito).show(); // aca no hay manera de hacer que no se muestre dos veces
                             });
                             dialog.dismiss(); //Para que el AlertDialog desaparezca cuando los datos son validos
+
                         }
 
                     }

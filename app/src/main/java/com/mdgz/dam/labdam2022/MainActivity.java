@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                         return true;
 
                     case R.id.misReservas:
-                        NavDirections action1 = BusquedaFragmentDirections.actionBusquedaFragmentToReservasFragment();
+                        NavDirections action1 = BusquedaFragmentDirections.actionGlobalReservasFragment();
                         Navigation.findNavController(binding.fragmentContainerView).navigate(action1);
 
                         return true;

@@ -47,7 +47,7 @@ public interface ReservaDao {
 
     //Buscar por id
     @Query("SELECT * FROM reserva_habitacion WHERE id = :id")
-    ReservaDepartamentoEntity getHabitacionByID(UUID id);
+    ReservaHabitacionEntity getHabitacionByID(UUID id);
 
     @Query("SELECT * FROM reserva_habitacion WHERE id = :id")
     ReservaDepartamentoEntity getDepartamentoByID(UUID id);

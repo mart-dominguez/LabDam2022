@@ -2,6 +2,7 @@ package com.mdgz.dam.labdam2022.utilities;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import com.mdgz.dam.labdam2022.model.Favorito;
 import com.mdgz.dam.labdam2022.model.Habitacion;
 import com.mdgz.dam.labdam2022.model.Usuario;
 import com.mdgz.dam.labdam2022.persistencia.interfaces.FavoritoDataSource;
+import com.mdgz.dam.labdam2022.persistencia.retrofit.impl.FavoritoRetrofitDataSource;
 import com.mdgz.dam.labdam2022.persistencia.room.entidades.FavoritoHabitacionEntity;
 import com.mdgz.dam.labdam2022.persistencia.room.entidades.UsuarioEntity;
 import com.mdgz.dam.labdam2022.repositorios.FavoritoRepository;
@@ -111,9 +113,15 @@ public class AlojamientoAdapter extends RecyclerView.Adapter<AlojamientoAdapter.
                 if(favoritosAlojamiento.contains(alojamiento))
                 {
                     int index = favoritosAlojamiento.indexOf(alojamiento);
+
                     AlojamientoAdapter.favoritoRepository.eliminar(favoritos.get(index),exito ->
                     {
-                        if(exito) {
+                        if(exito && favoritosAlojamiento.contains(alojamiento)) {
+                            /*
+                                Agregue la segunda condicion porque, dado que se llama a los dos metodos (room y retrofit)
+                                y ambos tienen el mismo callback, cuando se invoque por segunda vez, el favorito en la lista
+                                no va a existir mas
+                             */
                             favoritosAlojamiento.remove(index);
                             favoritos.remove(index);
                             binding.caFavoriteButton.setImageResource(R.drawable.ic_baseline_favorite_border_24);
@@ -124,12 +132,18 @@ public class AlojamientoAdapter extends RecyclerView.Adapter<AlojamientoAdapter.
                     Favorito favorito = new Favorito(UUID.randomUUID(),usuario[0],alojamiento);
                     AlojamientoAdapter.favoritoRepository.guardar(favorito,exito ->
                     {
-                        if(exito) {
+                        if(exito && !favoritosAlojamiento.contains(alojamiento)) {
+                            /*
+                                Agregue la segunda condicion porque, dado que se llama a los dos metodos (room y retrofit)
+                                y ambos tienen el mismo callback, cuando se invoque por segunda vez, el favorito ya fue añadido
+                                a la lista de favoritos
+                             */
                             favoritosAlojamiento.add(alojamiento);
                             favoritos.add(favorito);
                             binding.caFavoriteButton.setImageResource(R.drawable.ic_baseline_favorite_filled_24);
                         }
                     });
+
                 }
             });
 
