@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
         //MATERIAL TOOLBAR
         MaterialToolbar toolbar = binding.toolbarPropia;
-        //setSupportActionBar(toolbar);
+
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -62,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
                         return true;
 
                     case R.id.misReservas:
+                        NavDirections action1 = BusquedaFragmentDirections.actionBusquedaFragmentToReservasFragment();
+                        Navigation.findNavController(binding.fragmentContainerView).navigate(action1);
 
                         return true;
 
@@ -70,8 +72,8 @@ public class MainActivity extends AppCompatActivity {
                         return true;
 
                     case R.id.configuracion:
-                        NavDirections action = GlobalDirections.actionGlobalSettingsFragment();
-                        Navigation.findNavController(binding.fragmentContainerView).navigate(action);
+                        NavDirections action2 = GlobalDirections.actionGlobalSettingsFragment();
+                        Navigation.findNavController(binding.fragmentContainerView).navigate(action2);
                         return true;
 
                     default:

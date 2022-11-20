@@ -38,7 +38,6 @@ public class ResultadoBusquedaFragment extends Fragment {
     private LogViewModel logViewModel;
     private RecyclerView recyclerView;
     private AlojamientoAdapter mAdapter;
-    private RecyclerView.LayoutManager layoutManager;
     private FloatingActionButton btnBuscar;
 
     //Clase donde se crea la lista de alojamientos genericos
