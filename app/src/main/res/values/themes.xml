@@ -3,7 +3,7 @@
     <style name="Theme.LabDam2022" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimaryVariant">@color/azul_primario_app</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
@@ -12,5 +12,20 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="android:textColorHint">#4D000000</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:backgroundTint">@color/white</item>
     </style>
+
+    <style name="Theme.ToolbarPersonalizada.LabDam2022" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/white</item>
+        <item name="android:textColorPrimary">@color/black</item>
+    </style>
+    <style name="Theme.cardPersonalizada.LabDam2022" parent="Theme.LabDam2022">
+        <item name="android:background">#E1F2FD</item>
+    </style>
+    <style name="Theme.botonFavPersonalizado.LabDam2022" parent="Theme.LabDam2022">
+        <item name="android:backgroundTint">#E1F2FD</item>
+    </style>
+
 </resources>

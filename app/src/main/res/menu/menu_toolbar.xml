@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+    android:id="@+id/opcion_buscar"
+    android:title="Buscar"
+    android:icon="@drawable/ic_baseline_search_24"
+        app:showAsAction="always|withText">
+
+    </item>
+    <item
+        android:id="@+id/overflowMenu"
+        android:icon="@drawable/ic_baseline_more_vert_24"
+        android:title="overFlow"
+        app:showAsAction="ifRoom">
+        <menu>
+            <item
+                android:icon="@drawable/ic_baseline_settings_24"
+                android:title="Configuración"
+                android:orderInCategory="3"
+                />
+            <item
+                android:icon="@drawable/ic_baseline_star_border_24"
+                android:title="Mis Favoritos"
+                android:orderInCategory="2"
+                />
+            <item
+                android:icon="@drawable/ic_baseline_night_shelter_24"
+                android:title="Mis Reservas"
+                android:orderInCategory="1"
+                />
+i        </menu>
+    </item>
+
+</menu>
