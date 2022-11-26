@@ -4,11 +4,141 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".BusquedaFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/form_busqueda" />
+        android:orientation="vertical"
+        android:padding="30dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Encuentre su hospedaje"
+            android:textAlignment="viewStart"
+            android:textStyle="bold"
+            android:textSize="25dp"
+            android:layout_marginTop="0dp"/>
+       <ScrollView
+           android:layout_weight="1"
+           android:layout_marginTop="25dp"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+           <LinearLayout
 
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="vertical">
+               <LinearLayout
+
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:orientation="horizontal">
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="Tipo de hospedaje"
+                       />
+                   <Spinner
+                       android:id="@+id/spinner_tipo_hospedaje"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"/>
+               </LinearLayout>
+               <LinearLayout
+                   android:layout_marginTop="7dp"
+                   android:layout_marginBottom="7dp"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:orientation="horizontal">
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="Capacidad"/>
+                   <EditText
+                       android:id="@+id/cantidad_personas"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:hint="0"
+                       android:inputType="number"/>
+               </LinearLayout>
+               <CheckBox
+                   android:id="@+id/wifi"
+                   android:layout_width="wrap_content"
+                   android:layout_height="match_parent"
+                   android:text="Conexión WiFi"
+                   />
+               <LinearLayout
+                   android:layout_marginTop="7dp"
+                   android:layout_marginBottom="7dp"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:orientation="horizontal">
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="Precio "
+                       android:layout_marginRight="30dp"/>
+                  <EditText
+                      android:id="@+id/precio_minimo"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:inputType="number"
+                      android:hint="Mínimo"/>
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text=" - "
+                       android:layout_marginLeft="10dp"
+                       android:layout_marginRight="10dp"/>
+                   <EditText
+                       android:id="@+id/precio_maximo"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:inputType="number"
+                       android:hint="Máximo"/>
+
+               </LinearLayout>
+               <LinearLayout
+                   android:layout_marginTop="7dp"
+                   android:layout_marginBottom="7dp"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:orientation="horizontal">
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="Ciudad destino"/>
+                    <Spinner
+                        android:id="@+id/spinner_ciudad"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+               </LinearLayout>
+           </LinearLayout>
+         </ScrollView>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:layout_margin="7dp">
+
+            <Button
+                android:id="@+id/boton_limpiar_filtros"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="9dp"
+                android:layout_toLeftOf="@+id/boton_buscar"
+                android:backgroundTint="@color/white"
+                android:text="Limpiar Filtros"
+                android:textColor="@color/black" />
+
+            <Button
+                android:id="@+id/boton_buscar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_gravity="right"
+                android:backgroundTint="@color/azul_primario_app"
+                android:text="Buscar"
+                android:textColor="@color/black" />
+        </RelativeLayout>
+    </LinearLayout>
 </FrameLayout>

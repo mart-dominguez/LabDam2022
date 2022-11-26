@@ -58,4 +58,7 @@ public class Ubicacion {
     public void setCiudad(Ciudad ciudad) {
         this.ciudad = ciudad;
     }
+    public String toString(){
+        return getCalle()+" "+ getNumero()+", "+ getCiudad();
+    }
 }
