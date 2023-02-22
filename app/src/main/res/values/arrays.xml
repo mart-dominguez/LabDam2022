@@ -1,0 +1,38 @@
+<resources>
+    <!-- Reply Preference -->
+    <string-array name="reply_entries">
+        <item>Reply</item>
+        <item>Reply to all</item>
+    </string-array>
+
+    <string-array name="reply_values">
+        <item>reply</item>
+        <item>reply_all</item>
+    </string-array>
+    <string-array name="metodos_de_pago">
+        <item>Efectivo</item>
+        <item>Tarjeta de Crédito</item>
+        <item>Tarjeta de Débito</item>
+        <item>Débito porCBU</item>
+    </string-array>
+
+    <string-array name="metodos_de_pago_values">
+        <item>Efectivo</item>
+        <item>TarjetaCrédito</item>
+        <item>TarjetaDébito</item>
+        <item>DébitoCBU</item>
+    </string-array>
+    <string-array name="monedas_efectivo">
+        <item>Dólares</item>
+        <item>Pesos</item>
+        <item>Euros</item>
+    </string-array>
+
+    <string-array name="monedas_efectivo_values">
+        <item>Dólares</item>
+        <item>Pesos</item>
+        <item>Euros</item>
+    </string-array>
+
+
+</resources>

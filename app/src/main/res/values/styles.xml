@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Estilo_Preferencia" parent="Theme.LabDam2022">
+
+        <item name="colorAccent">@color/azul_primario_app</item>
+        <item name="buttonBarPositiveButtonStyle">@style/colorBotones</item>
+        <item name="buttonBarNegativeButtonStyle">@style/colorBotones</item>
+
+    </style>
+
+</resources>

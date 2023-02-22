@@ -2,7 +2,6 @@
     <!-- Base application theme. -->
     <style name="Theme.LabDam2022" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_200</item>
         <item name="colorPrimaryVariant">@color/azul_primario_app</item>
         <item name="colorOnPrimary">@color/black</item>
         <!-- Secondary brand color. -->
@@ -21,6 +20,7 @@
     </style>
     <style name="Theme.ToolbarPersonalizada.LabDam2022" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/black</item>
+        <item name="titleTextColor">@color/azul_primario_app</item>
         <item name="android:textColorPrimary">@color/white</item>
     </style>
     <style name="Theme.cardPersonalizada.LabDam2022" parent="Theme.LabDam2022">
@@ -28,5 +28,9 @@
     </style>
     <style name="Theme.botonFavPersonalizado.LabDam2022" parent="Theme.LabDam2022">
     <item name="android:backgroundTint">#001522</item>
+    </style>
+    <style name="colorBotones" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:textColor">@color/azul_primario_app</item>
+        <item name ="backgroundTint">@color/black</item>
     </style>
 </resources>

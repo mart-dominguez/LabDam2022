@@ -15,7 +15,6 @@
         android:layout_height="wrap_content"
         android:minHeight="?attr/actionBarSize"
         app:titleTextColor="@color/azul_primario_app"
-        android:backgroundTint="@color/black"
         android:theme="@style/Theme.ToolbarPersonalizada.LabDam2022"
         tools:layout_editor_absoluteX="1dp"
         tools:layout_editor_absoluteY="2dp"/>

@@ -1,5 +1,7 @@
 package com.mdgz.dam.labdam2022;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -7,25 +9,29 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.preference.Preference;
+import androidx.preference.PreferenceManager;
 
 import android.os.Parcelable;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Toolbar;
 
 import com.mdgz.dam.labdam2022.databinding.FragmentBusquedaBinding;
 import com.mdgz.dam.labdam2022.model.Ciudad;
 import com.mdgz.dam.labdam2022.repo.CiudadRepository;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link BusquedaFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class BusquedaFragment extends Fragment {
 
     private FragmentBusquedaBinding binding;
@@ -50,6 +56,7 @@ public class BusquedaFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding =  FragmentBusquedaBinding.inflate(inflater, container,  false);
+
         return binding.getRoot();
     }
 
@@ -87,6 +94,8 @@ public class BusquedaFragment extends Fragment {
             filtrosBusqueda.putFloat("precioMax", precioMax);
             filtrosBusqueda.putFloat("precioMin", precioMin);
             filtrosBusqueda.putInt("idCiudad",destino.getId());
+
+            guardarBusquedaEnHistorial(tipoHospedaje, huespedes, wifi, precioMax, precioMin, destino);
             NavHostFragment.findNavController(BusquedaFragment.this).navigate(R.id.action_busquedaFragment_to_resultadoBusquedaFragment,filtrosBusqueda);
             }
         });
@@ -97,7 +106,30 @@ public class BusquedaFragment extends Fragment {
             }
         });
     }
-    private void verificarRangoPrecio(){
+
+    private void guardarBusquedaEnHistorial(String tipoHospedaje, Integer huespedes, Boolean wifi, Float precioMax,Float precioMin,Ciudad destino) {
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+        if(sharedPrefs.getBoolean("guardado_info",false)) {
+            String filename = "datos_uso_app";
+            String salida= (new Timestamp(System.currentTimeMillis())).toString();
+            String conWifi = "no";
+            if (wifi) conWifi = "si";
+            salida +="Tipo de Hospedaje: "+tipoHospedaje+" - Cantidad de huéspedes: "+huespedes.toString()+" - con Wifi: "
+                    +conWifi+" - Precio Min: "+precioMin+ " - Precio Max: "+precioMax+" - Ciudad: "+destino.toString()+"\n";
+            try {
+                FileOutputStream fos = getActivity().openFileOutput(filename, Context.MODE_APPEND);
+                fos.write(salida.getBytes());
+                fos.flush();
+                fos.close();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void verificarRangoPrecio( ){
         String maximo = binding.precioMaximo.getText().toString();
         String minimo = binding.precioMinimo.getText().toString();
 

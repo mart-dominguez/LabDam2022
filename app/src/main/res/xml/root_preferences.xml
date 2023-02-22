@@ -1,0 +1,63 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="Info. General del usuario">
+
+        <EditTextPreference
+            android:key="text_mail"
+            android:maxLines="1"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:title="Correo electrónico predeterminado" />
+
+        <EditTextPreference
+            android:key="text_cuit"
+            android:maxLines="1"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:title="Número de CUIT del usuario" />
+    </PreferenceCategory>
+    <PreferenceCategory app:title="Método de pago">
+
+        <ListPreference
+            android:defaultValue="Efectivo"
+            android:entries="@array/metodos_de_pago"
+            android:entryValues="@array/metodos_de_pago_values"
+            android:key="método_de_pago_fav"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:title="Método de pago favorito" />
+        <ListPreference
+            android:defaultValue="Pesos"
+            android:enabled="false"
+            android:entries="@array/monedas_efectivo"
+            android:entryValues="@array/monedas_efectivo_values"
+            android:key="Moneda_favorita"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:title="Moneda" />
+    </PreferenceCategory>
+    <PreferenceCategory app:title="Notificaciones">
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="notificaciones_on/off"
+            android:summaryOff="Las notificaciones push están desactivadas"
+            android:summaryOn="Podrá recibir notificaciones push en la barra de tareas"
+            android:title="Notificaciones Activadas" />
+    </PreferenceCategory>
+    <PreferenceCategory app:title="Guardado de información">
+            <CheckBoxPreference
+                android:key="guardado_info"
+                android:summaryOff="No se guardará información de uso de la app."
+                android:summaryOn="Se guardará informacion de uso de la aplicación en el almacenamiento interno."
+                app:title="Autorizar Guardado de info" />
+            <Preference
+                android:key="fragmento_historial"
+                android:dependency="guardado_info"
+                android:summary="Acceder a la info de la aplicación guardada"
+                android:title="Visualizar info."/>
+
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

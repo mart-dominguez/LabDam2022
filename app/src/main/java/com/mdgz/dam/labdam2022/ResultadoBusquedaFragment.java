@@ -59,6 +59,7 @@ public class ResultadoBusquedaFragment extends Fragment {
         rvAdapter= new AlojamientosRecyclerAdapter(alojamientos);
         recyclerView.setAdapter(rvAdapter);
 
+
         return binding.getRoot();
     }
 
@@ -75,4 +76,5 @@ public class ResultadoBusquedaFragment extends Fragment {
         });
 
     }
+
 }

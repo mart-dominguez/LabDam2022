@@ -15,6 +15,7 @@
         app:showAsAction="ifRoom">
         <menu>
             <item
+                android:id="@+id/opcion_configuracion"
                 android:icon="@drawable/ic_baseline_settings_24"
                 android:title="Configuración"
                 android:orderInCategory="3"
