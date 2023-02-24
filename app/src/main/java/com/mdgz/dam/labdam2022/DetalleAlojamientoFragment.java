@@ -14,6 +14,11 @@ import android.widget.Toast;
 import com.mdgz.dam.labdam2022.databinding.FragmentDetalleAlojamientoBinding;
 import com.mdgz.dam.labdam2022.model.Alojamiento;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+
 public class DetalleAlojamientoFragment extends Fragment {
     private TextView titulo, descripcion, capacidad, precio;
 
@@ -37,12 +42,11 @@ public class DetalleAlojamientoFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentDetalleAlojamientoBinding.inflate(inflater, container, false);
         // Inflate the layout for this fragment
-        View thisView = inflater.inflate(R.layout.fragment_detalle_alojamiento, container, false);
 
-        titulo = thisView.findViewById(R.id.tituloText);
-        descripcion = thisView.findViewById(R.id.descripcionText);
-        capacidad = thisView.findViewById(R.id.capacidadText);
-        precio = thisView.findViewById(R.id.precioText);
+        titulo = binding.tituloText;
+        descripcion = binding.descripcionText;
+        capacidad = binding.capacidadText;
+        precio = binding.precio;
 
         /*
         TextView tituloText = binding.tituloText;
@@ -60,7 +64,27 @@ public class DetalleAlojamientoFragment extends Fragment {
             titulo.setText(alojamiento.getTitulo());
             descripcion.setText(alojamiento.getDescripcion());
             capacidad.setText(String.valueOf(alojamiento.getCapacidad()));
-            precio.setText(String.valueOf(alojamiento.getPrecioBase()));
+            String titulo =" TITULOOO: " + alojamiento.getTitulo();
+            System.out.println(titulo);
+            binding.botonActualizar.setOnClickListener(e->{
+                    if(Integer.valueOf(binding.cantOcup.getText().toString()) > alojamiento.getCapacidad()){
+                        Toast.makeText(getContext(), "La cantidad de ocupantes es mayor a la del alojamiento", Toast.LENGTH_SHORT).show();
+                } else {
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                        LocalDate entrada = LocalDate.parse(binding.fechaEntrada.getText().toString(), formatter);
+                        LocalDate salida = LocalDate.parse(binding.fechaSalida.getText().toString(), formatter);
+                        if(entrada.isAfter(salida)){
+                            Toast.makeText(getContext(), "La fecha de entrada es posterior a la de salida", Toast.LENGTH_LONG).show();
+                        } else {
+                            Long cantDias = ChronoUnit.DAYS.between(entrada, salida);
+                            precio.setText(String.valueOf(cantDias*Integer.parseInt(binding.cantOcup.getText().toString())*alojamiento.getPrecioBase()));
+                            Toast.makeText(getContext(), "Precio calculado correctamente", Toast.LENGTH_LONG).show();
+                        }
+
+                    }
+            });
+
+
         }else{
             Context context = getContext();
             CharSequence text = "ERROR, NO RECIBE LOS ARGUMENTOS";
@@ -70,6 +94,6 @@ public class DetalleAlojamientoFragment extends Fragment {
             toast.show();
 
         }
-        return thisView;
+        return binding.getRoot();
     }
 }

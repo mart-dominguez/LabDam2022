@@ -56,6 +56,62 @@
                 android:layout_height="wrap_content" />
         </TableRow>
 
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/infoCant"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cantidad de ocupantes: " />
+
+            <EditText
+                android:id="@+id/cantOcup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/infoIn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fecha de ingreso dd/mm/aaaa: " />
+
+            <EditText
+                android:inputType="date"
+                android:id="@+id/fechaEntrada"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/infoSa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fecha de salida dd/mm/aaaa: " />
+
+            <EditText
+                android:inputType="date"
+                android:id="@+id/fechaSalida"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </TableRow>
+
+        <Button
+            android:id="@+id/botonActualizar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Calcular precio"></Button>
+
     </TableLayout>
 
 </LinearLayout>

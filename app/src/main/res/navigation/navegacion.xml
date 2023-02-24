@@ -38,4 +38,25 @@
             android:id="@+id/action_detalleAlojamientoFragment_to_resultadoBusquedaFragment"
             app:destination="@id/resultadoBusquedaFragment" />
     </fragment>
+    <action
+        android:id="@+id/action_global_detalleAlojamientoFragment"
+        app:destination="@id/detalleAlojamientoFragment" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.mdgz.dam.labdam2022.SettingsFragment"
+        android:label="SettingsFragment" />
+    <action
+        android:id="@+id/action_global_settingsFragment"
+        app:destination="@id/settingsFragment" />
+    <action
+        android:id="@+id/action_global_busquedaFragment"
+        app:destination="@id/busquedaFragment" />
+    <fragment
+        android:id="@+id/verLog"
+        android:name="com.mdgz.dam.labdam2022.VerLog"
+        android:label="fragment_ver_log"
+        tools:layout="@layout/fragment_ver_log" />
+    <action
+        android:id="@+id/action_global_verLog"
+        app:destination="@id/verLog" />
 </navigation>

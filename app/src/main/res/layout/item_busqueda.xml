@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/cardview"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/tv_tipo_alojamiento"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tipo de alojamiento: " />
+
+        <TextView
+            android:id="@+id/tv_cant_ocupantes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cantidad de ocupantes: " />
+
+        <TextView
+            android:id="@+id/tv_wifi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Wifi: " />
+
+        <TextView
+            android:id="@+id/tv_precio_min"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Precio mínimo: " />
+
+        <TextView
+            android:id="@+id/tv_precio_max"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Precio máximo: " />
+
+        <TextView
+            android:id="@+id/tv_ciudad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ciudad: " />
+
+        <TextView
+            android:id="@+id/tv_timestamp_inicio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Timestamp inicio: " />
+
+        <TextView
+            android:id="@+id/tv_tiempo_busqueda"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tiempo de búsqueda: " />
+
+        <TextView
+            android:id="@+id/tv_cantidad_resultados"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cantidad de resultados: " />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

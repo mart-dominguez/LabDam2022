@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 import com.mdgz.dam.labdam2022.model.Alojamiento;
 
-public class MainActivity extends AppCompatActivity implements BusquedaFragment.OnBuscarListener, ResultadoBusquedaFragment.OnVerDetallesListener{
+public class MainActivity extends AppCompatActivity {
 
 
 
@@ -39,16 +39,13 @@ public class MainActivity extends AppCompatActivity implements BusquedaFragment.
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        NavHostFragment navHostFragment =
+                (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView);
+        NavController navController = navHostFragment.getNavController();
+
         switch (item.getItemId()){
             case R.id.mnuOptBuscar:
-                try {
-                    NavHostFragment navHostFragment =
-                            (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView);
-                    NavController navController = navHostFragment.getNavController();
-
-                    navController.navigate(R.id.busquedaFragment);//Modificar para usar acciones????
-                }catch (Exception e){
-                }
+                    navController.navigate(R.id.action_global_busquedaFragment);
                 return true;
 
             case R.id.mnuOptReservas:
@@ -58,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements BusquedaFragment.
                 /* Agregar el intento del fragmento */
                 return true;
             case R.id.mnuOptConfiguracion:
-                /* Agregar el intento del fragmento */
+                navController.navigate(R.id.action_global_settingsFragment);
                 return true;
             default:
                 Toast.makeText(this,"Error",Toast.LENGTH_LONG).show();
@@ -66,22 +63,4 @@ public class MainActivity extends AppCompatActivity implements BusquedaFragment.
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void buscar() {
-        NavHostFragment navHostFragment =
-                (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView);
-        NavController navController = navHostFragment.getNavController();
-
-        navController.navigate(R.id.action_busquedaFragment_to_resultadoBusquedaFragment);
-    }
-
-    @Override
-    public void verDetalles(Alojamiento alojamiento) {
-        NavHostFragment navHostFragment =
-                (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView);
-        NavController navController = navHostFragment.getNavController();
-        Bundle bundle = new Bundle();
-        bundle.putParcelable("alojamiento", (Parcelable) alojamiento);
-        navController.navigate(R.id.action_resultadoBusquedaFragment_to_detalleAlojamientoFragment, bundle);
-    }
 }

@@ -1,0 +1,68 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="Información Personal">
+        <EditTextPreference
+            android:key="email"
+            android:title="Correo electrónico"
+            android:summary="Introduce tu dirección de correo electrónico"
+            android:dialogTitle="Introduce tu correo electrónico"
+            android:defaultValue="" />
+
+        <EditTextPreference
+            android:key="cuit"
+            android:title="Número de CUIT"
+            android:summary="Introduce tu número de CUIT"
+            android:dialogTitle="Introduce tu número de CUIT"
+            android:defaultValue="" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Preferencias de Pago">
+        <ListPreference
+            android:key="metodo_pago"
+            android:title="Método de Pago Preferido"
+            android:entries="@array/mediosPago"
+            android:entryValues="@array/mediosPagoCod"
+            android:summary="Selecciona tu método de pago preferido"
+            android:defaultValue="Efectivo" />
+
+        <ListPreference
+            android:key="moneda_preferida"
+            android:title="Moneda preferida para pago en efectivo"
+            android:entries="@array/moneda"
+            android:entryValues="@array/monedaCod"
+            android:defaultValue="Pesos"
+            android:dependency="metodo_pago"
+            android:enabled="false"
+            android:summary="Selecciona tu moneda preferida para pagos en efectivo" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Notificaciones">
+        <SwitchPreference
+            android:key="notificaciones"
+            android:title="Recibir notificaciones"
+            android:summary="Activa esta opción para recibir notificaciones push"
+            android:defaultValue="true" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Privacidad">
+        <CheckBoxPreference
+            android:key="autorizar"
+            android:title="Autorizo el almacenamiento de información de uso"
+            android:defaultValue="false" />
+
+    </PreferenceCategory>
+
+    <PreferenceScreen
+        android:key="detalles_uso"
+        android:title="Detalles de uso"
+        android:summary="Ver detalles de uso de la aplicación"
+        android:dependency="autorizar">
+        <Preference
+            android:key="detalles_uso"
+            android:title="Detalles de uso"
+            android:summary="Aquí se mostrarán los detalles de uso de la aplicación" />
+    </PreferenceScreen>
+
+</PreferenceScreen>
