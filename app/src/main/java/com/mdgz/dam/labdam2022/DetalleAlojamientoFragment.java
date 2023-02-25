@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.room.Room;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,11 +14,18 @@ import android.widget.Toast;
 
 import com.mdgz.dam.labdam2022.databinding.FragmentDetalleAlojamientoBinding;
 import com.mdgz.dam.labdam2022.model.Alojamiento;
+import com.mdgz.dam.labdam2022.model.AppDatabase;
+import com.mdgz.dam.labdam2022.model.Reserva;
+import com.mdgz.dam.labdam2022.model.ReservaDao;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class DetalleAlojamientoFragment extends Fragment {
     private TextView titulo, descripcion, capacidad, precio;
@@ -82,6 +90,30 @@ public class DetalleAlojamientoFragment extends Fragment {
                         }
 
                     }
+            });
+            binding.botonReservar.setOnClickListener(e-> {
+
+                ZoneId defaultZoneId = ZoneId.systemDefault();
+
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                LocalDate entrada = LocalDate.parse(binding.fechaEntrada.getText().toString(), formatter);
+                LocalDate salida = LocalDate.parse(binding.fechaSalida.getText().toString(), formatter);
+
+                Date fechaEntrada = Date.from(entrada.atStartOfDay(defaultZoneId).toInstant());
+                Date fechaSalida = Date.from(salida.atStartOfDay(defaultZoneId).toInstant());
+
+                Reserva r = new Reserva(fechaEntrada, fechaSalida);
+
+                AppDatabase db = Room.databaseBuilder(getContext().getApplicationContext(),
+                        AppDatabase.class, "databaseRoom").allowMainThreadQueries().build();
+
+                ReservaDao rd = db.reservaDao();
+                rd.insert(r);
+
+                List<Reserva> reservas = new ArrayList<>();
+
+                reservas = rd.obtenerReservas();
+                System.out.println(reservas);
             });
 
 
