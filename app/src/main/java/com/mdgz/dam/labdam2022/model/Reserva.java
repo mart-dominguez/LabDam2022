@@ -21,7 +21,7 @@ public class Reserva {
     public Reserva() {
     }
 
-    public Reserva(Date fechaIngreso, Date fechaEgreso) {
+    public Reserva(Date fechaIngreso, Date fechaEgreso, Double monto) {
         this.fechaIngreso = fechaIngreso;
         this.fechaEgreso = fechaEgreso;
         this.id = UUID.randomUUID();
@@ -32,8 +32,8 @@ public class Reserva {
     private UUID id;
     private Date fechaIngreso;
     private Date fechaEgreso;
+    private Double monto;
     //private Boolean cancelada;
-    //private Double monto;
 
 
     @NonNull

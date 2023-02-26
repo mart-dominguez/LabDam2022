@@ -120,6 +120,11 @@
             android:layout_height="wrap_content"
             android:text="Reservar"></Button>
 
+        <Button
+            android:id="@+id/botonFavorito"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Guardar como favorito"></Button>
     </TableLayout>
 
 </LinearLayout>

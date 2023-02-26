@@ -3,11 +3,19 @@ package com.mdgz.dam.labdam2022.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.room.Entity;
+import androidx.room.Ignore;
+
+import java.util.UUID;
+
+@Entity()
 public class Departamento extends Alojamiento implements Parcelable {
 
     private Boolean tieneWifi;
     private Double costoLimpieza;
     private Integer cantidadHabitaciones;
+    private UUID ubicacionId;
+    @Ignore
     private Ubicacion ubicacion;
 
     protected Departamento(Parcel in) {
@@ -67,8 +75,8 @@ public class Departamento extends Alojamiento implements Parcelable {
         return super.descripcion;
     }
 
-    public Departamento(Integer id, String titulo, String descripcion, Integer capacidad, Double precioBase, Boolean tieneWifi, Double costoLimpieza, Integer cantidadHabitaciones, Ubicacion ubicacion) {
-        super(id, titulo, descripcion, capacidad, precioBase);
+    public Departamento(String titulo, String descripcion, Integer capacidad, Double precioBase, Boolean tieneWifi, Double costoLimpieza, Integer cantidadHabitaciones, Ubicacion ubicacion) {
+        super(titulo, descripcion, capacidad, precioBase);
         this.tieneWifi = tieneWifi;
         this.costoLimpieza = costoLimpieza;
         this.cantidadHabitaciones = cantidadHabitaciones;
@@ -122,5 +130,13 @@ public class Departamento extends Alojamiento implements Parcelable {
         costoLimpieza = in.readDouble();
         cantidadHabitaciones = in.readInt();
         ubicacion = in.readParcelable(Ubicacion.class.getClassLoader());
+    }
+
+    public UUID getUbicacionId() {
+        return ubicacionId;
+    }
+
+    public void setUbicacionId(UUID ubicacionId) {
+        this.ubicacionId = ubicacionId;
     }
 }

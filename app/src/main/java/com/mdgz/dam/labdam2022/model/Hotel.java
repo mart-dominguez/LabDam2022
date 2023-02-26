@@ -3,10 +3,23 @@ package com.mdgz.dam.labdam2022.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
+import java.util.UUID;
+
+@Entity
 public class Hotel implements Parcelable {
+
+    @PrimaryKey
+    @NonNull
     Integer id;
     String nombre;
     Integer categoria;
+    UUID ubicacionId;
+    @Ignore
     Ubicacion ubicacion;
 
     public Hotel(){
@@ -33,6 +46,7 @@ public class Hotel implements Parcelable {
             categoria = in.readInt();
         }
         ubicacion = in.readParcelable(Ubicacion.class.getClassLoader());
+        ubicacionId = ubicacion.getId();
     }
 
     public static final Creator<Hotel> CREATOR = new Creator<Hotel>() {
@@ -97,5 +111,13 @@ public class Hotel implements Parcelable {
         nombre = in.readString();
         categoria = in.readInt();
         ubicacion = in.readParcelable(Ubicacion.class.getClassLoader());
+    }
+
+    public UUID getUbicacionId() {
+        return ubicacionId;
+    }
+
+    public void setUbicacionId(UUID ubicacionId) {
+        this.ubicacionId = ubicacionId;
     }
 }

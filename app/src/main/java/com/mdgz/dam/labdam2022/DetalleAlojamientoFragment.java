@@ -15,6 +15,8 @@ import android.widget.Toast;
 import com.mdgz.dam.labdam2022.databinding.FragmentDetalleAlojamientoBinding;
 import com.mdgz.dam.labdam2022.model.Alojamiento;
 import com.mdgz.dam.labdam2022.model.AppDatabase;
+import com.mdgz.dam.labdam2022.model.Departamento;
+import com.mdgz.dam.labdam2022.model.Favorito;
 import com.mdgz.dam.labdam2022.model.Reserva;
 import com.mdgz.dam.labdam2022.model.ReservaDao;
 
@@ -102,20 +104,16 @@ public class DetalleAlojamientoFragment extends Fragment {
                 Date fechaEntrada = Date.from(entrada.atStartOfDay(defaultZoneId).toInstant());
                 Date fechaSalida = Date.from(salida.atStartOfDay(defaultZoneId).toInstant());
 
-                Reserva r = new Reserva(fechaEntrada, fechaSalida);
+                Reserva r = new Reserva(fechaEntrada, fechaSalida, Double.valueOf(precio.getText().toString()));
 
-                AppDatabase db = Room.databaseBuilder(getContext().getApplicationContext(),
-                        AppDatabase.class, "databaseRoom").allowMainThreadQueries().build();
 
-                ReservaDao rd = db.reservaDao();
-                rd.insert(r);
 
-                List<Reserva> reservas = new ArrayList<>();
 
-                reservas = rd.obtenerReservas();
-                System.out.println(reservas);
+
             });
-
+            binding.botonFavorito.setOnClickListener(e -> {
+                Favorito nuevoFavorito = new Favorito(alojamiento.getId(), (alojamiento instanceof Departamento) ? "departamento" : "habitacion");
+            });
 
         }else{
             Context context = getContext();
