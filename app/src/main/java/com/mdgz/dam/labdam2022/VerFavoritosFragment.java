@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Parcelable;
@@ -37,6 +38,7 @@ import java.util.List;
 public class VerFavoritosFragment extends Fragment {
 
     FragmentVerFavoritosBinding binding;
+    private RecyclerView.LayoutManager layoutManager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -46,6 +48,9 @@ public class VerFavoritosFragment extends Fragment {
 
         FavoritoRoomDataSource favoritoRoomDataSource = new FavoritoRoomDataSource(getContext());
 
+        binding.recyclerFavoritos.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(getContext());
+        binding.recyclerFavoritos.setLayoutManager(layoutManager);
         FavoritoDataSource.RecuperarFavoritoCallback callback = (exito, resultados) -> {
             if (exito) {
                 List<Alojamiento> alojamientos = new ArrayList<>();
