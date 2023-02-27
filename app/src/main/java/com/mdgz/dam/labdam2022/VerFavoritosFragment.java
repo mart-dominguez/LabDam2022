@@ -56,9 +56,9 @@ public class VerFavoritosFragment extends Fragment {
                 List<Alojamiento> alojamientos = new ArrayList<>();
                 resultados.forEach(resultado -> alojamientos.add(resultado.getAlojamiento()));
 
-                System.out.println("R" + resultados);
+                System.out.println("RESULTADOS " + resultados);
 
-                RecyclerView.Adapter mAdapter = new AlojamientoRecyclerAdapter(getContext(), alojamientos);
+                RecyclerView.Adapter mAdapter = new AlojamientoRecyclerAdapter(getContext(), alojamientos, false);
                 binding.recyclerFavoritos.setAdapter(mAdapter);
             }
         };

@@ -71,6 +71,7 @@ public class FavoritoRoomDataSource implements FavoritoDataSource {
                     departamento.getUbicacion().setCiudad(ciudadDao.obtenerCiudad(departamento.getUbicacion().getCiudadId()));
                     favorito.setAlojamiento(departamento);
                 }
+                callback.resultado(true, favoritos);
             }
         }
         catch (Exception e) {

@@ -89,7 +89,7 @@ public class ResultadoBusquedaFragment extends Fragment {
         AlojamientoDataSource.RecuperarAlojamientoCallback callback = new AlojamientoDataSource.RecuperarAlojamientoCallback() {
             @Override
             public void resultado(boolean exito, List<Alojamiento> resultados) {
-                mAdapter = new AlojamientoRecyclerAdapter(getContext(), resultados);
+                mAdapter = new AlojamientoRecyclerAdapter(getContext(), resultados, true);
                 recyclerView.setAdapter(mAdapter);
 
                 if(getArguments() != null && !getArguments().isEmpty()){

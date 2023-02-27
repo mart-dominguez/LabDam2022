@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -24,6 +25,8 @@ import java.util.List;
 public class AlojamientoRecyclerAdapter extends RecyclerView.Adapter<AlojamientoRecyclerAdapter.AlojamientoViewHolder> {
     private List<Alojamiento> mDataset;
     private Context mContext;
+    boolean withButton = true;
+
 
     public static class AlojamientoViewHolder extends RecyclerView.ViewHolder {
         //Aca van los atributos que queremos mostrar del alojamiento
@@ -34,6 +37,7 @@ public class AlojamientoRecyclerAdapter extends RecyclerView.Adapter<Alojamiento
         ImageView imgAloj;
         Button btnDetalle;
         FilaAlojamientoRecyclerBinding binding;
+
 
         public AlojamientoViewHolder(FilaAlojamientoRecyclerBinding binding) {
             super(binding.getRoot());
@@ -46,9 +50,10 @@ public class AlojamientoRecyclerAdapter extends RecyclerView.Adapter<Alojamiento
             btnDetalle = binding.btnVerDetalle;
         }
     }
-    public AlojamientoRecyclerAdapter(Context context, List<Alojamiento> myDataset) {
+    public AlojamientoRecyclerAdapter(Context context, List<Alojamiento> myDataset, boolean withButton) {
         mDataset = myDataset;
         mContext = context;
+        this.withButton = withButton;
     }
     @Override
     public AlojamientoRecyclerAdapter.AlojamientoViewHolder
@@ -70,7 +75,7 @@ public class AlojamientoRecyclerAdapter extends RecyclerView.Adapter<Alojamiento
         alojamientoHolder.capacidad.setText(alojamiento.getCapacidad().toString());
         alojamientoHolder.precioBase.setText(alojamiento.getPrecioBase().toString());
         //alojamientoHolder.imgAloj.setImageResource();//Buscar la imagen
-
+        if (!withButton) alojamientoHolder.btnDetalle.setVisibility(View.GONE);
         alojamientoHolder.btnDetalle.setOnClickListener(e->{
             Bundle bundle = new Bundle();
             bundle.putParcelable("alojamiento", (Parcelable) alojamiento);
