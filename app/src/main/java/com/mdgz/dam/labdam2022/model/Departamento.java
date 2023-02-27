@@ -75,12 +75,22 @@ public class Departamento extends Alojamiento implements Parcelable {
         return super.descripcion;
     }
 
+    public Departamento(UUID id, String titulo, String descripcion, Integer capacidad, Double precioBase, Boolean tieneWifi, Double costoLimpieza, Integer cantidadHabitaciones, Ubicacion ubicacion) {
+        super(id, titulo, descripcion, capacidad, precioBase);
+        this.tieneWifi = tieneWifi;
+        this.costoLimpieza = costoLimpieza;
+        this.cantidadHabitaciones = cantidadHabitaciones;
+        this.ubicacion = ubicacion;
+        this.ubicacionId = ubicacion.getId();
+    }
+
     public Departamento(String titulo, String descripcion, Integer capacidad, Double precioBase, Boolean tieneWifi, Double costoLimpieza, Integer cantidadHabitaciones, Ubicacion ubicacion) {
         super(titulo, descripcion, capacidad, precioBase);
         this.tieneWifi = tieneWifi;
         this.costoLimpieza = costoLimpieza;
         this.cantidadHabitaciones = cantidadHabitaciones;
         this.ubicacion = ubicacion;
+        this.ubicacionId = ubicacion.getId();
     }
 
     public Boolean getTieneWifi() {
@@ -109,7 +119,7 @@ public class Departamento extends Alojamiento implements Parcelable {
 
     @Override
     public Ubicacion getUbicacion() {
-        return null;
+        return ubicacion;
     }
 
     @Override

@@ -15,6 +15,7 @@ import com.mdgz.dam.labdam2022.model.Habitacion;
 import com.mdgz.dam.labdam2022.model.HabitacionDao;
 import com.mdgz.dam.labdam2022.model.HotelDao;
 import com.mdgz.dam.labdam2022.model.ReservaDao;
+import com.mdgz.dam.labdam2022.model.Ubicacion;
 import com.mdgz.dam.labdam2022.model.UbicacionDao;
 
 import java.util.List;
@@ -42,10 +43,12 @@ public class FavoritoRoomDataSource implements FavoritoDataSource {
     public void guardarFavorito(Favorito entidad, GuardarFavoritoCallback callback) {
         try {
             favoritoDao.insert(entidad);
+            System.out.println("guardado");
             callback.resultado(true);
         }
         catch (Exception e) {
-            callback.resultado(false);
+            throw e;
+            //callback.resultado(false);
         }
     }
 
@@ -53,8 +56,9 @@ public class FavoritoRoomDataSource implements FavoritoDataSource {
     public void recuperarFavorito(RecuperarFavoritoCallback callback) {
         try {
             List<Favorito> favoritos = favoritoDao.obtenerFavoritos();
+            System.out.println(favoritos);
             for (Favorito favorito : favoritos) {
-                if (!favorito.getHabitacionId().equals(null)) {
+                if (!(favorito.getHabitacionId() == null)) {
                     Habitacion habitacion = habitacionDao.obtenerHabitacion(favorito.getHabitacionId());
                     habitacion.setHotel(hotelDao.obtenerHotel(habitacion.getHotelId()));
                     habitacion.getHotel().setUbicacion(ubicacionDao.obtenerUbicacion(habitacion.getHotel().getUbicacionId()));
@@ -62,6 +66,7 @@ public class FavoritoRoomDataSource implements FavoritoDataSource {
                 }
                 else {
                     Departamento departamento = departamentoDao.obtenerDepartamento(favorito.getDepartamentoId());
+                    System.out.println("departamento id + " + favorito.getDepartamentoId());
                     departamento.setUbicacion(ubicacionDao.obtenerUbicacion(departamento.getUbicacionId()));
                     departamento.getUbicacion().setCiudad(ciudadDao.obtenerCiudad(departamento.getUbicacion().getCiudadId()));
                     favorito.setAlojamiento(departamento);
@@ -69,7 +74,8 @@ public class FavoritoRoomDataSource implements FavoritoDataSource {
             }
         }
         catch (Exception e) {
-            callback.resultado(false, null);
+            throw e;
+            //callback.resultado(false, null);
         }
     }
 }

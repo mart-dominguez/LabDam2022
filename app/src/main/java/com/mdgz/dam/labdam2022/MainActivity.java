@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
                 /* Agregar el intento del fragmento */
                 return true;
             case R.id.mnuOptFavoritos:
-                /* Agregar el intento del fragmento */
+                    navController.navigate(R.id.action_global_verFavoritosFragment);
                 return true;
             case R.id.mnuOptConfiguracion:
                 navController.navigate(R.id.action_global_settingsFragment);

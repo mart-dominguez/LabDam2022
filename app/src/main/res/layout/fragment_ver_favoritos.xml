@@ -6,7 +6,7 @@
     tools:context=".VerFavoritosFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerAlojamiento"
+        android:id="@+id/recyclerFavoritos"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </FrameLayout>

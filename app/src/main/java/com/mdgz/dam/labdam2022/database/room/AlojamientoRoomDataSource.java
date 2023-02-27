@@ -46,10 +46,12 @@ public class AlojamientoRoomDataSource implements AlojamientoDataSource {
         try {
             alojamientos = new ArrayList<Alojamiento>(departamentoDao.obtenerDepartamentos());
             alojamientos.addAll(new ArrayList<Alojamiento>(habitacionDao.obtenerHabitaciones()));
+            System.out.println("AAA" + alojamientos);
             callback.resultado(true, alojamientos);
         }
         catch (Exception e) {
-            callback.resultado(false, null);
+            throw e;
+            //callback.resultado(false, null);
         }
     }
 }

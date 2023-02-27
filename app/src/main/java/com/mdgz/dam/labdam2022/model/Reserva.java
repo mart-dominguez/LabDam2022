@@ -60,4 +60,12 @@ public class Reserva {
     public void setFechaEgreso(Date fechaEgreso) {
         this.fechaEgreso = fechaEgreso;
     }
+
+    public Double getMonto() {
+        return monto;
+    }
+
+    public void setMonto(Double monto) {
+        this.monto = monto;
+    }
 }

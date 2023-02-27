@@ -8,7 +8,7 @@ import androidx.room.Ignore;
 
 import java.util.UUID;
 
-@Entity(tableName = "habitacion")
+@Entity()
 public class Habitacion  extends Alojamiento implements Parcelable {
 
     private int camasIndividuales;
@@ -63,12 +63,22 @@ public class Habitacion  extends Alojamiento implements Parcelable {
         return super.descripcion;
     }
 
+    public Habitacion(UUID id, String titulo, String descripcion, Integer capacidad, Double precioBase, int camasIndividuales, int camasMatrimoniales, Boolean tieneEstacionamiento, Hotel hotel) {
+        super(id, titulo, descripcion, capacidad, precioBase);
+        this.camasIndividuales = camasIndividuales;
+        this.camasMatrimoniales = camasMatrimoniales;
+        this.tieneEstacionamiento = tieneEstacionamiento;
+        this.hotel = hotel;
+        this.hotelId = hotel.getId();
+    }
+
     public Habitacion(String titulo, String descripcion, Integer capacidad, Double precioBase, int camasIndividuales, int camasMatrimoniales, Boolean tieneEstacionamiento, Hotel hotel) {
         super(titulo, descripcion, capacidad, precioBase);
         this.camasIndividuales = camasIndividuales;
         this.camasMatrimoniales = camasMatrimoniales;
         this.tieneEstacionamiento = tieneEstacionamiento;
         this.hotel = hotel;
+        this.hotelId = hotel.getId();
     }
 
     public UUID getId() {

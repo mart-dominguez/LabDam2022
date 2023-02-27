@@ -16,9 +16,14 @@ public interface UbicacionDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(List<Ubicacion> ubicaciones);
 
-    @Query("SELECT * FROM ubicacion")
+    @Query("SELECT * FROM Ubicacion")
     List<Ubicacion> obtenerUbicaciones();
 
-    @Query("Select * FROM hotel WHERE id = :id")
+    @Query("Select * FROM Ubicacion WHERE id = :id")
     Ubicacion obtenerUbicacion(UUID id);
+
+    @Query("Select * FROM Ubicacion WHERE lat = :lat AND lng = :lng")
+    Ubicacion obtenerUbicacion(double lat, double lng);
+
+
 }

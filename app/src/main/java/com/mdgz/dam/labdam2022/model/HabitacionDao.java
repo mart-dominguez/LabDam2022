@@ -16,9 +16,9 @@ public interface HabitacionDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(List<Habitacion> habitaciones);
 
-    @Query("SELECT * FROM habitacion")
+    @Query("SELECT * FROM Habitacion")
     List<Habitacion> obtenerHabitaciones();
 
-    @Query("Select * FROM habitacion WHERE id = :id")
+    @Query("Select * FROM Habitacion WHERE id = :id")
     Habitacion obtenerHabitacion(UUID id);
 }

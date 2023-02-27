@@ -3,6 +3,8 @@ package com.mdgz.dam.labdam2022.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
@@ -13,7 +15,9 @@ import java.util.UUID;
 public class Ubicacion implements Parcelable {
 
     @PrimaryKey
+    @NonNull
     UUID id;
+
     private double lat;
     private double lng;
     private String calle;
@@ -30,6 +34,29 @@ public class Ubicacion implements Parcelable {
         this.numero = numero;
         this.ciudad = ciudad;
         this.ciudadId = ciudad.getId();
+    }
+
+    public Ubicacion() {
+    }
+
+    public Ubicacion(@NonNull UUID id, double lat, double lng, String calle, String numero, Integer ciudadId, Ciudad ciudad) {
+        this.id = id;
+        this.lat = lat;
+        this.lng = lng;
+        this.calle = calle;
+        this.numero = numero;
+        this.ciudadId = ciudadId;
+        this.ciudad = ciudad;
+        this.ciudadId = ciudad.getId();
+    }
+
+    public Ubicacion(@NonNull UUID id, double lat, double lng, String calle, String numero, Ciudad ciudad) {
+        this.id = id;
+        this.lat = lat;
+        this.lng = lng;
+        this.calle = calle;
+        this.numero = numero;
+        this.ciudad = ciudad;
     }
 
     protected Ubicacion(Parcel in) {

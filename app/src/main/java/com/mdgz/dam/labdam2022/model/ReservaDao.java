@@ -15,6 +15,6 @@ public interface ReservaDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(List<Reserva> reservas);
 
-    @Query("SELECT * FROM reserva")
+    @Query("SELECT * FROM Reserva")
     List<Reserva> obtenerReservas();
 }

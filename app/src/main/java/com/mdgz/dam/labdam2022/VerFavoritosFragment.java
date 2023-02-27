@@ -1,64 +1,66 @@
 package com.mdgz.dam.labdam2022;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link VerFavoritosFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mdgz.dam.labdam2022.database.FavoritoDataSource;
+import com.mdgz.dam.labdam2022.database.room.FavoritoRoomDataSource;
+import com.mdgz.dam.labdam2022.databinding.FilaAlojamientoRecyclerBinding;
+import com.mdgz.dam.labdam2022.databinding.FragmentVerFavoritosBinding;
+import com.mdgz.dam.labdam2022.model.Alojamiento;
+import com.mdgz.dam.labdam2022.model.BusquedaDTO;
+import com.mdgz.dam.labdam2022.model.Favorito;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 public class VerFavoritosFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public VerFavoritosFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment VerFavoritosFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static VerFavoritosFragment newInstance(String param1, String param2) {
-        VerFavoritosFragment fragment = new VerFavoritosFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    FragmentVerFavoritosBinding binding;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_ver_favoritos, container, false);
+        binding = FragmentVerFavoritosBinding.inflate(inflater, container, false);
+
+        FavoritoRoomDataSource favoritoRoomDataSource = new FavoritoRoomDataSource(getContext());
+
+        FavoritoDataSource.RecuperarFavoritoCallback callback = (exito, resultados) -> {
+            if (exito) {
+                List<Alojamiento> alojamientos = new ArrayList<>();
+                resultados.forEach(resultado -> alojamientos.add(resultado.getAlojamiento()));
+
+                System.out.println("R" + resultados);
+
+                RecyclerView.Adapter mAdapter = new AlojamientoRecyclerAdapter(getContext(), alojamientos);
+                binding.recyclerFavoritos.setAdapter(mAdapter);
+            }
+        };
+
+        favoritoRoomDataSource.recuperarFavorito(callback);
+
+        return binding.getRoot();
     }
+
 }

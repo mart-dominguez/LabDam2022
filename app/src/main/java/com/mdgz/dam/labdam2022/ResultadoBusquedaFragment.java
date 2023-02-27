@@ -24,6 +24,8 @@ import android.widget.TextView;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mdgz.dam.labdam2022.database.AlojamientoDataSource;
+import com.mdgz.dam.labdam2022.database.room.AlojamientoRoomDataSource;
 import com.mdgz.dam.labdam2022.databinding.FilaAlojamientoRecyclerBinding;
 import com.mdgz.dam.labdam2022.model.Alojamiento;
 import com.mdgz.dam.labdam2022.model.BusquedaDTO;
@@ -83,90 +85,31 @@ public class ResultadoBusquedaFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
-        List<Alojamiento> aloj= new AlojamientoRepository().listaCiudades();
-        mAdapter = new AlojamientoRecyclerAdapter(getContext(), aloj);
-        recyclerView.setAdapter(mAdapter);
+        AlojamientoRoomDataSource alojamientoRoomDataSource = new AlojamientoRoomDataSource(getContext());
+        AlojamientoDataSource.RecuperarAlojamientoCallback callback = new AlojamientoDataSource.RecuperarAlojamientoCallback() {
+            @Override
+            public void resultado(boolean exito, List<Alojamiento> resultados) {
+                mAdapter = new AlojamientoRecyclerAdapter(getContext(), resultados);
+                recyclerView.setAdapter(mAdapter);
 
-        if(getArguments() != null && !getArguments().isEmpty()){
-            System.out.println("Se va a persisitr la busqueda");
-            BusquedaDTO busq = (BusquedaDTO) getArguments().getSerializable("busqueda");
-            busq.setTiempoBusqueda(System.currentTimeMillis() - busq.getTimestampInicio());
-            busq.setCantidadResultados(aloj.size());
-           agregarBusqueda(busq);
-        }
+                if(getArguments() != null && !getArguments().isEmpty()){
+                    System.out.println("Se va a persisitr la busqueda");
+                    BusquedaDTO busq = (BusquedaDTO) getArguments().getSerializable("busqueda");
+                    busq.setTiempoBusqueda(System.currentTimeMillis() - busq.getTimestampInicio());
+                    busq.setCantidadResultados(resultados.size());
+                    agregarBusqueda(busq);
+                }
+            }
+        };
+        alojamientoRoomDataSource.recuperarAlojamiento(callback);
+
+
 
 
         return thisView;
     }
 
 
-
-
-    public static class AlojamientoRecyclerAdapter extends RecyclerView.Adapter<AlojamientoRecyclerAdapter.AlojamientoViewHolder> {
-        private List<Alojamiento> mDataset;
-        private Context mContext;
-
-        public static class AlojamientoViewHolder extends RecyclerView.ViewHolder {
-            //Aca van los atributos que queremos mostrar del alojamiento
-            CardView card;
-            TextView titulo;
-            TextView capacidad;
-            TextView precioBase;
-            ImageView imgAloj;
-            Button btnDetalle;
-           FilaAlojamientoRecyclerBinding binding;
-
-            public AlojamientoViewHolder(FilaAlojamientoRecyclerBinding binding) {
-                    super(binding.getRoot());
-                    this.binding = binding;
-                //obtiene los elementos del xml de la tarjetita
-                card = binding.cardAlojamiento;
-                titulo = binding.txtTitulo;
-                capacidad = binding.txtCapacidad;
-                precioBase = binding.txtPrecioBase;
-                btnDetalle = binding.btnVerDetalle;
-            }
-        }
-        public AlojamientoRecyclerAdapter(Context context, List<Alojamiento> myDataset) {
-            mDataset = myDataset;
-            mContext = context;
-        }
-        @Override
-        public AlojamientoRecyclerAdapter.AlojamientoViewHolder
-        onCreateViewHolder(ViewGroup prn, int tipo) {
-            // En lugar de inflar la vista manualmente, usamos la clase generada por ViewBinding para inflarla
-            FilaAlojamientoRecyclerBinding binding = FilaAlojamientoRecyclerBinding.inflate(
-                    LayoutInflater.from(prn.getContext()), prn, false);
-            return new AlojamientoViewHolder(binding);
-        }
-
-        @SuppressLint("SetTextI18n")
-        @Override
-        public void onBindViewHolder(AlojamientoViewHolder alojamientoHolder, final int position) {
-            //Setea todos los atributos al holder de alojamiento
-            Alojamiento alojamiento = mDataset.get(position);
-            // alojamientoHolder.imgAloj.setTag(position);
-            alojamientoHolder.btnDetalle.setTag(position);
-            alojamientoHolder.titulo.setText(alojamiento.getTitulo());
-            alojamientoHolder.capacidad.setText(alojamiento.getCapacidad().toString());
-            alojamientoHolder.precioBase.setText(alojamiento.getPrecioBase().toString());
-            //alojamientoHolder.imgAloj.setImageResource();//Buscar la imagen
-
-            alojamientoHolder.btnDetalle.setOnClickListener(e->{
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("alojamiento", (Parcelable) alojamiento);
-                FragmentActivity activity = (FragmentActivity) mContext;
-                NavController navController = NavHostFragment.findNavController(activity.getSupportFragmentManager().getPrimaryNavigationFragment());
-                navController.navigate(R.id.action_global_detalleAlojamientoFragment, bundle);
-            });
-
-
-        }
-        @Override
-        public int getItemCount() {
-            return mDataset.size();
-        }
-    }
 
     public void agregarBusqueda(BusquedaDTO busq) {
         File file = new File(getContext().getFilesDir(), "busquedas.json");

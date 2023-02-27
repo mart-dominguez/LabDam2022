@@ -9,11 +9,13 @@ import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.mdgz.dam.labdam2022.repo.AlojamientoRepository;
+import com.mdgz.dam.labdam2022.repo.CiudadRepository;
+import com.mdgz.dam.labdam2022.repo.UbicacionRepository;
 
 import java.util.List;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Alojamiento.class, Reserva.class, Favorito.class}, version = 1)
+@Database(entities = {Alojamiento.class, Reserva.class, Departamento.class, Habitacion.class, Favorito.class, Hotel.class, Ubicacion.class, Ciudad.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase INSTANCE;
     public abstract DepartamentoDao departamentoDao();
@@ -32,7 +34,7 @@ public abstract class AppDatabase extends RoomDatabase {
     }
     private static AppDatabase buildDatabase(final Context context) {
         return Room.databaseBuilder(context,
-                AppDatabase.class, "my-database")
+                AppDatabase.class, "my-database6").allowMainThreadQueries()
                 .addCallback(new Callback() {
                     @Override
                     public void onCreate(@NonNull SupportSQLiteDatabase db) {
@@ -48,6 +50,10 @@ public abstract class AppDatabase extends RoomDatabase {
                                          else
                                              getInstance(context).habitacionDao().insert((Habitacion) thisAlojamiento);
                                      }
+                                     List<Ciudad> ciudades = CiudadRepository._CIUDADES;
+                                     getInstance(context).ciudadDao().insertAll(ciudades);
+
+                                     getInstance(context).ubicacionDao().insertAll(UbicacionRepository._UBICACIONES);
                                  }
                              });
                     }

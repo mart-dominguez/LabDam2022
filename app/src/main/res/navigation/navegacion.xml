@@ -59,4 +59,9 @@
     <action
         android:id="@+id/action_global_verLog"
         app:destination="@id/verLog" />
+    <fragment
+        android:id="@+id/verFavoritosFragment"
+        android:name="com.mdgz.dam.labdam2022.VerFavoritosFragment"
+        android:label="fragment_ver_favoritos"
+        tools:layout="@layout/fragment_ver_favoritos" /><action android:id="@+id/action_global_verFavoritosFragment" app:destination="@id/verFavoritosFragment"/>
 </navigation>

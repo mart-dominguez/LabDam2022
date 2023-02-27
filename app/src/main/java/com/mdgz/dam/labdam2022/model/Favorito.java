@@ -8,22 +8,21 @@ import androidx.room.PrimaryKey;
 
 import java.util.UUID;
 
-@Entity(foreignKeys = {@ForeignKey(entity = Departamento.class, parentColumns = "id", childColumns = "departamentoID"),
-        @ForeignKey(entity = Habitacion.class, parentColumns = "id", childColumns = "habitacionID")})
+@Entity(foreignKeys = {@ForeignKey(entity = Departamento.class, parentColumns = "id", childColumns = "departamentoId"),
+        @ForeignKey(entity = Habitacion.class, parentColumns = "id", childColumns = "habitacionId")})
 public class Favorito {
     public Favorito() {
     }
 
-    public Favorito(UUID alojamientoId, String tipo) {
+    public Favorito(Alojamiento alojamiento) {
         this.id = UUID.randomUUID();
+        this.alojamiento = alojamiento;
 
-        switch (tipo) {
-            case "departamento":
-                this.departamentoId = alojamientoId;
-                break;
-            case "habitacion":
-                this.habitacionId = alojamientoId;
-
+        if (alojamiento instanceof Departamento) {
+            this.departamentoId = alojamiento.getId();
+        }
+        else {
+            this.habitacionId = alojamiento.getId();
         }
     }
 

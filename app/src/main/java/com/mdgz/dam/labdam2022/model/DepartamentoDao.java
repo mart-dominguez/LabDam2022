@@ -16,9 +16,9 @@ public interface DepartamentoDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(List<Departamento> departamentos);
 
-    @Query("SELECT * FROM departamento")
+    @Query("SELECT * FROM Departamento")
     List<Departamento> obtenerDepartamentos();
 
-    @Query("SELECT * FROM departamento WHERE id = :id")
+    @Query("SELECT * FROM Departamento WHERE id = :id")
     Departamento obtenerDepartamento(UUID id);
 }

@@ -15,6 +15,6 @@ public interface FavoritoDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(List<Favorito> favoritos);
 
-    @Query("SELECT * FROM favorito")
+    @Query("SELECT * FROM Favorito")
     List<Favorito> obtenerFavoritos();
 }

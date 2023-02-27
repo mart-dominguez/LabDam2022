@@ -16,9 +16,9 @@ public interface HotelDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(List<Hotel> hoteles);
 
-    @Query("SELECT * FROM hotel")
+    @Query("SELECT * FROM Hotel")
     List<Hotel> obtenerHotel();
 
-    @Query("Select * FROM hotel WHERE id = :id")
+    @Query("Select * FROM Hotel WHERE id = :id")
     Hotel obtenerHotel(Integer id);
 }

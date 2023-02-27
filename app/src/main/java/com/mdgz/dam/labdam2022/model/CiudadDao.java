@@ -16,9 +16,9 @@ public interface CiudadDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(List<Ciudad> ciudades);
 
-    @Query("SELECT * FROM ciudad")
+    @Query("SELECT * FROM Ciudad")
     List<Ciudad> obtenerCiudades();
 
-    @Query("Select * FROM ciudad WHERE id = :id")
+    @Query("Select * FROM Ciudad WHERE id = :id")
     Ciudad obtenerCiudad(Integer id);
 }
