@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.mnuOptReservas:
-                /* Agregar el intento del fragmento */
+                navController.navigate(R.id.action_global_verReservasFragment);
                 return true;
             case R.id.mnuOptFavoritos:
                     navController.navigate(R.id.action_global_verFavoritosFragment);

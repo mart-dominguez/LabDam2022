@@ -24,6 +24,7 @@ public class Reserva {
     public Reserva(Date fechaIngreso, Date fechaEgreso, Double monto) {
         this.fechaIngreso = fechaIngreso;
         this.fechaEgreso = fechaEgreso;
+        this.monto = monto;
         this.id = UUID.randomUUID();
     }
 

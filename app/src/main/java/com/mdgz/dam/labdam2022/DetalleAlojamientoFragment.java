@@ -60,7 +60,7 @@ public class DetalleAlojamientoFragment extends Fragment {
         titulo = binding.tituloText;
         descripcion = binding.descripcionText;
         capacidad = binding.capacidadText;
-        precio = binding.precio;
+        precio = binding.precioText;
 
         /*
         TextView tituloText = binding.tituloText;

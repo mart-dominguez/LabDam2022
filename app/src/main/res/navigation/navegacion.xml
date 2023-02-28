@@ -64,4 +64,9 @@
         android:name="com.mdgz.dam.labdam2022.VerFavoritosFragment"
         android:label="fragment_ver_favoritos"
         tools:layout="@layout/fragment_ver_favoritos" /><action android:id="@+id/action_global_verFavoritosFragment" app:destination="@id/verFavoritosFragment"/>
+    <fragment
+        android:id="@+id/verReservasFragment"
+        android:name="com.mdgz.dam.labdam2022.VerReservasFragment"
+        android:label="fragment_ver_reservas"
+        tools:layout="@layout/fragment_ver_reservas" /><action android:id="@+id/action_global_verReservasFragment" app:destination="@id/verReservasFragment"/>
 </navigation>
