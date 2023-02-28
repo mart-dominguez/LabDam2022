@@ -43,7 +43,7 @@ public class AlojamientoRoomDataSource implements AlojamientoDataSource {
     public void recuperarAlojamiento(RecuperarAlojamientoCallback callback) {
         List<Alojamiento> alojamientos;
         try {
-            alojamientos = new ArrayList<Alojamiento>(departamentoDao.obtenerDepartamentos());
+            alojamientos = new ArrayList<>(departamentoDao.obtenerDepartamentos());
             alojamientos.addAll(new ArrayList<Alojamiento>(habitacionDao.obtenerHabitaciones()));
             System.out.println("AAA" + alojamientos);
             callback.resultado(true, alojamientos);

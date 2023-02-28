@@ -32,7 +32,7 @@ public abstract class AppDatabase extends RoomDatabase {
     }
     private static AppDatabase buildDatabase(final Context context) {
         return Room.databaseBuilder(context,
-                AppDatabase.class, "my-database6").allowMainThreadQueries()
+                AppDatabase.class, "my-database7").allowMainThreadQueries()
                 .addCallback(new Callback() {
                     @Override
                     public void onCreate(@NonNull SupportSQLiteDatabase db) {

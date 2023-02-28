@@ -22,6 +22,7 @@ import com.mdgz.dam.labdam2022.model.Reserva;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 public class VerReservasFragment extends Fragment {
@@ -42,10 +43,13 @@ public class VerReservasFragment extends Fragment {
 
         ReservaDataSource.RecuperarReservaCallback callback = ((exito, resultados) -> {
             if (exito) {
-                System.out.println("RESULTADOS reservas" + resultados);
+                System.out.println("RESULTADOS reservas " + resultados);
 
                 RecyclerView.Adapter mAdapter = new ReservaRecyclerAdapter(getContext(), resultados);
                 binding.recyclerReservas.setAdapter(mAdapter);
+            }
+            else {
+                System.out.println("falla");
             }
         });
 
@@ -84,8 +88,7 @@ public class VerReservasFragment extends Fragment {
             mContext = context;
         }
         @Override
-        public ReservaRecyclerAdapter.ReservaViewHolder
-        onCreateViewHolder(ViewGroup prn, int tipo) {
+        public ReservaRecyclerAdapter.ReservaViewHolder onCreateViewHolder(ViewGroup prn, int tipo) {
             // En lugar de inflar la vista manualmente, usamos la clase generada por ViewBinding para inflarla
             FilaReservaRecyclerBinding binding = FilaReservaRecyclerBinding.inflate(
                     LayoutInflater.from(prn.getContext()), prn, false);

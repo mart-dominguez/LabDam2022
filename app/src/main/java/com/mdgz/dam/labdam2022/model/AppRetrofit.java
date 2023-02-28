@@ -1,9 +1,10 @@
 package com.mdgz.dam.labdam2022.model;
 
-import android.content.Context;
-
+import com.fasterxml.jackson.databind.deser.std.DateDeserializers;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import java.util.Date;
 
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -28,6 +29,8 @@ public class AppRetrofit {
         Gson gson = new GsonBuilder()
                 .excludeFieldsWithoutExposeAnnotation()
                 .setLenient()
+                .setDateFormat("yyyy-MM-dd'T'HH:mm")
+                .registerTypeAdapter(Date.class, new DateSerializer())
                 .create();
 
         retrofit = new Retrofit.Builder()
