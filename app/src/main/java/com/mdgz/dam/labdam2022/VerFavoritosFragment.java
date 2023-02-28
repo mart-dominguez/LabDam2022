@@ -38,7 +38,10 @@ public class VerFavoritosFragment extends Fragment {
         FavoritoDataSource.RecuperarFavoritoCallback callback = (exito, resultados) -> {
             if (exito) {
                 List<Alojamiento> alojamientos = new ArrayList<>();
-                resultados.forEach(resultado -> alojamientos.add(resultado.getAlojamiento()));
+                resultados.forEach(resultado -> {
+                    resultado.transformarAAlojamiento(getContext());
+                    alojamientos.add(resultado.getAlojamiento());
+                });
 
                 System.out.println("RESULTADOS " + resultados);
 

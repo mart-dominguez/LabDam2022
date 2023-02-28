@@ -44,12 +44,12 @@ public class ReservaRetrofitDataSource implements ReservaDataSource {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    callback.resultado(true);
+                    callback.resultado(response.isSuccessful());
                 }
 
                 @Override
                 public void onFailure(Call<ReservaEntity> call, Throwable t) {
-                    System.out.println(t);
+                    callback.resultado(false);
                 }
             });
         }
@@ -71,12 +71,11 @@ public class ReservaRetrofitDataSource implements ReservaDataSource {
                 for (ReservaEntity estaReserva : respuesta) {
                     retorno.add(new Reserva(estaReserva.getFechaIngreso(), estaReserva.getFechaSalida(), Double.valueOf(0))); //Nosotros guardabamos monto en la reserva, pero la API no esta armada para eso
                 }
-                callback.resultado(true, retorno);
+                callback.resultado(response.isSuccessful(), retorno);
             }
 
             @Override
             public void onFailure(Call<List<ReservaEntity>> call, Throwable t) {
-                System.out.println("error: " + t);
                 callback.resultado(false, null);
             }
         });

@@ -12,6 +12,7 @@ import com.mdgz.dam.labdam2022.model.HabitacionDao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class AlojamientoRoomDataSource implements AlojamientoDataSource {
 
@@ -52,5 +53,18 @@ public class AlojamientoRoomDataSource implements AlojamientoDataSource {
             throw e;
             //callback.resultado(false, null);
         }
+    }
+    
+    public void recuperarAlojamientoId(RecuperarAlojamientoCallback callback, UUID uuid) {
+        Alojamiento alojamiento;
+        
+        alojamiento = departamentoDao.obtenerDepartamento(uuid);
+        if (alojamiento == null) {
+            alojamiento = habitacionDao.obtenerHabitacion(uuid);
+        }
+        
+        List<Alojamiento> alojamientos = new ArrayList<>();
+        alojamientos.add(alojamiento);
+        callback.resultado(true, alojamientos);
     }
 }
