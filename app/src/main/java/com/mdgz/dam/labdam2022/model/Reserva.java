@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey;
 import androidx.room.TypeConverter;
 import androidx.room.TypeConverters;
 
+import com.google.gson.annotations.Expose;
 import com.mdgz.dam.labdam2022.dateconverters.DateConverter;
 
 import java.time.Instant;
@@ -14,9 +15,9 @@ import java.time.LocalDate;
 import java.util.Date;
 import java.util.UUID;
 
-@Entity()
+//@Entity()
 
-@TypeConverters(DateConverter.class)
+//@TypeConverters(DateConverter.class)
 public class Reserva {
     public Reserva() {
     }
@@ -28,16 +29,20 @@ public class Reserva {
         this.id = UUID.randomUUID();
     }
 
-    @PrimaryKey
-    @NonNull
+   // @PrimaryKey
+ //   @NonNull
+    @Expose
     private UUID id;
+    @Expose
     private Date fechaIngreso;
+    @Expose
     private Date fechaEgreso;
+    @Expose
     private Double monto;
     //private Boolean cancelada;
 
 
-    @NonNull
+  //  @NonNull
     public UUID getId() {
         return id;
     }

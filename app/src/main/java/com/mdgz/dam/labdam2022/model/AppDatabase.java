@@ -15,13 +15,11 @@ import com.mdgz.dam.labdam2022.repo.UbicacionRepository;
 import java.util.List;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Alojamiento.class, Reserva.class, Departamento.class, Habitacion.class, Favorito.class, Hotel.class, Ubicacion.class, Ciudad.class}, version = 1)
+@Database(entities = {Alojamiento.class, Departamento.class, Habitacion.class, Hotel.class, Ubicacion.class, Ciudad.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase INSTANCE;
     public abstract DepartamentoDao departamentoDao();
     public abstract HabitacionDao habitacionDao();
-    public abstract FavoritoDao favoritoDao();
-    public abstract ReservaDao reservaDao();
     public abstract HotelDao hotelDao();
     public abstract UbicacionDao ubicacionDao();
     public abstract CiudadDao ciudadDao();

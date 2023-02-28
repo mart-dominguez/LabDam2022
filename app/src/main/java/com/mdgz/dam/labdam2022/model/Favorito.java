@@ -6,10 +6,12 @@ import androidx.room.ForeignKey;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import com.google.gson.annotations.Expose;
+
 import java.util.UUID;
 
-@Entity(foreignKeys = {@ForeignKey(entity = Departamento.class, parentColumns = "id", childColumns = "departamentoId"),
-        @ForeignKey(entity = Habitacion.class, parentColumns = "id", childColumns = "habitacionId")})
+//@Entity(foreignKeys = {@ForeignKey(entity = Departamento.class, parentColumns = "id", childColumns = "departamentoId"),
+ //       @ForeignKey(entity = Habitacion.class, parentColumns = "id", childColumns = "habitacionId")})
 public class Favorito {
     public Favorito() {
     }
@@ -26,15 +28,18 @@ public class Favorito {
         }
     }
 
-    @PrimaryKey
-    @NonNull
+   // @PrimaryKey
+   // @NonNull
+    @Expose
     UUID id;
+    @Expose
     UUID habitacionId;
+    @Expose
     UUID departamentoId;
-    @Ignore
+   // @Ignore
     Alojamiento alojamiento;
 
-    @NonNull
+   // @NonNull
     public UUID getId() {
         return id;
     }

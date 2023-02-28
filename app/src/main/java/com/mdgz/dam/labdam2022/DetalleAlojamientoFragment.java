@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.room.Room;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,26 +11,19 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.mdgz.dam.labdam2022.database.FavoritoDataSource;
 import com.mdgz.dam.labdam2022.database.ReservaDataSource;
-import com.mdgz.dam.labdam2022.database.room.FavoritoRoomDataSource;
-import com.mdgz.dam.labdam2022.database.room.ReservaRoomDataSource;
+import com.mdgz.dam.labdam2022.database.retrofit.FavoritoRetrofitDataSource;
+import com.mdgz.dam.labdam2022.database.retrofit.ReservaRetrofitDataSource;
 import com.mdgz.dam.labdam2022.databinding.FragmentDetalleAlojamientoBinding;
 import com.mdgz.dam.labdam2022.model.Alojamiento;
-import com.mdgz.dam.labdam2022.model.AppDatabase;
-import com.mdgz.dam.labdam2022.model.Departamento;
 import com.mdgz.dam.labdam2022.model.Favorito;
 import com.mdgz.dam.labdam2022.model.Reserva;
-import com.mdgz.dam.labdam2022.model.ReservaDao;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class DetalleAlojamientoFragment extends Fragment {
     private TextView titulo, descripcion, capacidad, precio;
@@ -110,22 +102,32 @@ public class DetalleAlojamientoFragment extends Fragment {
 
                 Reserva r = new Reserva(fechaEntrada, fechaSalida, Double.valueOf(precio.getText().toString()));
 
-                ReservaRoomDataSource reservaRoomDataSource = new ReservaRoomDataSource(getContext());
-
                 ReservaDataSource.GuardarReservaCallback callback = exito -> {
 
                 };
 
-                reservaRoomDataSource.guardarReserva(r, callback);
+                /*
+                ReservaRoomDataSource reservaRoomDataSource = new ReservaRoomDataSource(getContext());
 
+
+
+                reservaRoomDataSource.guardarReserva(r, callback);
+                */
+
+                ReservaRetrofitDataSource reservaRetrofitDataSource = new ReservaRetrofitDataSource();
+
+                reservaRetrofitDataSource.guardarReserva(r, callback);
 
 
 
             });
             binding.botonFavorito.setOnClickListener(e -> {
                 Favorito nuevoFavorito = new Favorito(alojamiento);
-                FavoritoRoomDataSource favoritoRoomDataSource = new FavoritoRoomDataSource(getContext());
-                 favoritoRoomDataSource.guardarFavorito(nuevoFavorito, exito -> {});
+                //FavoritoRoomDataSource favoritoRoomDataSource = new FavoritoRoomDataSource(getContext());
+                //favoritoRoomDataSource.guardarFavorito(nuevoFavorito, exito -> {});
+
+                FavoritoRetrofitDataSource favoritoRetrofitDataSource = new FavoritoRetrofitDataSource();
+                favoritoRetrofitDataSource.guardarFavorito(nuevoFavorito, exito -> {});
             });
 
         }else{

@@ -6,32 +6,22 @@ import android.os.Bundle;
 
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mdgz.dam.labdam2022.database.ReservaDataSource;
-import com.mdgz.dam.labdam2022.database.room.ReservaRoomDataSource;
-import com.mdgz.dam.labdam2022.databinding.FilaAlojamientoRecyclerBinding;
+import com.mdgz.dam.labdam2022.database.retrofit.ReservaRetrofitDataSource;
 import com.mdgz.dam.labdam2022.databinding.FilaReservaRecyclerBinding;
-import com.mdgz.dam.labdam2022.databinding.FragmentVerFavoritosBinding;
 import com.mdgz.dam.labdam2022.databinding.FragmentVerReservasBinding;
-import com.mdgz.dam.labdam2022.model.Alojamiento;
 import com.mdgz.dam.labdam2022.model.Reserva;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 public class VerReservasFragment extends Fragment {
@@ -59,8 +49,11 @@ public class VerReservasFragment extends Fragment {
             }
         });
 
-        ReservaRoomDataSource reservaRoomDataSource = new ReservaRoomDataSource(getContext());
-        reservaRoomDataSource.recuperarReserva(callback);
+        //ReservaRoomDataSource reservaRoomDataSource = new ReservaRoomDataSource(getContext());
+        ReservaRetrofitDataSource reservaRetrofitDataSource = new ReservaRetrofitDataSource();
+        //reservaRoomDataSource.recuperarReserva(callback);
+
+        reservaRetrofitDataSource.recuperarReserva(callback);
 
         return binding.getRoot();
     }
