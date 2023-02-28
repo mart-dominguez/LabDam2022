@@ -86,19 +86,16 @@ public class ResultadoBusquedaFragment extends Fragment {
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         AlojamientoRoomDataSource alojamientoRoomDataSource = new AlojamientoRoomDataSource(getContext());
-        AlojamientoDataSource.RecuperarAlojamientoCallback callback = new AlojamientoDataSource.RecuperarAlojamientoCallback() {
-            @Override
-            public void resultado(boolean exito, List<Alojamiento> resultados) {
-                mAdapter = new AlojamientoRecyclerAdapter(getContext(), resultados, true);
-                recyclerView.setAdapter(mAdapter);
+        AlojamientoDataSource.RecuperarAlojamientoCallback callback = (exito, resultados) -> {
+            mAdapter = new AlojamientoRecyclerAdapter(getContext(), resultados, true);
+            recyclerView.setAdapter(mAdapter);
 
-                if(getArguments() != null && !getArguments().isEmpty()){
-                    System.out.println("Se va a persisitr la busqueda");
-                    BusquedaDTO busq = (BusquedaDTO) getArguments().getSerializable("busqueda");
-                    busq.setTiempoBusqueda(System.currentTimeMillis() - busq.getTimestampInicio());
-                    busq.setCantidadResultados(resultados.size());
-                    agregarBusqueda(busq);
-                }
+            if(getArguments() != null && !getArguments().isEmpty()){
+                System.out.println("Se va a persisitr la busqueda");
+                BusquedaDTO busq = (BusquedaDTO) getArguments().getSerializable("busqueda");
+                busq.setTiempoBusqueda(System.currentTimeMillis() - busq.getTimestampInicio());
+                busq.setCantidadResultados(resultados.size());
+                agregarBusqueda(busq);
             }
         };
         alojamientoRoomDataSource.recuperarAlojamiento(callback);
@@ -116,7 +113,7 @@ public class ResultadoBusquedaFragment extends Fragment {
         boolean existe = file.exists();
 
         if (!existe) {
-            List<BusquedaDTO> busquedas = new ArrayList<BusquedaDTO>();
+            List<BusquedaDTO> busquedas = new ArrayList<>();
             busquedas.add(busq);
             guardarBusquedas(busquedas);
             return;
@@ -124,7 +121,8 @@ public class ResultadoBusquedaFragment extends Fragment {
         ObjectMapper objectMapper = new ObjectMapper();
         List<BusquedaDTO> busquedas;
         try {
-            busquedas = objectMapper.readValue(file, new TypeReference<List<BusquedaDTO>>() {});
+            busquedas = objectMapper.readValue(file, new TypeReference<>() {
+            });
             busquedas.add(busq);
         } catch (IOException e) {
             e.printStackTrace();

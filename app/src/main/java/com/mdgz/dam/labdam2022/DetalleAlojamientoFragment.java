@@ -13,7 +13,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mdgz.dam.labdam2022.database.FavoritoDataSource;
+import com.mdgz.dam.labdam2022.database.ReservaDataSource;
 import com.mdgz.dam.labdam2022.database.room.FavoritoRoomDataSource;
+import com.mdgz.dam.labdam2022.database.room.ReservaRoomDataSource;
 import com.mdgz.dam.labdam2022.databinding.FragmentDetalleAlojamientoBinding;
 import com.mdgz.dam.labdam2022.model.Alojamiento;
 import com.mdgz.dam.labdam2022.model.AppDatabase;
@@ -108,6 +110,13 @@ public class DetalleAlojamientoFragment extends Fragment {
 
                 Reserva r = new Reserva(fechaEntrada, fechaSalida, Double.valueOf(precio.getText().toString()));
 
+                ReservaRoomDataSource reservaRoomDataSource = new ReservaRoomDataSource(getContext());
+
+                ReservaDataSource.GuardarReservaCallback callback = exito -> {
+
+                };
+
+                reservaRoomDataSource.guardarReserva(r, callback);
 
 
 
@@ -116,10 +125,7 @@ public class DetalleAlojamientoFragment extends Fragment {
             binding.botonFavorito.setOnClickListener(e -> {
                 Favorito nuevoFavorito = new Favorito(alojamiento);
                 FavoritoRoomDataSource favoritoRoomDataSource = new FavoritoRoomDataSource(getContext());
-                System.out.println("guardando");
                  favoritoRoomDataSource.guardarFavorito(nuevoFavorito, exito -> {});
-                System.out.println(nuevoFavorito.getHabitacionId());
-                System.out.println(nuevoFavorito.getDepartamentoId());
             });
 
         }else{
